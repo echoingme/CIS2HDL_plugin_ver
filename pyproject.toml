@@ -25,6 +25,7 @@ dependencies = [
     "pyside6>=6.5",
     "rapidfuzz>=3.0",
     "pyyaml>=6.0",
+    "pluggy>=1.5",
 ]
 
 [project.optional-dependencies]
