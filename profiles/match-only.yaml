@@ -1,0 +1,15 @@
+# profiles/match-only.yaml — 内置只读 profile（只做匹配导出）
+# 说明：美化插件置空 + 输出报告仅 mapping + 测试套件置空。
+# 注：output 块（files/reports）为 S1 对 §5.2 格式的最小扩展，
+#     用于表达 §5.6 match-only 的 "output.reports=[mapping]"。
+schema_version: 1
+profile:
+  name: match-only
+  description: "只做匹配导出"
+  builtin: true
+  plugins:
+    beautify: []
+    test: []
+  output:
+    reports: [mapping]
+  params: {}

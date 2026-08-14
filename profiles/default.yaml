@@ -1,0 +1,16 @@
+# profiles/default.yaml — 内置只读 profile（与当前基线行为完全等价，FR9）
+# 说明：params 为空（= pipeline.yaml 默认）；ProfileManager.get("default")
+#       返回与 pipeline.yaml 完全一致的 PipelineConfig。
+# 注意：builtin: true 的文件禁止覆盖/删除（ProfileManager 只读保护）。
+schema_version: 1
+profile:
+  name: default
+  description: "与当前基线行为完全等价（FR9）"
+  builtin: true
+  plugins:
+    input:    [edif, pstxnet, pstchip]
+    match:    [exact, fuzzy, passive, fallback]
+    beautify: [overlap_resolve, gnd_cluster, parallel_short]
+    output:   [csa, con, xcon, csv, cpc, cpm, cds_lib]
+    test:     [unit, e2e, qa_package]
+  params: {}

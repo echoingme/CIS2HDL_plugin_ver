@@ -1,0 +1,12 @@
+# profiles/fast.yaml — 内置只读 profile（快速转换）
+# 说明：少写诊断报告（report.always_write=false）+ 测试套件置空。
+schema_version: 1
+profile:
+  name: fast
+  description: "快速转换（少报告）"
+  builtin: true
+  plugins:
+    test: []
+  params:
+    report:
+      always_write: false
