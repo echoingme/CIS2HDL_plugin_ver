@@ -887,6 +887,31 @@ class Config:
 
         logger.info("Config loaded from %s (routing.mode=%s)", p, self.routing.mode)
 
+    def load_pipeline(self, path: Path) -> None:
+        """S1 便捷入口：加载 pipeline.yaml 并写回 routing + app 段。
+
+        等价桥：``pipeline.yaml → PipelineConfig → to_routing_config()``；
+        engine 运行参数写回 app（max_workers/benchmark/output_dir）。
+
+        Args:
+            path: 指向 pipeline.yaml（或任意 PipelineConfig yaml）的路径。
+
+        Raises:
+            FileNotFoundError: 当 ``path`` 不存在。
+            ValueError: 当 YAML 内容不是 mapping。
+        """
+        from .pipeline_config import PipelineConfig  # 延迟导入避免循环依赖
+
+        p = Path(path)
+        if not p.exists():
+            raise FileNotFoundError(f"Config file not found: {p}")
+        cfg = PipelineConfig.from_yaml(p)
+        self.routing = cfg.to_routing_config()
+        self.app.max_workers = cfg.engine.max_workers
+        self.app.benchmark = cfg.engine.benchmark
+        self.app.default_output_dir = cfg.engine.output_dir
+        logger.info("Pipeline config loaded from %s (profile=%s)", p, cfg.profile)
+
     def save_to_file(self, path: Path) -> None:
         """Save current configuration to a JSON file (future)."""
         raise NotImplementedError("Config file saving not yet implemented")
