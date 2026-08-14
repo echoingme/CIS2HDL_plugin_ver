@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import re
 from pathlib import Path
 
@@ -30,6 +31,33 @@ from cis2hdl.core.config import Config
 from cis2hdl.core.engine.conversion_engine import ConversionEngine
 from cis2hdl.core.pipeline_config import PipelineConfig
 from cis2hdl.core.profile_manager import ProfileManager
+
+
+@pytest.fixture(autouse=True)
+def _restore_global_config() -> None:
+    """保存/恢复全局 Config 单例状态 —— 防止前序测试污染导致顺序依赖失败。
+
+    问题：``test_legacy_flag_combination_equivalence`` 单独跑通过、全量顺序跑
+    失败 —— 全局 Config 单例被前序测试（其它 e2e/单元测试）污染，残留的
+    routing/app 等字段使本次转换行为漂移。
+
+    方案：autouse fixture 在**每个**测试前后快照/恢复 ``Config._instance``
+    的完整 ``__dict__``（含可能被整体替换的实例本身），保证本文件内测试
+    相互隔离、也不向后续测试泄漏状态。
+    """
+    from cis2hdl.core.config import Config as _Config
+
+    saved_instance = _Config._instance
+    saved_state = (
+        copy.deepcopy(saved_instance.__dict__) if saved_instance is not None else None
+    )
+    yield
+    if saved_instance is not None:
+        _Config._instance = saved_instance
+        saved_instance.__dict__.clear()
+        saved_instance.__dict__.update(saved_state)
+    else:
+        _Config._instance = None
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 _PIPELINE_YAML = _PROJECT_ROOT / "pipeline.yaml"
