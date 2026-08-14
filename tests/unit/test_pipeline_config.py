@@ -25,7 +25,10 @@ from cis2hdl.core.pipeline_config import (
     MatchSection,
     OutputSection,
     PipelineConfig,
+    ROUTING_SCALAR_KEYS,
+    ROUTING_SUBSECTION_KEYS,
     TestSection,
+    apply_params,
     deep_eq_params,
     params_to_routing,
     routing_params_deep_diff,
@@ -124,18 +127,12 @@ class TestPipelineYamlEquivalence:
 
     def test_params_key_sets_match_routing_config(self, pipeline_cfg: PipelineConfig):
         """beautify.params 的 key 集合 == RoutingConfig 字段全集（标量+子节）。"""
-        params = pipeline_cfg.beautify.params
         data = yaml.safe_load(_PIPELINE_YAML.read_text(encoding="utf-8"))
         yaml_params = data["beautify"]["params"]
-        assert set(yaml_params) == {"routing"} | set(
-            f.name for f in __import__("dataclasses").fields(RoutingConfig)
-            if f.name in (
-                "text_layout", "overlap", "power_ic", "aesthetic", "report",
-                "placeholder", "ioport", "mirror", "gnd_distribution", "temp_lib",
-                "wire_simplify", "pin_audit", "attribute", "matching", "placement",
-                "net_name",
-            )
-        )
+        assert set(yaml_params) == {"routing"} | set(ROUTING_SUBSECTION_KEYS)
+        assert set(yaml_params["routing"]) == set(ROUTING_SCALAR_KEYS)
+        # 迁移字段不得出现在 params（设计 §4 注）
+        assert not (set(yaml_params["routing"]) & {"manual_matches", "chip_config", "export_unmatched"})
 
 
 # ── 未知字段忽略 / 部分加载 ────────────────────────────────────────────
@@ -216,6 +213,46 @@ class TestSerialization:
         assert out.exists()
         cfg2 = PipelineConfig.from_yaml(out)
         assert cfg2 == cfg
+
+    def test_empty_plugin_list_round_trip(self):
+        """空列表不得被 from_dict 回退为默认（fast/match-only 的 test: [] 关键）。"""
+        data = {
+            "output": {"files": [], "reports": []},
+            "test": {"suites": []},
+        }
+        cfg = PipelineConfig.from_dict(data)
+        assert cfg.output.files == []
+        assert cfg.output.reports == []
+        assert cfg.test.suites == []
+
+
+class TestApplyParams:
+    def test_incremental_merge_scalars_and_sections(self):
+        base = RoutingConfig()
+        merged = apply_params(
+            base,
+            {
+                "routing": {"mode": "detour"},
+                "gnd_distribution": {"cluster_radius": 700},
+                "wire_simplify": {"enabled": True},
+            },
+        )
+        assert merged.mode == "detour"
+        assert merged.gnd_distribution.cluster_radius == 700
+        assert merged.wire_simplify.enabled is True
+        # 未覆盖字段保持默认
+        assert merged.lane_pitch == 50
+        assert merged.text_layout.enabled is False
+        # 不修改入参
+        assert base.mode == "p0"
+
+    def test_migrated_and_unknown_keys_ignored(self):
+        merged = apply_params(
+            RoutingConfig(),
+            {"chip_config": "x.yaml", "future": 1, "routing": {"future2": 2}},
+        )
+        assert merged.chip_config == ""
+        assert merged.mode == "p0"
 
 
 # ── 各节默认值（与设计 §3.2 对齐） ─────────────────────────────────────

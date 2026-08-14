@@ -23,7 +23,7 @@ from __future__ import annotations
 import copy
 import dataclasses
 import os
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
@@ -59,13 +59,14 @@ ROUTING_SUBSECTION_KEYS: frozenset[str] = frozenset({
     "pin_audit", "attribute", "matching", "placement", "net_name",
 })
 
-#: 顶层标量——yaml 中统一收在 ``params.routing`` 下（§3.3 映射表）。
+#: 引擎消费的顶层标量——yaml 中统一收在 ``params.routing`` 下（§3.3 映射表）。
+#: 已迁移字段（manual_matches/export_unmatched/chip_config）**不在**其中——
+#: 见 MIGRATED_SCALAR_KEYS（设计 §4 注）。
 ROUTING_SCALAR_KEYS: frozenset[str] = frozenset({
     "mode", "lane_pitch", "grid", "detour_stubs", "use_edif_wires",
     "cross_page_opt", "fallback_to_p0", "nonuniform_tracks", "net_order",
     "stub_lead", "lead_differentiate", "lead_diff_min_gap", "max_detour",
-    "edge_clearance", "three_stage_stub", "manual_matches", "export_unmatched",
-    "chip_config",
+    "edge_clearance", "three_stage_stub",
 })
 
 #: 已迁移到 ``match.manual_overrides`` 的字段——序列化 params 时**不出现**
@@ -74,6 +75,9 @@ ROUTING_SCALAR_KEYS: frozenset[str] = frozenset({
 MIGRATED_SCALAR_KEYS: frozenset[str] = frozenset({
     "manual_matches", "export_unmatched", "chip_config",
 })
+
+#: 插件组合比较的 5 个阶段（设计 §5.3；顺序 = 展示顺序）。
+STAGES: tuple[str, ...] = ("input", "match", "beautify", "output", "test")
 
 
 def atomic_write_text(path: Path, text: str) -> None:
@@ -143,6 +147,35 @@ def params_to_routing(params: dict) -> RoutingConfig:
         elif key in ROUTING_SUBSECTION_KEYS and isinstance(value, dict):
             flat[key] = _filter_section_dict(key, value)
     return RoutingConfig.from_dict(flat)
+
+
+def apply_params(rc: RoutingConfig, params: dict | None) -> RoutingConfig:
+    """在 ``rc`` 之上增量合并 params dict（profile 文件用，设计 §5.3 步骤 ④）。
+
+    - ``params.routing`` 标量块 → 覆盖顶层标量
+    - ``<子节>: {字段...}`` → ``dataclasses.replace`` 覆盖子节字段
+    - 已迁移字段（manual_matches/chip_config/export_unmatched）忽略
+    - 未知 key 忽略；返回**新对象**（不修改入参 rc）
+    """
+    merged = copy.deepcopy(rc)
+    if not isinstance(params, dict):
+        return merged
+    for key, value in params.items():
+        if key == "routing" and isinstance(value, dict):
+            for scalar_key, scalar_val in value.items():
+                if (
+                    hasattr(merged, scalar_key)
+                    and scalar_key not in ROUTING_SUBSECTION_KEYS
+                    and scalar_key not in MIGRATED_SCALAR_KEYS
+                ):
+                    setattr(merged, scalar_key, scalar_val)
+        elif key in ROUTING_SUBSECTION_KEYS and isinstance(value, dict):
+            sub = getattr(merged, key)
+            kwargs = _filter_section_dict(key, value)
+            if kwargs:
+                setattr(merged, key, replace(sub, **kwargs))
+        # 其余（含 MIGRATED_SCALAR_KEYS / 未知）忽略
+    return merged
 
 
 def routing_to_params(rc: RoutingConfig) -> dict:
@@ -346,7 +379,7 @@ class PipelineConfig:
             cfg.input = InputSection(
                 hdl_lib=str(d.get("hdl_lib", "")),
                 extra_hdl_libs=[str(x) for x in (d.get("extra_hdl_libs") or [])],
-                plugins=[str(x) for x in (d.get("plugins") or cfg.input.plugins)],
+                plugins=[str(x) for x in d["plugins"]] if "plugins" in d else cfg.input.plugins,
             )
 
         if isinstance(data.get("match"), dict):
@@ -386,14 +419,14 @@ class PipelineConfig:
         if isinstance(data.get("output"), dict):
             d = data["output"]
             cfg.output = OutputSection(
-                files=[str(x) for x in (d.get("files") or cfg.output.files)],
-                reports=[str(x) for x in (d.get("reports") or cfg.output.reports)],
+                files=[str(x) for x in d["files"]] if "files" in d else cfg.output.files,
+                reports=[str(x) for x in d["reports"]] if "reports" in d else cfg.output.reports,
             )
 
         if isinstance(data.get("test"), dict):
             d = data["test"]
             cfg.test = TestSection(
-                suites=[str(x) for x in (d.get("suites") or cfg.test.suites)],
+                suites=[str(x) for x in d["suites"]] if "suites" in d else cfg.test.suites,
             )
 
         if isinstance(data.get("engine"), dict):
