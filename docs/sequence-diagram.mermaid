@@ -1,0 +1,75 @@
+sequenceDiagram
+    autonumber
+    participant CLI as cli.main() (S1)
+    participant ENG as ConversionEngine
+    participant HOST as PluginHost
+    participant PM as PluginManager
+    participant HOOK as pm.hook
+    participant P1 as matcher_pipeline 插件
+    participant P2 as manual_overrides 插件
+    participant P3 as beautify 插件链
+    participant P4 as default_writer 插件
+    participant P5 as reports 插件
+    participant LEGACY as legacy fallback 内联块
+
+    Note over CLI, LEGACY: S2 plugin 模式 convert_with_cfg(cfg, ...)
+
+    CLI->>ENG: convert_with_cfg(cfg, input, out)
+    ENG->>ENG: set_pipeline(cfg) → build_plugin_manager(cfg)
+    ENG->>PM: build(cfg)
+    PM->>PM: discover() → enabled_by_cfg → resolve_params → register_ordered(逆 yaml 序)
+    PM-->>ENG: PluginManager
+
+    ENG->>ENG: 构造 ConversionContext(ctx)
+    ENG->>HOST: call(ctx, "load_input", fallback)
+    HOST->>HOOK: load_input(ctx=ctx)
+    alt 输入插件已处理
+        HOOK-->>HOST: [True,...]（S3 真实现）
+    else 全部返回 False（S2 占位）
+        HOST->>LEGACY: _legacy_load_input()（原内联解析增强块）
+        LEGACY-->>HOST: design / catalog / pst_data
+    end
+    HOST-->>ENG: handled, ctx.ir
+
+    ENG->>ENG: scan_hdl_library（非钩子，保持）
+
+    ENG->>HOST: call(ctx, "match_components", fallback)
+    HOST->>HOOK: match_components(ctx=ctx)
+    HOOK->>P1: match_components(ctx)
+    P1->>ENG: engine.match(ctx.ir, ctx.hdl_db)
+    ENG-->>P1: match_results
+    P1->>ENG: engine._append_power_symbol_matches(...)
+    P1-->>HOOK: True（已处理）
+    HOOK-->>HOST: [True]
+    HOST-->>ENG: handled=True, ctx.matches
+
+    ENG->>HOST: call(ctx, "apply_manual_overrides", fallback)
+    HOST->>HOOK: apply_manual_overrides(ctx=ctx)
+    HOOK->>P2: apply_manual_overrides(ctx)
+    P2->>ENG: engine._apply_phase14_matching(...)
+    P2-->>HOOK: True
+    HOST-->>ENG: handled=True
+
+    ENG->>HOST: call(ctx, "beautify", fallback=None)
+    HOST->>HOOK: beautify(ctx=ctx)
+    Note over HOOK,P3: 逆序注册 + LIFO → 按 yaml 顺序执行
+    HOOK->>P3: overlap_resolve → gnd_cluster → parallel_short（S2 占位记录顺序，返回 False）
+    P3-->>HOOK: [False, False, False]
+    HOST-->>ENG: handled=False（美化逻辑仍走 writer，S5 迁入）
+
+    ENG->>HOST: call(ctx, "write_output", fallback)
+    HOST->>HOOK: write_output(ctx=ctx)
+    HOOK->>P4: write_output(ctx)
+    P4->>ENG: engine.generate(ctx.ir, ctx.matches, ctx.output_dir)
+    ENG-->>P4: gen_report（全文件）
+    P4-->>HOOK: [Path,...]
+    HOST-->>ENG: handled=True, ctx.report.output_files
+
+    ENG->>HOST: call(ctx, "write_report", fallback)
+    HOST->>HOOK: write_report(ctx=ctx)
+    HOOK->>P5: write_report(ctx)
+    P5->>ENG: _legacy_reports（mapping/top3/log/html）
+    P5-->>HOOK: [Path,...]
+    HOST-->>ENG: handled=True
+
+    ENG-->>CLI: ConversionReport（与 legacy 模式字节级等价）
