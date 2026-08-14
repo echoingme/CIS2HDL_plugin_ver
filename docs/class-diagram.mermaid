@@ -1,0 +1,133 @@
+classDiagram
+    direction LR
+
+    class PipelineConfig {
+        +int schema_version
+        +str profile
+        +InputSection input
+        +MatchSection match
+        +BeautifySection beautify
+        +OutputSection output
+        +TestSection test
+        +EngineSection engine
+        +from_yaml(path) PipelineConfig
+        +to_routing_config() RoutingConfig
+    }
+    class BeautifySection {
+        +list plugins
+        +RoutingConfig params
+    }
+    class RoutingConfig {
+        +str mode
+        +int lane_pitch
+        +GndDistributionCfg gnd_distribution
+        +OverlapCfg overlap
+        +WireSimplifyCfg wire_simplify
+        +TextLayoutCfg text_layout
+        +from_dict(data) RoutingConfig
+    }
+
+    class PipelineHooks {
+        <<hookspec>>
+        +load_input(ctx) bool
+        +match_components(ctx) bool
+        +apply_manual_overrides(ctx) bool
+        +beautify(ctx) bool
+        +write_output(ctx) list
+        +write_report(ctx) list
+        +run_verification(ctx) list
+    }
+
+    class ConversionContext {
+        +PipelineConfig cfg
+        +str profile
+        +list input_files
+        +Path output_dir
+        +DesignIR ir
+        +ComponentDB hdl_db
+        +list matches
+        +dict manual_overrides
+        +dict routed_nets
+        +ConversionReport report
+        -set _locked
+        -dict _snapshot
+        +writable(*keys) ConversionContext
+        -_snapshot_fields(keys) None
+        -_verify_unchanged(allowed, strict) list
+    }
+
+    class PluginSpec {
+        +str name
+        +str stage
+        +str description
+        +type cls
+        +str module
+        +str param_section
+        +tuple param_fields
+        +tuple writes_keys
+        +tuple requires
+        +bool builtin
+    }
+
+    class PluginManager {
+        -PluginManager _pm
+        +list degraded
+        +list _specs
+        +list _enabled
+        +discover() list
+        +list_plugins(stage) list
+        +build(cfg) PluginManager
+        +hook
+        +get_plugin(name) object
+        +cleanup() None
+        +unregister_all() None
+    }
+
+    class PluginHost {
+        -ConversionEngine engine
+        +call(ctx, hook_name, fallback) tuple
+    }
+
+    class ConversionEngine {
+        +PluginManager _pm
+        +PipelineConfig _pipeline_cfg
+        +PluginHost _host
+        +convert(input_path, output_dir, ...) ConversionReport
+        +convert_full(...) ConversionReport
+        +set_pipeline(cfg) None
+        +convert_with_cfg(cfg, ...) ConversionReport
+        +diagnose(input_files) DiagnosticReport
+        +parse(input_path) DesignIR
+        +scan_hdl_library(lib_path) ComponentDB
+        +match(design, hdl_db, ...) list
+        +validate(design, matches) list
+        +generate(design, matches, output_dir) ConversionReport
+    }
+
+    class GndClusterPlugin {
+        +bool enabled
+        +int cluster_radius
+        +list order_trace
+        +beautify(ctx) bool
+        +cleanup() None
+    }
+
+    class MatcherPipelinePlugin {
+        -ConversionEngine _engine
+        +match_components(ctx) bool
+        +cleanup() None
+    }
+
+    PipelineConfig *-- BeautifySection
+    BeautifySection *-- RoutingConfig : params (复用)
+    ConversionContext --> PipelineConfig : cfg
+    PluginManager ..> PipelineHooks : add_hookspecs
+    PluginManager ..> PluginSpec : 发现/过滤/实例化
+    PluginManager --> PluginHost : 提供 hook
+    PluginHost --> ConversionEngine : 委托 fallback
+    ConversionEngine *-- PluginHost
+    ConversionEngine o-- PluginManager : 可选（None=legacy）
+    GndClusterPlugin ..|> PipelineHooks : hookimpl beautify
+    MatcherPipelinePlugin ..|> PipelineHooks : hookimpl match_components
+    PluginSpec --> GndClusterPlugin : cls 实例化
+    PluginSpec --> MatcherPipelinePlugin : cls 实例化
