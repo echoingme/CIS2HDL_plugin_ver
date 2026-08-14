@@ -144,6 +144,9 @@ class TestP1CpcMark:
                  "OSJZX-6100F-RTK/OSJZX-6100F-RTK/OSJZX-6100F-RTK/"
                  "OSJZX-6100F-RTK/OSJZX-6100F-RTK/worklib/04p4/sch_1/page9.cpc"),
         ]
+        # S0 排除项：docs_for_reference/（36K 参考文件，未复制进插件版仓库）。
+        if not any(r.exists() for r in refs):
+            pytest.skip("docs_for_reference 未复制（S0 排除项）")
         found = False
         for ref in refs:
             if not ref.exists():

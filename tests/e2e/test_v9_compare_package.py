@@ -16,7 +16,16 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pytest
+
+# S0 排除项：HG5015_tests/（交付包，未复制进插件版仓库）。
+# 数据目录存在时正常验证；缺失时整体跳过（插件版基线 929/6/0 全绿）。
 _PKG = Path(__file__).parent.parent.parent / "HG5015_tests" / "output_phaseXXV_compare"
+
+pytestmark = pytest.mark.skipif(
+    not _PKG.is_dir(),
+    reason=f"数据目录未复制（S0 排除项）: {_PKG}",
+)
 
 
 class TestV9Package:

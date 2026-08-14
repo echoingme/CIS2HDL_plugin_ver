@@ -21,7 +21,18 @@ from pathlib import Path
 
 import pytest
 
-pytestmark = pytest.mark.e2e
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+_HDL_LIB = _PROJECT_ROOT / "HG5015_tests" / "output_v2b" / "hdl_lib"
+
+# S0 排除项：HG5015_tests/（交付包，未复制进插件版仓库）。
+# 数据目录存在时正常验证；缺失时整体跳过（插件版基线 929/6/0 全绿）。
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.skipif(
+        not _HDL_LIB.is_dir(),
+        reason=f"数据目录未复制（S0 排除项）: {_HDL_LIB}",
+    ),
+]
 
 from cis2hdl.core.diagnostics.report_gen import StructuredReportGenerator
 from cis2hdl.core.engine.conversion_engine import ConversionReport
@@ -29,9 +40,6 @@ from cis2hdl.core.ir.component import ComponentDef, ElectricalType, PinDef
 from cis2hdl.core.ir.match import MatchStrategy
 from cis2hdl.core.matcher.pipeline import MatcherPipeline
 from cis2hdl.core.parser.hdl_scanner import HDLLibScanner
-
-_PROJECT_ROOT = Path(__file__).resolve().parents[2]
-_HDL_LIB = _PROJECT_ROOT / "HG5015_tests" / "output_v2b" / "hdl_lib"
 
 
 def _make_cis_component(
