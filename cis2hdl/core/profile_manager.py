@@ -32,6 +32,7 @@ schema_version ≤ 1。
 
 from __future__ import annotations
 
+import dataclasses
 import datetime
 import logging
 import re
@@ -45,6 +46,7 @@ from .pipeline_config import (
     PipelineConfig,
     OutputSection,
     RoutingConfig,
+    apply_params,
     atomic_write_text,
     deep_eq_params,
     routing_params_deep_diff,
@@ -607,29 +609,14 @@ class ProfileManager:
     def _merge_params(self, rc: RoutingConfig, params: dict) -> None:
         """profile params 深合并（增量覆盖）到 RoutingConfig 上。
 
-        - ``routing`` 子 dict → 顶层标量 setattr
-        - 子节 dict → dataclasses.replace 部分覆盖（深合并）
-        - 顶层标量 → setattr
+        委托 ``pipeline_config.apply_params``（单一实现，避免重复逻辑）：
+        - ``routing`` 子 dict / 顶层标量 → 覆盖顶层标量
+        - 子节 dict → ``dataclasses.replace`` 部分覆盖（深合并）
         """
-        import dataclasses
-
-        for key, value in params.items():
-            if key == "routing" and isinstance(value, dict):
-                for k, v in value.items():
-                    if hasattr(rc, k):
-                        setattr(rc, k, v)
-            elif key in {
-                "text_layout", "overlap", "power_ic", "aesthetic", "report",
-                "placeholder", "ioport", "mirror", "gnd_distribution", "temp_lib",
-                "wire_simplify", "pin_audit", "attribute", "matching", "placement",
-                "net_name",
-            } and isinstance(value, dict):
-                section = getattr(rc, key)
-                allowed = {f.name for f in dataclasses.fields(type(section))}
-                filtered = {k: v for k, v in value.items() if k in allowed}
-                setattr(rc, key, dataclasses.replace(section, **filtered))
-            elif hasattr(rc, key):
-                setattr(rc, key, value)
+        merged = apply_params(rc, params)
+        # apply_params 返回新对象；就地同步回入参（保持调用方语义）
+        for f in dataclasses.fields(rc):
+            setattr(rc, f.name, getattr(merged, f.name))
 
     @staticmethod
     def _build_profile_dict(name: str, cfg: PipelineConfig) -> dict:
