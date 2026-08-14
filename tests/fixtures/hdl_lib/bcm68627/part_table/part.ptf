@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BCM68627'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                         | JEDEC_TYPE                        | SN_NUM                  = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION              | LIFE_CYCLE ;
+{========================================================================================}
+ 'FCBGA920'   | 'BCM68627B0IFSBG' | '集成电路 BCM68627B0IFSBG FCBGA920' | 'BGA1024C100P32X32_3300X3300X353' | 'M04.100920'(~BCM68627B0IFSBG) = ''           | 'AC00'  | '集成电路' | 'BCM68627B0IFSBG FCBGA920' | ''        
+
+END_PART
+
+END.
+

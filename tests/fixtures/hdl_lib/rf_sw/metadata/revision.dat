@@ -1,0 +1,194 @@
+(Cell	rf_sw
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.4)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	05/22/23,15:20:27)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.rf_sw)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	05/22/23,15:22:21)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.rf_sw)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.4)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000076fd9dbc)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	05/22/23,15:21:41)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.rf_sw)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d91041a)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000aeb64b69)
+
+			(Primitives	1
+
+				(Primitive	RF_SW
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	05/22/23,15:20:35)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.rf_sw)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	RF_SW
+
+							(PackType	RF_SW)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001d8d03b7)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001cac03ae)
+
+)
+

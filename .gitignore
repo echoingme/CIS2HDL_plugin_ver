@@ -1,0 +1,37 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ── 转换输出（可再生成） ─────────────────────────────────
+HG5015_tests/output_*/
+HG5015_tests/temp/
+output/
+# 注：仅忽略仓库根目录 temp/（转换输出）；tests/fixtures/hdl_lib/temp/ 是 Cadence
+# 库数据，必须保留（S0 修正：源 .gitignore 的未锚定 temp/ 会误伤它）。
+/temp/
+nul
+
+# ── 外部参考/交付（体积大，非本项目源码，S0 未复制） ───
+docs_for_reference/
+GUI_for_reference/
+
+# ── 测试 fixtures（S0 决策：纳入 git，保证基线可复现、测试可运行） ──
+# 源仓库因体积大而排除 hdl_lib 等；插件版为满足"基线可恢复/等价验证"改为跟踪。
+# tests/fixtures/temp_files_tests/ 为空目录，git 不跟踪空目录，无需规则。
+
+# ── 系统文件 ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+*.lck
+*.bak
+
+# ── 本地工具/记忆（不上传） ─────────────────────────────
+.obsidian/
+.workbuddy/

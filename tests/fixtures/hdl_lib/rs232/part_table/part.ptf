@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RS232_16'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION                 | JEDEC_TYPE          | SN_NUM            = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'TSSOP16'    | 'SP3232EEY' | '集成电路SP3232EEY TSSOP16' | 'SOP65P778X199-16N' | 'M04.100010'(~SP3232EEY) = ''           | 'AC00'  | '集成电路' | 'SP3232EEY TSSOP16' | ''        
+
+END_PART
+
+END.
+

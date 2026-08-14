@@ -1,0 +1,288 @@
+(Cell	amplifier
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.11)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	07/23/20,15:07:28)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.amplifier)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	07/23/20,15:39:20)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.amplifier)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.11)
+
+				(ModificationStatus	NULL)
+
+				(Status	Created)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	07/23/20,15:07:28)
+
+					(User	Administrator)
+
+					(Path	hdllib_lib.amplifier)
+
+				)
+
+			)
+
+			(Symbols	2
+
+				(Symbol	sym_2
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000979c0d63)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.5)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/23/20,15:37:45)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.amplifier)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000597dc694)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/23/20,15:07:28)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.amplifier)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001cc603b6)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000c1f395ac)
+
+			(Primitives	2
+
+				(Primitive	SGM321
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/23/20,15:07:28)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.amplifier)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	SGM321
+
+							(PackType	SGM321)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	LM393
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/23/20,15:07:28)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.amplifier)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	LM393
+
+							(PackType	LM393)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_2)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001e4903bf)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001bf303af)
+
+)
+

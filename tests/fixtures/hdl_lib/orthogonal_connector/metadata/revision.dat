@@ -1,0 +1,1750 @@
+(Cell	orthogonal_connector
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.55)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/15/24,16:23:16)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.orthogonal_connector)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	04/02/24,11:15:20)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.orthogonal_connector)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.55)
+
+				(ModificationStatus	NULL)
+
+				(Status	Created)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	03/15/24,16:23:16)
+
+					(User	VSOL-PC)
+
+					(Path	hdllib_lib.orthogonal_connector)
+
+				)
+
+			)
+
+			(Symbols	19
+
+				(Symbol	sym_9
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000e249274a)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000005ed1781f)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_10
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000025b58c47)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/18/24,09:54:58)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+						(LastModifyInfo	
+
+							(Time	03/18/24,09:59:54)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_11
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000bdc52caf)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/29/24,15:07:47)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_12
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000766e5d3f)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.5)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/29/24,15:07:47)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_13
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000032ed0ed3)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/29/24,14:21:00)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_14
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000b69dc1d6)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.8)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/01/24,17:36:41)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_15
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000b298ae9d)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/01/24,19:15:40)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_16
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000006d9c1038)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.10)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,08:33:52)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_17
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000a12382f9)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,08:41:47)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_18
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000033fac2ce)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,11:06:39)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_19
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000001c4ca0e9)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,11:14:59)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_2
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000027012d41)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_3
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000051c6a4a6)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_4
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000009e3f32ce)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_5
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000426ba01c)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_6
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000005f15f88d)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_7
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000062965e4c)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_8
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000056fe1c54)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001bd203b2)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000001074dc87)
+
+			(Primitives	14
+
+				(Primitive	4X8_MALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	4X8_MALE
+
+							(PackType	4X8_MALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	3
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_2)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	3[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_3)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	4X8_FEMALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	4X8_FEMALE
+
+							(PackType	4X8_FEMALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_5)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	6X12_MALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	6X12_MALE
+
+							(PackType	6X12_MALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	3
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_4)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_6)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	3[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_7)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	12X6_FEMALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	12X6_FEMALE
+
+							(PackType	12X6_FEMALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_4)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_9)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	6X6
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/15/24,16:23:16)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	6X6
+
+							(PackType	6X6)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_8)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_10)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	12X6_FEMALE_B
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/29/24,10:36:01)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	12X6_FEMALE_B
+
+							(PackType	12X6_FEMALE_B)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	3
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_4)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_6)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	3[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_13)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	4X6_FEMALE_B
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/29/24,15:05:45)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	4X6_FEMALE_B
+
+							(PackType	4X6_FEMALE_B)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_11)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_12)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	4X6_MALE_B
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/29/24,15:29:15)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	4X6_MALE_B
+
+							(PackType	4X6_MALE_B)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_11)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_12)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	4X4_PWR_MOD_MALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/01/24,17:25:15)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	4X4_PWR_MOD_MALE
+
+							(PackType	4X4_PWR_MOD_MALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_14)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	5X11_MALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/01/24,19:13:25)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	5X11_MALE
+
+							(PackType	5X11_MALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_15)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	FEMALE_GUIDE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,08:30:48)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	FEMALE_GUIDE
+
+							(PackType	FEMALE_GUIDE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_17)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	GUIDE_PIN
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,08:32:42)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	GUIDE_PIN
+
+							(PackType	GUIDE_PIN)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_16)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	5X11_FEMALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,11:05:34)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	5X11_FEMALE
+
+							(PackType	5X11_FEMALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_18)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+				(Primitive	4X4_PWR_MOD_FEMALE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/02/24,11:14:11)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.orthogonal_connector)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	4X4_PWR_MOD_FEMALE
+
+							(PackType	4X4_PWR_MOD_FEMALE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_19)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001c1e0381)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c260377)
+
+)
+

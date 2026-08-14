@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PC357'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE   | DESCRIPTION                       | JEDEC_TYPE | SN_NUM               = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE ;
+{========================================================================================}
+ 'PC357'      | 'PC357' | '集成电路PC357N1TJ00F SO-NEC2561' | 'PC357'    | 'M04.010223'(~PC357N1TJ00F) = ''           | 'AC00'  | '集成电路' | 'PC357N1TJ00F SO-NEC2561' | ''        
+
+END_PART
+
+END.
+

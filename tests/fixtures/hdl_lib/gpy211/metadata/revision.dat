@@ -1,0 +1,194 @@
+(Cell	gpy211
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.7)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	12/19/22,15:30:29)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.gpy211)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	12/19/22,16:06:42)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.gpy211)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.6)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000d64aa0a4)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.6)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	12/19/22,15:31:00)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.gpy211)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d9103d6)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000d2db2621)
+
+			(Primitives	1
+
+				(Primitive	GPY211
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	12/19/22,15:30:33)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.gpy211)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	GPY211
+
+							(PackType	GPY211)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001cf903b8)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001ce303b1)
+
+)
+

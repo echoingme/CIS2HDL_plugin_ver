@@ -1,0 +1,252 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '1X4'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '1X4'        | '1X4' | '2.54mm普通单排插针1*4位 高11.30MM'                | 'CON4_254'    | 'M08.020112'(~1X4_020112) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X4'        | '1X4' | '带卡扣电源插座公头VH3.96-3A 耐高温本色料（PA6T）' | 'CON4_396'    | 'M09.010061'(~1X4_010061) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X4'        | '1X4' | 'IAD3008LC接地金属片'                              | 'SL_GND'      | 'M09.140006'(~1X4_140006) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X4'        | '1X4' | '带卡扣90°弯脚电源插座公头JL3961R-4A'             | 'CON4_396_90' | 'M08.061020'(~1X4_061020) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '1X2'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '1X2'        | '1X2' | '2.54MM普通单排插针1*40位 高11.30MM'               | 'CON2_254'    | 'M08.010071'(~1X2_010071) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X2'        | '1X2' | '插座2501S2PBSNWO01  1*2   2.54MM'                 | 'CON2_254_A'  | 'M08.030007'(~1X2_030007) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '1X6'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '1X6'        | '1X6' | '带卡扣电源插座公头VH3.96-6A 耐高温本色料（PA6T）' | 'CON6_396'    | 'M09.010067'(~1X6_010067) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X6'        | '1X6' | '2.54MM普通单排插针1*40位 高11.3MM'                | 'CON6_254'    | 'M08.010071'(~1X6_010071) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '1X3'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE  | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '1X3'        | '1X3'  | '风扇插座HEADER 3PIN 2.54MM XH-3A'                 | 'CON3_254_A'  | 'M09.010039'(~1X3_010039) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ 'CON3_200'   | '1FXO' | 'IAD3032M-4S4O-C PCBA V1.1.1'                      | 'CON3_200'    | 'H01.630024'(~1X3_630024) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X3'        | '1X3'  | '电源插座公头CH3.96-3A 3PIN 3.96mm'                | 'CON3_396'    | 'M08.061016'(~1X3_061016) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X3'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE  | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X3'        | '2X3'  | '2.54MM普通双排插针 2X3位 高11.30MM'               | 'CON2X3_254'  | 'M08.010073'(~2X3_010073) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'CHAMP64'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM                 = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'CHAMP64'    | 'CHAMP64' | 'CHAMP 64PIN弯角插板母座连接器'                    | 'CHAMP64'     | 'M08.020107'(~CHAMP64_45_WRJ) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X5'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM                 = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X5'        | '2X5'     | '2.54MM普通双排插针 2X5位 高11.30MM'               | 'CON2X5_254'  | 'M08.010073'(~2X5_010073) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '3X16'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM                 = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '3X16'       | '3X16'    | '欧式连接器48PIN 弯角公头 3*16'                    | 'OC3X16_M_90' | 'M08.061003'(~3X16_061003) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '3X16'       | '3X16'    | '欧式连接器48PIN 弯脚母头 3*16'                    | 'OC3X16_F_90' | 'M08.061002'(~3X16_061002) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '3X16'       | '3X16'    | '欧式连接器48PIN 直脚公头 3*16'                    | 'OC3X16_M'    | 'M08.010004'(~3X16_061004) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X27'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE    | SN_NUM                 = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+
+END_PART
+
+PART '2X20'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                 = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X20'       | '2X20'    | '2.54MM普通双排插针 2X20位 高11.30MM'              | 'CON2X20_254_A' | 'M08.010087'(~2X20_010087) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '2X20'       | '2X20'    | '直插双排排母 PH2.54 2*20P 180度 塑高8.5'          | 'CON2X20_254_B' | 'M08.020061'(~2X20_020061) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '3X32'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                 = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '3X32'       | '3X32'    | '欧式连接器96PIN 弯角母头'                         | 'OC3X32_F_90'   | 'M08.010001'(~3X32_010001) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '3X32'       | '3X32'    | '欧式连接器96PIN 直角母头'                         | 'OC3X32_F'      | 'M08.010008'(~3X32_010008) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'SFP_10G'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SFP_10G'    | 'SFP_10G' | 'SFP+ 1*1 组件'                                    | 'SFP1X1'        | 'M08.061006/M08.010013/M08.010127'(~SFP_10G) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'SFP_PON'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SFP_PON'    | 'SFP_PON' | 'SFP 1*1 组件'                                     | 'SFP1X1'        | 'M08.061029/M08.010013/M08.010127'(~SFP_PON) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'SFP_PON_1X4'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE         | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SFP_PON_1X4' | 'SFP_PON_1X4' | 'SFP_1X4组件'                                      | 'SFP_1X4'       | ''(~SFP_PON_1X4)                   = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'SFP_10G_2X1'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SFP_2X1'     | 'HH10-2N3A230-00B' | 'SFP+ 2*1 HH10-2N3A230-00B'                        | 'SFP_2X1'       | 'M08.061022'(~HH10-2N3A230-00B)    = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'SFP_10G_1X4'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                        | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SFP_10G_1X4' | 'SFP_10G_1X4'      | 'SFP+_1X4/SFP_1X4组件'                             | 'SFP_1X4'       | ''(~SFP_10G_1X4)                   = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'XFP_10G'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                             | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'XFP_10G'     | 'XFP_10G'          | 'XFP 1*1 连接器/XFP 1*1 外壳 3S000000-1A-4F/XFP 防尘帽' | 'XFP_10G'       | 'M08.080003/M08.061037/M09.150036'(~XFP_10G) = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '1X5'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                             | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '1X5'         | '1X5'              | '凤凰端子公头KF2EDGRM-5.08-03P'                         | 'CON5_508'      | 'M08.030006'(~1X5_030006)          = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+ '1X5'         | '1X5'              | '电源插座HEADER 5PIN 2.54mm VH-5H 耐高温本色料（PA6T)'  | 'CON5_254_A'    | 'M09.010137'(~1X5_010137)          = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X48'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                             | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X48'        | '2X48'             | '欧式插座96P带鱼眼直角公头'                             | 'OC2X48_M'      | 'M08.061033'(~2X48_061033)         = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'DB37'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                             | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'db37_female' | 'DB37'             | 'DR37母插锁半金 DR-37F-T01-200'                         | 'DB37_FEMALE'   | 'M09.140008'(~DB37_140008)         = ''           | 'BK00'  | ''        | ''            | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'QSFP28_1X1'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                                                                | JEDEC_TYPE      | SN_NUM                             = NAMUFACTURER | BOM_SEQ     | TYPE_NAME               | SPECIFICATION                                                                              | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'QSFP28_1X1'  | 'QSFP28_1X1'       | 'QSFP28 1*1 连接器 3S1038N3-01-7F/SFP外壳  QSFP28 1*1 外壳 3S5B00N-11410-4F/QSFP28 防尘帽' | 'QSFP28_1X1'    | 'M08.080008/M08.061043/M09.150042'(~QSFP28_1X1) = ''           | 'AK00/BK00' | '连接器/SFP外壳/防尘帽' | 'QSFP28 1*1 连接器 3S1038N3-01-7F/SFP外壳  QSFP28 1*1 外壳 3S5B00N-11410-4F/QSFP28 防尘帽' | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X2'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                                                                | JEDEC_TYPE         | SN_NUM                             = NAMUFACTURER | BOM_SEQ     | TYPE_NAME               | SPECIFICATION                                                                              | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X2'         | '2X2'              | '贴片排母 2.54*5.0FH 2*2PIN U型 SMT'                                                       | 'CON2X2_254_SMT_B' | 'M08.040003'(~2X2_040003)          = ''           | 'AK00'      | '贴片排母'              | '贴片排母 2.54*5.0FH 2*2PIN U型 SMT'                                                       | ''         | ''      | ''        | ''    
+ '2X2'         | '2X2'              | '贴片排针 2.54mm 2*2PIN Header 双塑H5.0mm Single SMT'                                      | 'CON2X2_254_SMT_A' | 'M08.040001'(~2X2_040001)          = ''           | 'AK00'      | '贴片排针'              | '贴片排针 2.54mm 2*2PIN Header 双塑H5.0mm Single SMT'                                      | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X4'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                                                                | JEDEC_TYPE         | SN_NUM                             = NAMUFACTURER | BOM_SEQ     | TYPE_NAME               | SPECIFICATION                                                                              | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X4'         | '2X4'              | '贴片排针 2.54mm 2*4PIN Header 双塑H5.0mm Single SMT'                                      | 'CON2X4_254_SMT_A' | 'M08.040005'(~2X4_040005)          = ''           | 'AK00'      | '贴片排针'              | '贴片排针 2.54mm 2*4PIN Header 双塑H5.0mm Single SMT'                                      | ''         | ''      | ''        | ''    
+ '2X4'         | '2X4'              | '贴片排母 2.54*5.0FH 2*4PIN U型 SMT'                                                       | 'CON2X4_254_SMT_B' | 'M08.040006'(~2X4_040006)          = ''           | 'AK00'      | '贴片排母'              | '贴片排母 2.54*5.0FH 2*4PIN U型 SMT'                                                       | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X9'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                                                                | JEDEC_TYPE         | SN_NUM                             = NAMUFACTURER | BOM_SEQ     | TYPE_NAME               | SPECIFICATION                                                                              | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X9'         | '2X9'              | '贴片排针 2.54mm 2*9PIN Header 双塑H5.0mm Single SMT'                                      | 'CON2X9_254_SMT_A' | 'M08.040002'(~2X9_040002)          = ''           | 'AK00'      | '贴片排针'              | '贴片排针 2.54mm 2*9PIN Header 双塑H5.0mm Single SMT'                                      | ''         | ''      | ''        | ''    
+ '2X9'         | '2X9'              | '贴片排母 2.54*5.0FH 2*9PIN U型 SMT'                                                       | 'CON2X9_254_SMT_B' | 'M08.040004'(~2X9_040004)          = ''           | 'AK00'      | '贴片排母'              | '贴片排母 2.54*5.0FH 2*9PIN U型 SMT'                                                       | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART '2X34'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                                                                | JEDEC_TYPE         | SN_NUM                             = NAMUFACTURER | BOM_SEQ     | TYPE_NAME               | SPECIFICATION                                                                              | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ '2X34'        | '2X34'             | 'SCSI-68P弯角母头孔式DB型插板式母座'                                                       | 'SCSI2X34_F'       | 'M08.040007'(~2X34_040007)         = ''           | 'BK00'      | '插件母座'              | 'SCSI-68P弯角母头孔式DB型插板式母座'                                                       | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'SFP28_2X2'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE              | DESCRIPTION                                                                                | JEDEC_TYPE         | SN_NUM                             = NAMUFACTURER | BOM_SEQ     | TYPE_NAME               | SPECIFICATION                                                                              | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SFP28_2X2'   | 'HH10-7N3BW01-00B' | '连接器SFP28 2*2  HH10-7N3BW01-00B/SFP笼子防尘帽（D869N-F00-F0001）'                       | 'SFP28_2X2'        | 'M08.080009/M08.010127'(~SFP28_2X2) = ''           | 'BK00'      | '插件连接器/防尘帽'     | '连接器SFP28 2*2  HH10-7N3BW01-00B/SFP笼子防尘帽（D869N-F00-F0001）'                       | ''         | ''      | ''        | ''    
+
+END_PART
+
+END.
+

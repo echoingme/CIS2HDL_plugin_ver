@@ -1,0 +1,23 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LCMXO2-256'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                  | DESCRIPTION                    | JEDEC_TYPE                 | SN_NUM                       = BOM_SEQ | MANUFACTURER ;
+{========================================================================================}
+ 'TQFP100'    | 'LCMXO2-256HC-4TG100C' | '集成电路LCMXO2-256HC-4TG100C' | 'QFP50P1600X1600X160-100N' | 'M04.100388'(~LCMXO2-256HC-4TG100C) = 'AC00'  | ''          
+
+END_PART
+
+PART 'LCMXO2-640U'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                   | DESCRIPTION                     | JEDEC_TYPE                 | SN_NUM                        = BOM_SEQ | MANUFACTURER ;
+{========================================================================================}
+ 'TQFP144'    | 'LCMXO2-640UHC-4TG144C' | '集成电路LCMXO2-640UHC-4TG144C' | 'QFP50P2200X2200X160-144N' | 'M04.100604'(~LCMXO2-640UHC-4TG144C) = 'AC00'  | ''          
+ 'TQFP144'    | 'LCMXO2-1200HC-4TG144C' | '集成电路LCMXO2-1200HC-4TG144C' | 'QFP50P2200X2200X160-144N' | 'M04.100660'(~LCMXO2-1200HC-4TG144C) = 'AC00'  | ''          
+
+END_PART
+
+END.
+

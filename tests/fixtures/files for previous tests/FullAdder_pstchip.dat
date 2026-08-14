@@ -1,0 +1,61 @@
+FILE_TYPE=LIBRARY_PARTS;
+{ Using PSTWRITER 14.01-p001 Dec-03-2001 at 12:25:16}
+primitive 'ORGATE';
+  pin
+    'I0':
+      PIN_NUMBER='(1,4,9,12)';
+      INPUT_LOAD='(*)';
+      PIN_GROUP='1';
+    'I1':
+      PIN_NUMBER='(2,5,10,13)';
+      INPUT_LOAD='(*)';
+      PIN_GROUP='1';
+    'O':
+      PIN_NUMBER='(3,6,8,11)';
+      OUTPUT_LOAD='(*)';
+  end_pin;
+  body
+    POWER_PINS='(VCC:14)';
+    POWER_PINS='(GND:7)';
+    PART_NAME='74LS32';
+    JEDEC_TYPE='dip14_3';
+  end_body;
+end_primitive;
+primitive 'ANDGATE';
+  pin
+    'I0':
+      PIN_NUMBER='(1,4,9,12)';
+      INPUT_LOAD='(*)';
+      PIN_GROUP='1';
+    'I1':
+      PIN_NUMBER='(2,5,10,13)';
+      INPUT_LOAD='(*)';
+      PIN_GROUP='1';
+    'O':
+      PIN_NUMBER='(3,6,8,11)';
+      OUTPUT_LOAD='(*)';
+  end_pin;
+  body
+    POWER_PINS='(VCC:14)';
+    POWER_PINS='(GND:7)';
+    PART_NAME='74LS08';
+    JEDEC_TYPE='dip14_3';
+  end_body;
+end_primitive;
+primitive 'NOTGATE';
+  pin
+    'I':
+      PIN_NUMBER='(1,3,5,9,11,13)';
+      INPUT_LOAD='(*)';
+    'O':
+      PIN_NUMBER='(2,4,6,8,10,12)';
+      OUTPUT_LOAD='(*)';
+  end_pin;
+  body
+    POWER_PINS='(VCC:14)';
+    POWER_PINS='(GND:7)';
+    PART_NAME='74LS04';
+    JEDEC_TYPE='dip14_3';
+  end_body;
+end_primitive;
+END.

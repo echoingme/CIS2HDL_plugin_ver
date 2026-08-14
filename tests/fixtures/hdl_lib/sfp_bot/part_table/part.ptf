@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'sfp_bot'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION | JEDEC_TYPE | SN_NUM          = MANUFACURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE ;
+{========================================================================================}
+ 'sfp_bot'    | 'sfp_bot' | ''          | 'sfp_bot'  | ''(~sfp_bot)    = ''          | ''      | ''        | ''            | ''        
+
+END_PART
+
+END.
+

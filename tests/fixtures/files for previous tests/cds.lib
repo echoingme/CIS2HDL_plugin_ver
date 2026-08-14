@@ -1,0 +1,3 @@
+DEFINE 8367_lib worklib
+INCLUDE $CONCEPT_INST_DIR/share/cdssetup/cds.lib
+DEFINE hdl_lib hdl_lib

@@ -1,0 +1,14 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SCREW'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE   | DESCRIPTION   | JEDEC_TYPE    | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION ;
+{========================================================================================}
+ 'SCREWD81D32' | '3.2MM' | '3.2MMÂÝË¿¿×' | 'SCREWD81D32' | ''(~SCREWD81D32)    = ''           | 'CN00'  | 'ÂÝË¿¿×'  | '3.2MM'      
+ 'SCREWD81D36' | '3.6MM' | '3.6MMÂÝË¿¿×' | 'SCREWD81D36' | ''(~SCREWD81D36)    = ''           | 'CN00'  | 'ÂÝË¿¿×'  | '3.6MM'      
+
+END_PART
+
+END.
+

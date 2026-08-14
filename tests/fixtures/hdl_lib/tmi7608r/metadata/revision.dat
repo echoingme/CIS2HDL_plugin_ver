@@ -1,0 +1,194 @@
+(Cell	tmi7608r
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.9)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	10/08/24,10:57:31)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.tmi7608r)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	10/08/24,11:18:35)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.tmi7608r)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.9)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000c87a922f)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.7)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	10/08/24,10:58:41)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.tmi7608r)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001ce303b7)
+
+		)
+
+		(View	Chips
+
+			(Checksum	0000000085940120)
+
+			(Primitives	1
+
+				(Primitive	TMI7608R
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	10/08/24,10:57:35)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.tmi7608r)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	TMI7608R
+
+							(PackType	TMI7608R)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001bee0381)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001d5703aa)
+
+)
+

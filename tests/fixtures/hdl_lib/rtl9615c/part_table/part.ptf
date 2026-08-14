@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL9615C'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                     = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'LFBGA484'   | 'RTL9615C-CG' | '集成电路 RTL9615C-CG LFBGA484'(~RTL9615C) = ''          | 'AC00'  | '集成电路' | 'RTL9615C-CG LFBGA484' | ''        
+
+END_PART
+
+END.
+

@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'CATV'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'CATV_DY'      | 'M4WA30CB2-5' | 'CATVÄ£¿é M4WA30CB2-5' | 'CATV' | 'M07.030067'(~M4WA30CB2-5) = ''           | ''  | 'CATVÄ£¿é' | 'M4WA30CB2-5' | ''        
+
+END_PART
+
+END.
+

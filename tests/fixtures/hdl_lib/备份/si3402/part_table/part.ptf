@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SI3402'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                   | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN20'      | 'Si3402-B-GM' | '集成电路  Si3402-B-GM QFN20' | 'QFN80P500X500X90-21N' | 'M04.100465'(~SI3404-B-GN) = ''           | 'AC00'  | '集成电路' | 'Si3402-B-GM QFN20' | ''        
+
+END_PART
+
+END.
+

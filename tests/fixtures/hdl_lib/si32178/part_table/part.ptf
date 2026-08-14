@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SI32178'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                   | JEDEC_TYPE             | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION         | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN42'      | 'SI32178-B-FM1' | '集成电路SI32178-B-FM1 QFN42' | 'QFN50P500X700X70-43N' | 'M04.100299'(~SI32178-B-FM1) = ''           | 'AC00'  | '集成电路' | 'SI32178-B-FM1 QFN42' | ''        
+
+END_PART
+
+END.
+

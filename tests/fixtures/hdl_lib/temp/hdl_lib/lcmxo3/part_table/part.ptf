@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LCMXO3LF-2100C-5BG256C'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                    | DESCRIPTION                      | JEDEC_TYPE                      | SN_NUM                         = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'CABGA256'   | 'LCMXO3LF-2100C-5BG256C' | '集成电路LCMXO3LF-2100C-5BG256C' | 'BGA256C80P16X16_1400X1400X170' | 'M04.100769'(~LCMXO3LF-2100C-5BG256C) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

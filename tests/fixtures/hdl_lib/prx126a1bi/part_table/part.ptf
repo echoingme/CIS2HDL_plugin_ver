@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PRX126A1BI'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                  | JEDEC_TYPE  | SN_NUM           = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA287'  | 'PRX126A1BI' | '集成电路PRX126A1BI BGA287' | 'BGA287_1_50MA' | ''(~PRX126A1BI) = ''          | 'AC00'  | '集成电路' | 'PRX126A1BI BGA287' | ''        
+
+END_PART
+
+END.
+

@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'W634GU6QB'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION                 | JEDEC_TYPE                   | SN_NUM            = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'FBGA96'     | 'W634GU6QB' | '集成电路 W634GU6QB FBGA96' | 'BGA96C80P9X16_800X1400X110' | 'M04.100876'(~W634GU6QB) = ''          | 'AC00'  | '集成电路' | 'W634GU6QB FBGA96' | ''        
+
+END_PART
+
+END.
+

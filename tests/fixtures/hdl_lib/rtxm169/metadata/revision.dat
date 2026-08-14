@@ -1,0 +1,194 @@
+(Cell	RTXM169
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.1)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/25/24,14:11:18)
+
+			(User	VSOL-PC)
+
+			(Path	hdl_lib.RTXM169)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Chips
+
+			(Checksum	00000000c249c14b)
+
+			(Primitives	1
+
+				(Primitive	RTXM169
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/25/24,14:11:18)
+
+							(User	VSOL-PC)
+
+							(Path	hdl_lib.RTXM169)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	RTXM169
+
+							(PackType	RTXM169)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+						(Linkages	
+
+							(DefaultFootPrint	
+
+								(Name	OPT20)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.1)
+
+				(ModificationStatus	NULL)
+
+				(Status	Created)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	03/25/24,14:11:18)
+
+					(User	VSOL-PC)
+
+					(Path	hdl_lib.RTXM169)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000005791b3fd)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/25/24,14:11:18)
+
+							(User	VSOL-PC)
+
+							(Path	hdl_lib.RTXM169)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001c4d038a)
+
+		)
+
+		(Checksum	000000001c6303a9)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	Unreleased (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001ba4037b)
+
+)
+

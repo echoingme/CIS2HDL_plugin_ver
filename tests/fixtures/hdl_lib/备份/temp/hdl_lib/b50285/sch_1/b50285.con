@@ -1,0 +1,12 @@
+(
+  (version 16.5)
+  (tool
+    (creator "conceptHDL")
+    (last "conceptHDL")
+  )
+  (library "1_lib")
+  (design "b50285"
+    (lastIds
+    )
+  )
+)

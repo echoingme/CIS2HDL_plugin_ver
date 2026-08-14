@@ -1,0 +1,5 @@
+SPLBPD-209,Symbol 'sym_2':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_1':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_3':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_4':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-146,Cell 'filter':The part might not be usable in the flow because the pin types of pin(s) 'GND1,GND2' are not same in all of the packages. Make sure that this pin type specification is intended.,Warning

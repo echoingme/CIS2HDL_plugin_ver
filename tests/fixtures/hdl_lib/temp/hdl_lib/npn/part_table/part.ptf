@@ -1,0 +1,16 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'NPN'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                   | JEDEC_TYPE | SN_NUM              = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SOT23'      | 'MMBT3904-7'  | '贴片三极管MMBT3904-7 SOT23'  | 'SOT23'    | 'M03.030029'(~MMBT3904-7) = ''           | 'AF00' 
+ 'SOT23'      | 'MMBT2222LT1' | '贴片三极管MMBT2222LT1 SOT23' | 'SOT23'    | 'M03.030034'(~MMBT2222LT1) = ''           | 'AF00' 
+ 'SOT23'      | 'MMBTA42LT1'  | '贴片三极管MMBTA42LT1 SOT23'  | 'SOT23'    | 'M03.030032'(~MMBTA42LT1) = ''           | 'AF00' 
+ 'SOT23'      | 'MMBTA06LT1'  | '贴片三极管MMBTA06LT1 SOT23'  | 'SOT23'    | 'M03.030031'(~MMBTA06LT1) = ''           | 'AF00' 
+
+END_PART
+
+END.
+

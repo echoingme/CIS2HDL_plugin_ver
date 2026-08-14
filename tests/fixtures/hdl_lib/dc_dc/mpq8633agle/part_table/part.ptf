@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MPQ8633AGLE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN21'      | 'MPQ8633AGLE' | '集成电路MPQ8633AGLE QFN21' | 'QFN21_3x4' | ''(~MPQ8633AGLE) = ''           | 'AC00'  | '集成电路' | 'MPQ8633AGLE QFN21' | ''        
+ 'QFN21'      | 'MPQ8633BGLE' | '集成电路MPQ8633BGLE QFN21' | 'QFN21_3x4' | ''(~MPQ8633BGLE) = ''           | 'AC00'  | '集成电路' | 'MPQ8633BGLE QFN21' | ''        
+END_PART
+
+END.
+

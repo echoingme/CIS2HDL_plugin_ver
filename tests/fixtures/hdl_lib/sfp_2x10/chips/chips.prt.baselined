@@ -1,0 +1,214 @@
+FILE_TYPE=LIBRARY_PARTS;
+primitive 'SFP_2X10','SFP_2X10_SM';
+  pin
+    'TX_FAULT':
+      PIN_NUMBER='(2)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'TX_DISABLE':
+      PIN_NUMBER='(3)';
+      INPUT_LOAD='(-0.01,0.01)';
+    'MOD_DEF2':
+      PIN_NUMBER='(4)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'MOD_DEF1':
+      PIN_NUMBER='(5)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'MOD_DEF0':
+      PIN_NUMBER='(6)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'RATE_SELECT':
+      PIN_NUMBER='(7)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'LOS':
+      PIN_NUMBER='(8)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'VEER_4':
+      PIN_NUMBER='(14)';
+      PINUSE='GROUND';
+    'VEER_3':
+      PIN_NUMBER='(11)';
+      PINUSE='GROUND';
+    'VEER_2':
+      PIN_NUMBER='(10)';
+      PINUSE='GROUND';
+    'VEER_1':
+      PIN_NUMBER='(9)';
+      PINUSE='GROUND';
+    'VCCT':
+      PIN_NUMBER='(16)';
+      PINUSE='POWER';
+    'VCCR':
+      PIN_NUMBER='(15)';
+      PINUSE='POWER';
+    'TD_P':
+      PIN_NUMBER='(18)';
+      INPUT_LOAD='(-0.01,0.01)';
+    'TD_M':
+      PIN_NUMBER='(19)';
+      INPUT_LOAD='(-0.01,0.01)';
+    'RD_P':
+      PIN_NUMBER='(13)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'RD_M':
+      PIN_NUMBER='(12)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'VEET_3':
+      PIN_NUMBER='(17)';
+      PINUSE='GROUND';
+    'VEET_2':
+      PIN_NUMBER='(20)';
+      PINUSE='GROUND';
+    'VEET_1':
+      PIN_NUMBER='(1)';
+      PINUSE='GROUND';
+  end_pin;
+  body
+    PART_NAME='SFP_2X10';
+    PHYS_DES_PREFIX='J';
+  end_body;
+end_primitive;
+primitive 'SFP_2X10_SMT';
+  pin
+    'VEET_1':
+      PIN_NUMBER='(1)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'TX_FAULT':
+      PIN_NUMBER='(2)';
+      UNKNOWN_LOADING='TRUE';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'TX_DISABLE':
+      PIN_NUMBER='(3)';
+      UNKNOWN_LOADING='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+    'SDA':
+      PIN_NUMBER='(4)';
+      UNKNOWN_LOADING='TRUE';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'SCL':
+      PIN_NUMBER='(5)';
+      UNKNOWN_LOADING='TRUE';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'MOD_ABS':
+      PIN_NUMBER='(6)';
+      UNKNOWN_LOADING='TRUE';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'RS0':
+      PIN_NUMBER='(7)';
+      UNKNOWN_LOADING='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+    'RX_LOS':
+      PIN_NUMBER='(8)';
+      UNKNOWN_LOADING='TRUE';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'RS1':
+      PIN_NUMBER='(9)';
+      UNKNOWN_LOADING='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+    'VEER_2':
+      PIN_NUMBER='(10)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'VEER_3':
+      PIN_NUMBER='(11)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'RD_M':
+      PIN_NUMBER='(12)';
+      UNKNOWN_LOADING='TRUE';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'RD_P':
+      PIN_NUMBER='(13)';
+      UNKNOWN_LOADING='TRUE';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'VEER_4':
+      PIN_NUMBER='(14)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'VCCR':
+      PIN_NUMBER='(15)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='POWER';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'VCCT':
+      PIN_NUMBER='(16)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='POWER';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'VEET_2':
+      PIN_NUMBER='(17)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+    'TD_P':
+      PIN_NUMBER='(18)';
+      UNKNOWN_LOADING='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+    'TD_M':
+      PIN_NUMBER='(19)';
+      UNKNOWN_LOADING='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+    'VEET_3':
+      PIN_NUMBER='(20)';
+      UNKNOWN_LOADING='TRUE';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='BOTH';
+      NO_IO_CHECK = 'BOTH';
+      NO_ASSERT_CHECK = 'TRUE';
+      NO_DIR_CHECK = 'TRUE';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+ body
+    PART_NAME='SFP_2X10';
+    PHYS_DES_PREFIX='J';
+  end_body;
+end_primitive;
+END.

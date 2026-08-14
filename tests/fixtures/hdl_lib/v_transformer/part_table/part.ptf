@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'V_TRANSFORMER'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE     | DESCRIPTION         | JEDEC_TYPE      | SN_NUM          = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'V_TRANSFORMER' | '2mA:2mA' | '电压互感器2mA:2mA' | 'V_TRANSFORMER' | 'M05.120002'(~2MA:2MA) = ''           | 'BK00'  | '电压互感器' | '电压互感器2mA:2mA' | ''        
+
+END_PART
+
+END.
+

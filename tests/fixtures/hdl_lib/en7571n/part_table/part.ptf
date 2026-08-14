@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'EN7571N'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                  | JEDEC_TYPE  | SN_NUM           = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'SQFN28-EP'  | 'EN7571N' | '集成电路EN7571N SQFN28-EP' | 'QFN40P400X400X90-29N' | ''(~EN7571N) = ''          | 'AC00'  | '集成电路' | 'EN7571N SQFN28-EP' | ''        
+
+END_PART
+
+END.
+

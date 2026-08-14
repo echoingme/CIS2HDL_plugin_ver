@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BCM68650'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                          | JEDEC_TYPE                        | SN_NUM                  = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ 'FCBGA1936'  | 'BCM68655A1IFSBG' | '集成电路BCM68655A1IFSBG  FCBGA1936' | 'BGA1936C100P44X44_4500X4500X409' | 'M04.100817'(~BCM68655A1IFSBG) = ''           | 'AC00'  | '集成电路' | 'BCM68655A1IFSBG  FCBGA1936' | ''        
+
+END_PART
+
+END.
+

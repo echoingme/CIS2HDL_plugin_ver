@@ -1,0 +1,124 @@
+(Cell	c size page
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	1.0.13)
+
+		(ModificationStatus	Major)
+
+		(Status	Modified)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/06/05,16:34:33)
+
+			(User	sureshg)
+
+			(Path	standard.c size page)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	02/24/20,12:00:27)
+
+			(User	engineer)
+
+			(Path	hdl_lib.c size page)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.10)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000001e4f8b29)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	1.0.8)
+
+						(ModificationStatus	NULL)
+
+						(Status	Modified)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/06/05,16:34:33)
+
+							(User	sureshg)
+
+							(Path	standard.c size page)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001cf403b6)
+
+		)
+
+		(Checksum	000000001cc803aa)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S038 (v16-6-112CX))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001cf303d5)
+
+)
+

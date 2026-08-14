@@ -1,0 +1,59 @@
+# cis2hdl/config/power_ic.yaml — D4 电源芯片匹配规则（Phase XIV）
+#
+# 依据：practice hdl_lib 实测引脚清单（§D4.2）+ HG5015 netlist 实测回填
+# （2026-08-11，工程师采集）。
+#
+# HG5015 实测结论：
+#   * U1/U3/U10/U11/U14/U15/U18/U20 共 8 个 6 引脚电源芯片，
+#     引脚名集合 {BST, VIN, GND, EN, SW, FB}（BOOT≈BST、VIN≈IN）——
+#     与 practice `dc_dc/sym_1`（FB/IN/GND/EN/SW/BST）Jaccard=6/6 → 首选。
+#   * U16/U17 为 4 引脚 DISCRETE（G1/G2/G3/S，conf=0.895）→ 不触发电源匹配。
+#   * U6 主 SoC 531 引脚 / U5 96 引脚 / U8/U9 73 引脚 / U7 49 引脚 → 引脚数 >20 自动排除。
+#   * U12/U13 为 17 引脚 FEM33（射频前端）→ 引脚数 17 不在候选表，不触发。
+#   * U19 为 9 引脚 DS35Q1GA_IB_0（存储）→ 9 不在候选表，不触发。
+version: "1.0"
+enabled: false                    # 总开关（CLI --power-ic 或 routing.yaml 引用）
+
+# 电源网名模式（HG5015 实测：VDD_SYSLDO_0P9 / VDD_CLDO_0P96 / 12V0 / GND …）
+power_net_patterns:
+  - "(?i)vdd.*(0p9|0p96|1v1|1p1|3v3|3p3|1v8|1p8)"
+  - "(?i)^(0v9|1v1|3v3|1v8)$"
+  - "(?i)v(in|out|dd|cc).*(sys|ldo|dc)"
+  - "(?i)^12v0$"
+  - "(?i)^(vcc|vdd|vin|vout|gnd|pgnd|agnd)$"
+
+# 电源引脚名集合（用于打分；VIN≈IN、BOOT≈BST、LX≈SW 等归一化见下）
+power_pin_names: [VIN, IN, BOOT, BST, GND, PGND, AGND, EN, FB, SW, LX, BS, VOUT, VDD, VCC, PG, PGOOD, MODE, SS, EPAD, ADJ, IREF, ILIM, ISET, COMP, FREQ]
+
+# 引脚名归一化映射（CIS 与 practice 的拼写差异 → 统一 token）
+pin_name_aliases:
+  BOOT: BST
+  VIN: IN
+  LX: SW
+  VSENSE: FB
+  PVIN: IN
+  AVIN: IN
+  VDDQ: VOUT
+  VREF: FB
+  VTT: VOUT
+
+# 候选表：引脚数 → 有序候选（section 按引脚集相似度排序）
+# 注：候选表为推断初稿 + HG5015 实测回填；引脚名匹配权重以实测为准。
+candidates_by_pin_count:
+  4:  [{library_id: ldo, section: 1}, {library_id: power_dip4, section: 1}, {library_id: dc_dc, section: 12}]
+  5:  [{library_id: dc_dc, section: 2}, {library_id: dc_dc, section: 4}, {library_id: dc_dc, section: 8},
+       {library_id: dc_dc, section: 9}, {library_id: dc_dc, section: 13}, {library_id: ldo, section: 2}]
+  6:  [{library_id: dc_dc, section: 1}, {library_id: dc_dc, section: 18}, {library_id: dc_dc, section: 15}]
+  8:  [{library_id: dc_dc, section: 10}, {library_id: dc_dc, section: 11}]
+  11: [{library_id: dc_dc, section: 5}]
+  12: [{library_id: dc_dc, section: 7}]
+  16: [{library_id: dc_dc, section: 3}]
+
+# 评分权重
+scoring:
+  w_pin_count: 0.40          # 引脚数完全匹配
+  w_pin_name_jaccard: 0.40   # 引脚名集合 Jaccard 相似度
+  w_net_pattern: 0.20        # 相连网名命中电源网模式
+  min_score_auto: 0.80       # ≥0.80 自动采用（替代低置信匹配）
+  min_score_candidate: 0.50  # 0.50-0.80 进 --export-unmatched 候选列表
+  max_pin_count: 20          # >20 引脚不触发电源匹配（排除 SoC）

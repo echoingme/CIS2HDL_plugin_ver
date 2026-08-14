@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'HC32F005C6UA'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE          | DESCRIPTION                  | JEDEC_TYPE             | SN_NUM               = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN20'      | 'HC32F005C6UA' | '集成电路HC32F005C6UA QFN20' | 'QFN40P300X300X80-21N' | 'M04.100728'(~HC32F005C6UA) = ''           | 'AC00'  | '集成电路' | 'HC32F005C6UA QFN20' | ''        
+
+END_PART
+
+END.
+

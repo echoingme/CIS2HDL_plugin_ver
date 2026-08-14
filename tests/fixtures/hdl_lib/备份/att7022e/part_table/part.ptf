@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ATT7022E'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                | JEDEC_TYPE                | SN_NUM           = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION     | LIFE_CYCLE ;
+{========================================================================================}
+ 'LQFP44'     | 'ATT7022E' | '集成电路 ATT7022E LQFP44' | 'QFP80P1200X1200X160-44N' | 'M04.100868'(~ATT7022E) = ''           | 'AC00'  | '集成电路' | 'ATT7022E LQFP44' | ''        
+
+END_PART
+
+END.
+

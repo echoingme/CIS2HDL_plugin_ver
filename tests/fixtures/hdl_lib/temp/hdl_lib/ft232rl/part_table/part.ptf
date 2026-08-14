@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'FT232RL'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION              | JEDEC_TYPE          | SN_NUM          = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SSOP28'     | 'FT232RL' | '集成电路FT232RL SSOP28' | 'SOP65P780X200-28N' | 'M04.100732'(~FT232RL) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

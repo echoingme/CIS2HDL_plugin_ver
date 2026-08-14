@@ -1,0 +1,194 @@
+(Cell	ld_epad
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.4)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/28/24,20:24:54)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.ld_epad)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	03/28/24,20:27:30)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.ld_epad)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.4)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000003ac530a7)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/28/24,20:25:19)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.ld_epad)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001cbf03a8)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000004edd63e2)
+
+			(Primitives	1
+
+				(Primitive	LD_EPAD
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/28/24,20:25:01)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.ld_epad)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	LD_EPAD
+
+							(PackType	LD_EPAD)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001cc103bb)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001cd303d0)
+
+)
+

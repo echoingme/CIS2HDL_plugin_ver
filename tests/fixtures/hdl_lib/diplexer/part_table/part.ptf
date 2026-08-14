@@ -1,0 +1,23 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'DIPLEXER_1L3H'
+
+{========================================================================================}
+:PACKAGE_TYPE     | VALUE                  | DESCRIPTION                    | JEDEC_TYPE       | SN_NUM                       = MANUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'DP1608_A2455DG' | 'DP1608_A2455DG'       | 'RF合成器DP1608_A2455DG'       | 'DP1608_A2455DG' | 'M04.100642'(~DP1608_A2455DG) = 'ACX'        | 'AC00'  | '合成器'  | 'DP1608_A2455DG'       | 'NA'      
+ 'DP1608_A2455DG' | 'DP1608_A2455DTA0T/LF' | 'RF合成器DP1608_A2455DTA0T/LF' | 'DP1608_A2455DG' | 'M04.100778'(~DP1608_A2455DTA0T/LF) = 'ACX'        | 'AC00'  | '合成器'  | 'DP1608_A2455DTA0T/LF' | ''        
+
+END_PART
+
+PART 'DIPLEXER_1H3L'
+
+{========================================================================================}
+:PACKAGE_TYPE     | VALUE                  | DESCRIPTION                    | JEDEC_TYPE       | SN_NUM                       = MANUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'DP1608_A2455DG' | 'DP1608_A2455BTA0T/LF' | 'RF合成器DP1608_A2455BTA0T/LF' | 'DP1608_A2455DG' | 'M04.100779'(~DP1608_A2455BTA0T/LF) = 'ACX'        | 'AC00'  | '合成器'  | 'DP1608_A2455BTA0T/LF' | ''        
+
+END_PART
+
+END.
+

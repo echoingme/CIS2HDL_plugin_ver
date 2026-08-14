@@ -1,0 +1,194 @@
+(Cell	tmi39610
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.2)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	04/08/25,14:23:09)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.tmi39610)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	04/08/25,14:24:44)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.tmi39610)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.2)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000008597198d)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/08/25,14:24:27)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.tmi39610)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001aaf0364)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000b8fad89e)
+
+			(Primitives	1
+
+				(Primitive	TMI39610
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/08/25,14:23:12)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.tmi39610)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	TMI39610
+
+							(PackType	TMI39610)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001e0303db)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001bbd03a3)
+
+)
+

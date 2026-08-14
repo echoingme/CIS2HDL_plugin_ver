@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AD7170'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE        | DESCRIPTION                   | JEDEC_TYPE             | SN_NUM             = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION         | LIFE_CYCLE ;
+{========================================================================================}
+ 'LFCSP10'    | 'AD7170BCPZ' | '集成电路AD7170BCPZ  LFCSP10' | 'SON50P300X300X80-11N' | 'M04.100730'(~AD7170BCPZ) = ''           | 'AC00'  | '集成电路' | 'AD7170BCPZ  LFCSP10' | ''        
+
+END_PART
+
+END.
+

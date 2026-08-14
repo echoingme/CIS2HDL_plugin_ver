@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MIMXRT1011DAE5A'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                       | JEDEC_TYPE                | SN_NUM                  = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE | REPLACE ;
+{========================================================================================}
+ 'LQFP80'     | 'MIMXRT1011DAE5A' | '集成电路MIMXRT1011DAE5A  LQFP80' | 'QFP50P1400X1400X160-80N' | 'M04.100822'(~MIMXRT1011DAE5A) = ''           | 'AC00'  | '集成电路' | 'MIMXRT1011DAE5A  LQFP80' | ''         | ''     
+
+END_PART
+
+END.
+

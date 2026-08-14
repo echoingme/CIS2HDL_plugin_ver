@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'CW30P10D'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE            ;
+{========================================================================================}
+ 'SOT-252'      | 'CW30P10D'   | 'ÌùÆ¬MOS¹ÜCW30P10D SOT-252'    | 'TO229P990X238-3N'    | 'M03.040088'(~DMP3098-7-F) = ''           | 'AF00'  | 'ÌùÆ¬MOS¹Ü' | 'CW30P10D SOT-252'    | ''         | ''      | ''        | ''               
+
+END_PART
+
+END.
+

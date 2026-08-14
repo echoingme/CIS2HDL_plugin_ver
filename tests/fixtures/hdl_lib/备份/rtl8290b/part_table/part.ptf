@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8290B'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN32'      | 'RTL8290B-CG' | '集成电路RTL8290B-CG QFN32' | 'QFN40P400X400X90-33N' | 'M04.100637'(~RTL8290B-CG) = ''           | 'AC00'  | '集成电路' | 'RTL8290B-CG QFN32' | ''        
+
+END_PART
+
+END.
+

@@ -1,0 +1,162 @@
+# cis2hdl/config/routing.yaml — Phase XIV/XV 布线/美观化配置（D5 + Phase XV）
+#
+# 设计原则（STANDARDS Part I）：
+#   * 所有新功能独立模块 + 配置开关，默认关闭，可回退；
+#   * 同一目标只保留一个实现；wire_layout 保持单一职责（几何合成）。
+#
+# 加载方式：`Config.load_from_file("cis2hdl/config/routing.yaml")`；
+# CLI 参数（__main__.py convert 分支）可覆盖本文件中的字段。
+version: "1.0"
+
+routing:
+  # 布线器模式：p0 | detour | edif_reuse  （CLI --routing 覆盖）
+  mode: p0
+  lane_pitch: 50              # P0 已有 wire_layout._LANE
+  grid: 25                    # P0 已有
+  detour_stubs: true          # P1a 正交绕障（mode=detour 时生效）
+  use_edif_wires: false       # P1b EDIF 折线复用（mode=edif_reuse 时生效）
+  cross_page_opt: false       # 跨页网视觉优化（IOPORT 对齐/美化；默认关）
+  fallback_to_p0: true        # 新功能异常 → logger.warning → 回退 P0 车道法
+
+  # ── Phase XV P1-G：stub 引出段（--aesthetic / --routing detour 生效）──
+  stub_lead: 100              # 每条 stub 从引脚先外引的距离
+  lead_differentiate: true    # 相邻引脚（间距 ≤ lead_diff_min_gap）引出段错开
+  lead_diff_min_gap: 75       # 差异化触发的最小引脚间距
+  max_detour: 50              # 绕障余量（outline 外推距离）
+
+  # ── Phase XVII R2：非均匀轨道 + 网布线顺序（SKiDL create_routing_tracks
+  #    / rank_net 思想，用户要求 A/B 对比；默认关可回退）─────────────────
+  nonuniform_tracks: false    # 轨道优先：元件 bbox 边坐标找车道（CLI --nonuniform-tracks）
+  net_order: "long_first"     # 布线顺序：long_first（长网先布，现状）| short_first（短网先布）
+
+  # ── Phase XVIII R5：避让增强 ────────────────────────────────────────
+  edge_clearance: 100         # 页面边缘冗余区（电线不贴页边，默认 100 可配）
+  three_stage_stub: true      # 三段式 stub（延伸→折线→调头；消除原地掉头，可关）
+
+text_layout:
+  enabled: false              # D1 总开关（CLI --text-layout 置 true）
+  align_net_names: true       # 网络名 x 对齐（7.5 格点 = 375 单位）
+  align_ports: true           # 同侧 Port 对齐
+  diff_pair_pn: true          # 差分对标签 P 上 N 下
+  char_width_factor: 0.65
+  line_height_factor: 1.2
+  padding: 12
+  min_text_w: 75
+
+overlap:
+  check: false                # D2 重叠检测（报告）
+  min_area: 625
+  auto_placement: false       # 远期：--aesthetic-placement 才开
+  resolve: true               # Phase XX 补丁2：OverlapResolver 接线（passive+connector 微调避让）
+  avoid_margin: 50            # 新 R5/Q3：统一碰撞 margin（25→50）
+  edge_clearance: 100         # 新 R5/Q3：芯片外侧冗余区
+  pin_avoid_radius: 50        # 新 R5/Q3：引脚附近避让半径
+
+manual_matches: ""            # D3：manual_matches.yaml 路径（CLI --manual-matches）
+chip_config: ""               # D7：统一 chip_config.yaml 路径（CLI --chip-config 主入口）
+export_unmatched: ""          # D3：--export-unmatched 输出路径（空=不导出）
+
+power_ic:
+  enabled: false              # D4（也可独立 --power-ic）
+  config_file: "cis2hdl/config/power_ic.yaml"
+
+aesthetic:
+  enabled: false              # 总开关（CLI --aesthetic）：同时打开 text_layout/overlap/power_ic
+  report: true                # 输出 aesthetic_report.txt
+
+# ── Phase XV P0-F：占位符号（默认 true —— 用户要求后端默认生效）──
+placeholder:
+  enabled: true               # 无具体符号的多引脚芯片 → 占位符号（替代 CH347 fallback）
+
+# ── Phase XV P1-C：跨页 IOPORT 边缘分布 ──────────────────────────────
+# Phase XVI：追加 IOPORT 一致性核对（Part B）配置。
+ioport:
+  edge_layout: false          # 跨页口沿页面边缘等间距分布（替代右上角 8 个一行）
+  edge_x: -600                # IOPORT 列固定 x（C 纸空间，右侧缘）
+  edge_step: 100              # 沿 y 的等间距步长
+  edge_margin: 300            # 距页顶起始边距
+  audit: false                # T2 IOPORT 核对开关（默认关；CLI --ioport-audit / --aesthetic 开启）
+  skip_orphan: false          # 孤立 connector 是否不生成（默认只报告不跳过）
+  manual_names: {}            # 人工网名覆盖 {raw_name: canonical_target}（默认空=不合并）
+  use_net_name: false         # M5 跨页网用网络名表达（用户 D2；CLI --use-net-name）
+  net_label_on_end: true      # 新 R7：网络名标签落到电线末端/悬空端
+  un_name_policy: "rename"    # 新 R3⑤：UN$ 自动网名 keep|rename|omit（默认 rename）
+
+# ── Phase XVI T1：镜像归一化（正确性修复，默认开）────────────────────
+mirror:
+  normalize: true             # mirror 实例引脚坐标按 EDIF 真值镜像 + 等效 R 行近似
+                              # （CLI --no-mirror-normalize 关闭回退 Phase XIII 行为）
+  report: true                # 镜像清单进 aesthetic_report [MIRROR] 节（受 aesthetic.enabled 门控）
+
+# ── Phase XV P1-D：GND 符号分布（每芯片一组 + 距离阈值 + 密集区）────
+gnd_distribution:
+  enabled: false              # 总开关（CLI --gnd-distribute 开启）
+  distribute_density: false   # P1-3：GND 密度补点/trunk 避让/outlet 绕行（--gnd-distribute 同时开启）
+  near_chip_offset: 100       # GND 符号相对芯片 GND 引脚的外引距离
+  distance_threshold: 2000    # 无芯片区域：元件到最近 GND 符号距离阈值
+  max_per_chip: 1             # 每芯片最多就近放置的 GND 符号数
+  dense_area_threshold: 8     # 密集区判定：单位网格内元件数 ≥ 该值多放
+  cluster_radius: 2000        # Phase XVII R3：GND 聚类合并半径（用户问题4"就近共用"；
+                              #   距离≤该值的芯片 GND 聚簇共享 1 个符号；0=关闭聚类）
+  parallel_short: true        # 新 R6：簇内引脚先并联（hub 短接）再统一引出
+  parallel_short_dist: 500    # 新 R6/R8：并联判定距离阈值（Q4 建议 ≤500）
+  gnd_power_lastpin_offset: [0, 50]    # SPCOCN-543 修复（08-13）：LASTPIN 必须命中符号
+                              #   实际引脚 —— fixture hdl_lib gnd_power/sym_1/symbol.css
+                              #   C 0 50 "GND"（offset (0,50)）；旧值 (50,100) 不匹配 →
+                              #   Cadence 删 SIG_NAME。值 "css" 回退 symbol.css 动态读取
+
+# ── Phase XVI：诊断报告输出（用户要求：默认转换也生成报告）───────────
+report:
+  always_write: true          # 默认转换（p0）也写 aesthetic_report.txt + ioport_audit_report.txt
+                              # （只读诊断，不影响 CSA 输出；CLI --no-report 关闭）
+  aesthetic: true             # 默认写出 aesthetic_report.txt（[MIRROR]/[OVERLAP]/[GRID]/[TEXT]）
+  ioport_audit: true          # 默认写出 ioport_audit_report.txt（接线/网名/孤立三节）
+
+# ── Phase XVII M1：temp_lib 模拟图标（用户 D3/D8/D11）────────────────
+# 默认开：未匹配芯片/connector 用模拟图标（替代 placeholder 占位方块），
+# 写入独立 output/temp_lib/（不污染 hdl_lib）；false 回退 placeholder。
+temp_lib:
+  enabled: true
+  lib_name: temp_lib
+  annotate: true              # 图标内画"模拟图标"中英标注（字号 24）
+  pin_font_size: 16           # 新 R9：C 指令字号（32→16，用户"缩小一半"）
+  pin_text_size: 16           # 新 R9：X "PIN_TEXT" 可见引脚名字号
+  pin_line_len: 50            # 新 R9：引脚 L 段向外长度（真实库 ch347 = 50）
+  mock_text_cmd: "T"          # Phase XIX：T 指令（真实库 INPORT 先例）可见文本+红色；P 属性不渲染
+  mock_all: true               # Phase XX：所有多引脚芯片/connector 默认模拟图标（GUI 可切换）
+  syntax_check: true          # 新 R1：生成后全量 symbol.css 语法校验（修复类默认开）
+  structure_check: true       # 新 R2：master.tag 分目录/entity 四文件结构断言（默认开）
+
+# ── Phase XVIII R4/Q1：元件库统一 hdl_lib + CSA 属性注入 ─────────────
+# Q1 用户决策：匹配函数只能在 hdl_lib 匹配符号，不能使用系统库符号。
+attribute:
+  inject_crossref: true       # R4：CSA 属性块注入 CrossRef 四字段（默认开，修复类）
+  rewrite_origin: true        # R4/Q1：ORIGIN 引用改写为 hdl_lib（audit 门禁）
+
+matching:
+  hdl_lib_only: true          # R4/Q1：候选符号只能来自 hdl_lib（默认开，修复类）
+  connector_pin_check: true   # R10：J* connector 引脚数校验（默认开，T04 使用）
+
+placement:
+  max_passive_move: 200       # Phase XXI G：J/T 元件散开上限 100 不足（用户 p16/p17/p21）→ 200
+  rotate_passives: false      # P1-4：被动元件符号方向随连线（CLI --rotate-passives 开启）
+
+net_name:
+  un_auto_rename: true        # R3⑤：UN$ 自动网名 → 稳定可读名（stabilize_un_name）
+
+# ── Phase XVII M4：wire_simplifier 后处理（SKiDL cleanup_wires 移植）─
+# 默认关（可回退）；开启后 wire_layout 后处理：共线合并/悬空 stub 修剪/
+# 3 段阶梯化简/仅 T/X 真交点加 DOT。
+wire_simplify:
+  enabled: false
+  dot_merge: 50               # 就近 DOT/端点合并距离阈值
+  max_wire_len: 5000          # 超长电线断开改用网络名阈值（用户 D5）
+  break_long: false           # 新 R8：超长断线改网络名（v9_simplify 开启）
+  self_intersect_check: true  # 新 R5：自身重叠（线头）检测报告
+  parallel_short: true        # 新 R8：同类同信号相近引脚先短接再引出
+  parallel_short_dist: 500    # Phase XXII D4：非 GND 同信号并联判定距离阈值（与 GND 同值）
+
+# ── Phase XVII M6：引脚连接审计（只读诊断）──────────────────────────
+pin_audit:
+  enabled: true
+  report_hanging: true        # 悬空引脚报告 [HANGING]

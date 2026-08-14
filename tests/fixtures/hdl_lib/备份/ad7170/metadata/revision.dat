@@ -1,0 +1,194 @@
+(Cell	ad7170
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.10)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	06/23/20,14:03:42)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.ad7170)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	06/23/20,14:43:15)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.ad7170)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.10)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000be895833)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.7)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/23/20,14:09:55)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.ad7170)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d25038c)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000002f4e5496)
+
+			(Primitives	1
+
+				(Primitive	AD7170
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/23/20,14:03:46)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.ad7170)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	AD7170
+
+							(PackType	AD7170)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001b800353)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001b3c0347)
+
+)
+

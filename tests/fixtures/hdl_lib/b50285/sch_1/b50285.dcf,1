@@ -1,0 +1,35 @@
+( ConstraintFile "b50285"
+	( constraintHeader
+		( objectKey
+			( logical )
+		)
+		( version
+			( 16.5 )
+		)
+		( revisionNumber
+			( logicalViewRevNum 0 )
+			( physicalViewRevNum 0 )
+			( otherViewRevNum 0 )
+		)
+		( contents
+			( dictionaryExtensions )
+			( worksheetCustomizations )
+			( electricalConstraints )
+			( netClasses )
+			( properties )
+		)
+		( precision
+			( units mil )
+			( numberOfDecimalPlaces 2 )
+		)
+	)
+	( DictionaryExtensions
+	)
+	( designConstraints
+		( ruleChanges
+			( allRules )
+			( design "b50285"
+			)
+		)
+	)
+)

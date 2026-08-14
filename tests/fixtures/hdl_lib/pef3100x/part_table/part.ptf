@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PEF31001'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'VQFN44'     | 'PEF31001VSV12' | '集成电路PEF31001VSV12 VQFN44' | 'QFN40P500X600X90-45N' | 'M04.100683'(~PEF31001VSV12) = ''           | 'AC00'  | '集成电路' | 'PEF31001VSV12 VQFN44' | ''        
+
+END_PART
+
+END.
+

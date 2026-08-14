@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LPC176X'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                     | JEDEC_TYPE                 | SN_NUM                = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'LQFP100'    | 'LPC1768FBD100' | '集成电路LPC1768FBD100 LQFP100' | 'QFP50P1600X1600X160-100N' | 'M04.100462'(~LPC1768FBD100) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

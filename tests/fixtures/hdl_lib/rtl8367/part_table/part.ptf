@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8367'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                       | JEDEC_TYPE                 | SN_NUM                  = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE ;
+{========================================================================================}
+ 'LQFP128'    | 'RTL8367RB-VB-CG' | '集成电路RTL8367RB-VB-CG LQFP128' | 'QFP40P1600X1600X160-129N' | 'M04.010135'(~RTL8367RB-VB-CG) = ''          | 'AC00'  | '集成电路' | 'RTL8367RB-VB-CG LQFP128' | ''        
+
+END_PART
+
+END.
+

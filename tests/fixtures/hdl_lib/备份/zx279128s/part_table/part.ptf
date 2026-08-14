@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ZX279128S'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION                | JEDEC_TYPE                      | SN_NUM            = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA394'     | 'ZX279128S' | '集成电路ZX279128S BGA394' | 'BGA394C65P23X23_1500X1500X137' | 'M04.100763'(~ZX279128S) = ''           | 'AC00'  | '集成电路' | 'ZX279128S BGA394' | ''        
+
+END_PART
+
+END.
+

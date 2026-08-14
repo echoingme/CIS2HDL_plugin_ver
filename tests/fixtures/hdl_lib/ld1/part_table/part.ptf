@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LD1'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                     | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'LD1'      | 'LD1' | '' | 'LD1' | ''(~LD1) = ''           | 'AC00'  | '' | '' | ''        
+
+END_PART
+
+END.
+

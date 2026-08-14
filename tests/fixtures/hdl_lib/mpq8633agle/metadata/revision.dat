@@ -1,0 +1,194 @@
+(Cell	mpq8633agle
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.10)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	01/17/24,19:11:28)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.mpq8633agle)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	01/17/24,19:30:05)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.mpq8633agle)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.10)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000007d5d8d58)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.10)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	01/17/24,19:16:25)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mpq8633agle)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d2403be)
+
+		)
+
+		(View	Chips
+
+			(Checksum	0000000020b74f0c)
+
+			(Primitives	1
+
+				(Primitive	MPQ8633AGLE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	01/17/24,19:11:31)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mpq8633agle)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	MPQ8633AGLE
+
+							(PackType	MPQ8633AGLE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001df70409)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c800380)
+
+)
+

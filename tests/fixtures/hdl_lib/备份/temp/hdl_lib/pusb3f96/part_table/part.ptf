@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PUSB3F96'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION               | JEDEC_TYPE | SN_NUM           = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'XSON10'     | 'PUSB3F96' | '集成电路PUSB3F96 XSON10' | 'XSON10'   | 'M04.100260'(~PUSB3F96) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

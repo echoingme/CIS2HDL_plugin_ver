@@ -1,0 +1,23 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'TEST_MARK'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION           | JEDEC_TYPE  | SN_NUM                   = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'TEST_2MM'   | 'SMD_CIRCLE_2MM'   | '表面直径2mm测试点'   | 'TEST_2MM'  | ''(~SMD_CIRCLE_2MM)      = ''           | 'CN00' 
+ 'TEST_0.5MM' | 'SMD_CIRCLE_0.5MM' | '表面直径0.5mm测试点' | 'TEST_05MM' | ''(~SMD_CIRCLE_0.5MM)    = ''           | 'CN00' 
+
+END_PART
+
+PART 'MARK'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION           | JEDEC_TYPE  | SN_NUM                   = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'FMARKS'     | 'S120_C40'         | 'PCB参考点'           | 'FMARKS'    | ''(~S120_C40)            = ''           | 'CN00' 
+
+END_PART
+
+END.
+

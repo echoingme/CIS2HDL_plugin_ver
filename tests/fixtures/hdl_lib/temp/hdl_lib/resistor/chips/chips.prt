@@ -1,0 +1,186 @@
+FILE_TYPE=LIBRARY_PARTS;
+primitive 'RESISTOR_0402';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_0402';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'RESISTOR_0603';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_0603';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'RESISTOR_0805';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_0805';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'RESISTOR_1206';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_1206';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'RESISTOR_2010';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_2010';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'DIP';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='DIP';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'RESISTOR_2512';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_2512';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+primitive 'RESISTOR_0201';
+  pin
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='RESISTOR_0201';
+    BODY_NAME='RESISTOR';
+    PHYS_DES_PREFIX='R';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+END.

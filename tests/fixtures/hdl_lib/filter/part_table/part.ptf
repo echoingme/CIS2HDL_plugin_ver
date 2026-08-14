@@ -1,0 +1,22 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LP_FILTER'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                  | JEDEC_TYPE     | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'LFL15_TC'   | 'LFL152G45TC1A219' | 'µÍÍ¨ÂË²¨Æ÷LFL152G45TC1A219' | 'LFL15_TC_BIG' | 'M04.100162'(~LFL152GG45TC1A219) = ''           | 'AC00'  | 'µÍÍ¨ÂË²¨Æ÷' | 'LFL152G45TC1A219' | ''        
+
+END_PART
+
+PART 'BP_FILTER'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                  | JEDEC_TYPE     | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'HS5524FB06' | 'HS5524FB06'       | '´øÍ¨ÂË²¨Æ÷HS5524FB06'       | 'HS5524FB06'   | 'M04.040001'(~HS5524FB06) = 'ººÌìÏÂ'     | 'AC00'  | '´øÍ¨ÂË²¨Æ÷' | 'HS5524FB06'       | ''        
+
+END_PART
+
+END.
+

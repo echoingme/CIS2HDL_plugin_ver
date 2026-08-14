@@ -1,0 +1,7 @@
+\t (00:00:00) enved 16.6 P001 (v16-6-112A) Windows 32
+\t (00:00:00)     Journal start - Wed Sep 23 10:53:23 2020
+\t (00:00:00)         Host=DESKTOP-185RR8M User=Bacon Pid=11412 CPUs=6
+\t (00:00:00) 
+\i (00:00:03) setwindow form.prfedit
+\i (00:00:03) FORM prfedit cancel  
+\t (00:00:03)     Journal end - Wed Sep 23 10:53:27 2020

@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ABS10'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                          | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION              | LIFE_CYCLE | REPLACE       | PARAMETER                    | USEAGE                               ;
+{========================================================================================}
+ 'SOP4' | 'ABS10' | '贴片二极管ABS10 SOP4' | 'SOP-4'     | 'M03.020124'(~ABS10) = ''           | 'AE00'  | '贴片二极管' | 'SOP-4' | ''         | ''            | ''                           | ''                      
+
+END_PART
+
+END.
+

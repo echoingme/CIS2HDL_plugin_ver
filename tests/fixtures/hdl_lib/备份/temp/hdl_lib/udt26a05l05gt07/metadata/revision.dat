@@ -1,0 +1,194 @@
+(Cell	udt26a05l05gt07
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.4)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	07/19/17,17:09:19)
+
+			(User	Philip)
+
+			(Path	hdllib_lib.udt26a05l05gt07)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	07/19/17,17:10:52)
+
+			(User	Philip)
+
+			(Path	hdllib_lib.udt26a05l05gt07)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.4)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000b622d1cc)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/19/17,17:09:45)
+
+							(User	Philip)
+
+							(Path	hdllib_lib.udt26a05l05gt07)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001ccc03d8)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000e36a4b23)
+
+			(Primitives	1
+
+				(Primitive	UDT26A05L05GT07
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/19/17,17:09:23)
+
+							(User	Philip)
+
+							(Path	hdllib_lib.udt26a05l05gt07)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	UDT26A05L05GT07
+
+							(PackType	UDT26A05L05GT07)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001b1603ac)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001bb803a2)
+
+)
+

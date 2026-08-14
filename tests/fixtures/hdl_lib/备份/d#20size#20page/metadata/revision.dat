@@ -1,0 +1,90 @@
+(Cell	d size page
+
+	(RevisionInfoBlock	
+
+		(Baselined	1)
+
+		(Revision	1.0.0)
+
+		(ModificationStatus	NULL)
+
+		(Status	Baselined)
+
+		(ErrorStatus	1)
+
+		(CreateInfo	
+
+			(Time	03/06/05,16:44:41)
+
+			(User	sureshg)
+
+			(Path	standard.d size page)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000db27e440)
+
+					(RevisionInfoBlock	
+
+						(Baselined	1)
+
+						(Revision	1.0.0)
+
+						(ModificationStatus	NULL)
+
+						(Status	Baselined)
+
+						(ErrorStatus	1)
+
+						(CreateInfo	
+
+							(Time	03/06/05,16:44:41)
+
+							(User	sureshg)
+
+							(Path	standard.d size page)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001da503ad)
+
+		)
+
+		(Checksum	000000001ce203d4)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	15.50-d029)
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001cba03a7)
+
+)
+

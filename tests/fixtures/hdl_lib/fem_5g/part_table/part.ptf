@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SKY85729'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN16'      | 'SKY85729-21' | '集成电路SKY85729-11 QFN16' | 'QFN50P300X300X80-17N' | 'M04.100584'(~SKY85729-11) = ''           | 'AC00'  | '集成电路' | 'SKY85729-11 QFN16' | 'NA'      
+
+END_PART
+
+END.
+

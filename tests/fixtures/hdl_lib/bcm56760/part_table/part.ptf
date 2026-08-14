@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BCM56760'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                       | JEDEC_TYPE                        | SN_NUM                  = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA1760'    | 'BCM56760B0KFSBG' | '集成电路BCM56760B0KFSBG BGA1760' | 'BGA1760C100P42X42_4250X4250X338' | 'M04.100764'(~BCM56760B0KFSBG) = ''           | 'AC00'  | '集成电路' | 'BCM56760B0KFSBG BGA1760' | ''        
+
+END_PART
+
+END.
+

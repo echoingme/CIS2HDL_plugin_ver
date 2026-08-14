@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'INDUCTOR_GM1'
+
+{========================================================================================}
+:PACKAGE_TYPE           | VALUE                  | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                       = MANUFACTURER | BOM_SEQ | TYPE_NAME      | SPECIFICATION          | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'choke-0_85x0_65-h_45' | 'choke-0_85x0_65-h_45' | '共模电感choke-0_85x0_65-h_45' | 'CHOKE-0_85X0_65-H_45' | 'M00.000000'(~CHOKE-0_85X0_65-H_45) = ''           | 'AI00'  | '贴片共模电感' | 'choke-0_85x0_65-h_45' | ''         | ''      | ''        | ''    
+
+END_PART
+
+END.
+

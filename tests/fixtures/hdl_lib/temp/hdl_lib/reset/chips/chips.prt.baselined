@@ -1,0 +1,53 @@
+FILE_TYPE=LIBRARY_PARTS;
+primitive 'SGM706-RYS8G/TR';
+  pin
+    'WDO#':
+      PIN_NUMBER='(8)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+      UNKNOWN_LOADING='TRUE';
+    'MR#':
+      PIN_NUMBER='(1)';
+      INPUT_LOAD='(-0.01,0.01)';
+      UNKNOWN_LOADING='TRUE';
+    'VCC':
+      PIN_NUMBER='(2)';
+      PINUSE='POWER';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      ALLOW_CONNECT='TRUE';
+      UNKNOWN_LOADING='TRUE';
+    'GND':
+      PIN_NUMBER='(3)';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      NO_ASSERT_CHECK='TRUE';
+      NO_DIR_CHECK='TRUE';
+      ALLOW_CONNECT='TRUE';
+    'PFI':
+      PIN_NUMBER='(4)';
+      INPUT_LOAD='(-0.01,0.01)';
+      UNKNOWN_LOADING='TRUE';
+    'RESET':
+      PIN_NUMBER='(7)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+      UNKNOWN_LOADING='TRUE';
+    'WDI':
+      PIN_NUMBER='(6)';
+      INPUT_LOAD='(-0.01,0.01)';
+      UNKNOWN_LOADING='TRUE';
+    'PFO#':
+      PIN_NUMBER='(5)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+      UNKNOWN_LOADING='TRUE';
+  end_pin;
+  body
+    PART_NAME='SGM706-RYS8G/TR';
+    BODY_NAME='SGM706';
+    JEDEC_TYPE='SOIC127P600X175-8N';
+    PHYS_DES_PREFIX='IC';
+    CLASS='IC';
+  end_body;
+end_primitive;
+
+END.

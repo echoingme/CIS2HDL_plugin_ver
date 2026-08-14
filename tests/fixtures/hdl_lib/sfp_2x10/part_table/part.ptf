@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SFP_2X10'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                  | JEDEC_TYPE  | SN_NUM           = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'SFP_2X10'  | 'SFP_2X10' | '' | 'SFP_FP_2X10_80MA' | ''(~SFP_2X10) = ''          | ''  | '' | 'SFP_2X10' | ''        
+
+END_PART
+
+END.
+

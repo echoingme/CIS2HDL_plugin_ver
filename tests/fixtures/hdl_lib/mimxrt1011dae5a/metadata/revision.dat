@@ -1,0 +1,194 @@
+(Cell	mimxrt1011dae5a
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.5)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	06/30/21,14:07:21)
+
+			(User	Bacon)
+
+			(Path	hdllib_lib.mimxrt1011dae5a)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	06/30/21,15:15:30)
+
+			(User	Bacon)
+
+			(Path	hdllib_lib.mimxrt1011dae5a)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.5)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000004a3c229d)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/30/21,14:07:49)
+
+							(User	Bacon)
+
+							(Path	hdllib_lib.mimxrt1011dae5a)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001c6c03ad)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000698d77af)
+
+			(Primitives	1
+
+				(Primitive	MIMXRT1011DAE5A
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/30/21,14:07:24)
+
+							(User	Bacon)
+
+							(Path	hdllib_lib.mimxrt1011dae5a)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	MIMXRT1011DAE5A
+
+							(PackType	MIMXRT1011DAE5A)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001c5303be)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001bcc03a7)
+
+)
+

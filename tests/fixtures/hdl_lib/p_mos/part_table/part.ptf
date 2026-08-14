@@ -1,0 +1,34 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'P_MOS_3'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE            ;
+{========================================================================================}
+ 'SOT23'      | 'DMP3098L-7-F'   | '贴片MOS管DMP3098L-7-F SOT23'    | 'SOT23'    | 'M03.040040'(~DMP3098-7-F) = ''           | 'AF00'  | '贴片MOS管' | 'DMP3098L-7-F SOT23'    | ''         | ''      | ''        | ''               
+ 'SOT23'      | 'Si2325DS'       | '贴片MOS管Si2325DS SOT23'        | 'SOT23'    | 'M03.040046'(~SI2325DS) = ''           | 'AF00'  | '贴片MOS管' | 'Si2325DS SOT23'        | ''         | ''      | ''        | ''               
+ 'SOT23'      | 'JMTL3407A'      | '贴片MOS管JMTL3407A SOT23'       | 'SOT23'    | 'M03.040053'(~JMTL3407A) = ''           | 'AF00'  | '贴片MOS管' | 'JMTL3407A SOT23'       | ''         | ''      | ''        | ''               
+ 'SOT23'      | 'SI2301'         | '贴片MOS管SI2301 SOT23'          | 'SOT23'    | 'M03.040056'(~SI2301)  = ''           | 'AF00'  | '贴片MOS管' | 'SI2301 SOT23'          | ''         | ''      | ''        | ''               
+ 'TO252'      | 'DMP6180SK3Q-13' | '贴片MOS管DMP6180SK3Q-13  TO252' | 'TO252'    | 'M04.100321'(~DMP6180SK3Q-13) = ''           | 'AF00'  | '贴片MOS管' | 'DMP6180SK3Q-13  TO252' | ''         | ''      | ''        | '不用于48V消火花'
+
+END_PART
+
+PART 'P_MOS_4'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE            ;
+{========================================================================================}
+
+END_PART
+
+PART 'P_MOS_8'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE           | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE            ;
+{========================================================================================}
+ 'SO8'        | 'DMP3056LSS-13'  | '集成电路DMP3056LSS-13 SOP8'     | 'SOIC127P600X175-8N' | 'M04.100387'(~DMP3056LSS) = ''           | 'AC00'  | '集成电路'  | 'DMP3056LSS-13 SOP8'    | ''         | ''      | ''        | ''               
+
+END_PART
+
+END.
+

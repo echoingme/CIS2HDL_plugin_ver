@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AUXILIARY'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE  | DESCRIPTION      | JEDEC_TYPE   | SN_NUM       = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION    | LIFE_CYCLE ;
+{========================================================================================}
+ 'L2.9'       | 'L2.9' | '射频线夹子L2.9' | 'FIX290X140' | 'M09.150040'(~L2.9) = ''           | 'AK00'  | '固定连接件' | '射频线夹子L2.9' | ''        
+
+END_PART
+
+END.
+

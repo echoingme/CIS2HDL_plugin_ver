@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LE9643'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE        | DESCRIPTION                | JEDEC_TYPE             | SN_NUM             = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN36'      | 'LE9643AQCT' | '集成电路LE9643AQCT QFN36' | 'QFN40P600X400X90-37N' | 'M04.100853'(~LE9643AQCT) = ''           | 'AC00'  | '集成电路' | 'LE9643AQCT QFN36' | ''        
+
+END_PART
+
+END.
+

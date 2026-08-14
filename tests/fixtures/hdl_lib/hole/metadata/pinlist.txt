@@ -1,0 +1,21 @@
+(Pinlist
+	(Pin
+		(Name 1)
+		(MSB )
+		(LSB )
+		(Type INPUT)
+		(Location Left)
+		(InputLoadLow -0.01)
+		(InputLoadHigh 0.01)
+		(OutputLoadLow )
+		(OutputLoadHigh )
+		(CheckLoad Both)
+		(CheckIO Both)
+		(CheckDir 1)
+		(CheckAssert 1)
+		(CheckOutput 1)
+		(UnknownLoading 0)
+	)
+
+
+)

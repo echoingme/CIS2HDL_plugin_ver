@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RF_SW'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION | JEDEC_TYPE | SN_NUM          = MANUFACURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE ;
+{========================================================================================}
+ 'rf_sw'    | 'rf_sw' | ''          | 'rf_sw'  | ''(~rf_sw)    = ''          | ''      | ''        | ''            | ''        
+
+END_PART
+
+END.
+

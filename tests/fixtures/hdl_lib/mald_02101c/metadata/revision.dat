@@ -1,0 +1,194 @@
+(Cell	mald_02101c
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.4)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	09/15/21,15:19:15)
+
+			(User	Bacon)
+
+			(Path	hdllib_lib.mald_02101c)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	09/15/21,17:11:48)
+
+			(User	Bacon)
+
+			(Path	hdllib_lib.mald_02101c)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.4)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000007ba3eec1)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	09/15/21,15:32:36)
+
+							(User	Bacon)
+
+							(Path	hdllib_lib.mald_02101c)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001e35040c)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000b6d2cdc5)
+
+			(Primitives	1
+
+				(Primitive	MALD_02101C
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	09/15/21,15:19:19)
+
+							(User	Bacon)
+
+							(Path	hdllib_lib.mald_02101c)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	MALD_02101C
+
+							(PackType	MALD_02101C)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001cb203ab)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001cd003cf)
+
+)
+

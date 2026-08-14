@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'GPY211'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE    | DESCRIPTION             | JEDEC_TYPE             | SN_NUM         = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION  | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN56'      | 'GPY211' | '集成电路 GPY211 QFN56' | 'QFN40P700X700X90-57N' | 'M04.100964'(~GPY211) = ''          | 'AC00'  | '集成电路' | 'GPY211 QFN56' | ''        
+
+END_PART
+
+END.
+

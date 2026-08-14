@@ -1,0 +1,36 @@
+sequenceDiagram
+    autonumber
+    participant CE as ConversionEngine._stage_generate
+    participant CSA as CSAWriter._build_csa_content_conn
+    participant OR as OverlapResolver
+    participant PG as _compute_pin_geometry
+    participant PS as wire_simplifier.plan_parallel_short
+    participant RW as Router(WireLayoutEngine p0)
+    participant TL as TextLayoutOptimizer
+    participant NNC as net_name_connect.net_name_endpoints
+    participant REP as AestheticReport
+
+    CE->>CSA: conn/page_conn
+    CSA->>CSA: body_coords(CoordTransform)
+    CSA->>OR: resolve_passives(movables, fixed, max_move=200)  # 必须在 pin 几何前
+    OR-->>CSA: displacements
+    CSA->>CSA: body_coords += disp; _snap_body_coords(50)      # D8 网格对齐
+    CSA->>PG: _compute_pin_geometry(conn, page_conn, body_coords)
+    PG->>PG: pin_coords = body + rotate(resolved_offset)       # D8 _pin_offset_map 同源
+    PG->>PG: [D5] _build_ioport_cluster_order(net_pin_map)     # edge_layout 聚类槽位
+    PG->>PG: IOPORT 引脚入 net_pin_map(_ioport_pin_coord 同源)
+    PG-->>CSA: pin_coords / pin_name_map / net_pin_map
+    CSA->>CSA: source_pins = _choose_sig_name_sources(net_pin_map)
+    CSA->>PS: [D4] 非 GND 网簇规划 → hub_coords + 短接段
+    PS-->>CSA: route_map(簇→hub) + short_wires
+    CSA->>RW: _route_nets(route_map, body_outlines, pin_bodies)
+    RW->>RW: [D1] 三段式 stub（延伸→折线→调头）+ [D2] outline 避障
+    RW-->>CSA: routed_nets
+    CSA->>CSA: [D4] 短接段并入 routed.wires + compute_dots（GND 簇合并同区）
+    CSA->>REP: [D2] wires_through_bodies(自身引脚引出豁免)
+    CSA->>TL: [D7] optimize(标签 orient 随 R 行)  # 仅 text_layout.enabled
+    CSA->>CSA: FORCEADD/LASTPIN 发射（[D8] expected=_pin_offset_map 同源）
+    CSA->>CSA: IOPORT 发射（[D5] _ioport_position_cfg 聚类槽位）
+    CSA->>NNC: [D3] net_name_endpoints(net_pin_map, wire_segment_map, cross_page, use_net_name)
+    NNC-->>CSA: 悬空端标签（去重后并入 SIG_NAME 发射）
+    CSA-->>CE: CSA 页内容

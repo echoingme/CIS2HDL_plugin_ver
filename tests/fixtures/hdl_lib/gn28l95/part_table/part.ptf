@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'GN28L95'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN32'      | 'GN28L95-QFN-TR' | '集成电路GN28L95-QFN-TR QFN32' | 'QFN40P400X400X80-33N' | 'M04.100773'(~GN28L95-QFN-TR) = ''           | 'AC00'  | '集成电路' | 'GN28L95-QFN-TR QFN32' | ''        
+
+END_PART
+
+END.
+

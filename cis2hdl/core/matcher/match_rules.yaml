@@ -1,0 +1,95 @@
+# CIS2HDL 匹配规则配置
+# 可通过编辑此文件或运行 `cis2hdl scan-hdl --update-config` 自动更新
+# 
+# 版本: 0.8.2
+# 自动生成: 2026-08-05
+
+# ── Refdes前缀 → HDL器件类别映射 ──
+# 键: 位号前缀（最长前缀优先匹配）
+# 值: HDL库中对应的器件类别目录名列表
+prefix_to_category:
+  C: [capacitor]
+  R: [resistor, potentiometer]
+  U: [amplifier, ldo, dc_dc, interface, logic_gate, microcontroller, ic, mod]
+  D: [diode, led, zener, tvs]
+  Q: [n_mos, p_mos, npn, pnp, jfet]
+  L: [inductor, ferrite, transformer]
+  LB: [fb, ferrite_bead, inductor]
+  FB: [fb, ferrite_bead]
+  Y: [crystal, osc, resonator]
+  J: [connector, rj45, rj11, con3, con4, header, screw]
+  TP: [hole, mark, test_point]
+  F: [fuse]
+  T: [transformer, c_transformer, v_transformer, network_tf, inductor_gm]
+  SW: [switch]
+  BAT: [battery]
+  X: [crystal, osc, resonator]
+  M: [mod, mark, mosfet, n_mos, p_mos]
+  S: [key, reset, switch]
+  IC: [ic, interface, logic_gate, amplifier, dc_dc, ldo, microcontroller]
+  LED: [led]
+  ZD: [zener, diode, tvs]
+  DZ: [zener, diode, tvs]
+  VR: [ldo, dc_dc]
+  RN: [resistor, resistor_network]
+  K: [relay, switch]
+  Z: [zener, diode]
+  ROUTE: []  # 布线标记，不匹配
+  P: [connector, header, con3, con4]
+
+# ── VALUE → 器件类别提示 ──
+# 当组件值匹配已知型号时，自动增强匹配类别并提升置信度
+value_category_hints:
+  # 二极管型号
+  DZ: [zener, diode, tvs]
+  DZ_: [zener, diode, tvs]
+  DZ3: [zener, diode, tvs]
+  "1N4148": [diode]
+  "1N4007": [diode]
+  BAT54: [diode, schottky]
+  MBR: [diode, schottky]
+  # 连接器型号
+  MJ8: [connector, rj45]
+  UART: [connector, header]
+  USB: [connector, header]
+  PWC: [connector]
+  CON: [connector]
+  # 测试点
+  TESTPOINT: [hole, test_point, mark]
+  # 电感值（R*前缀但nH/uH值）
+  NH: [inductor, ferrite, ferrite_bead]
+  UH: [inductor, ferrite]
+
+# ── HDL库扫描配置 ──
+# 自动扫描设置
+hdl_scan:
+  auto_scan_on_convert: true       # 每次转换时自动扫描
+  scan_interval_days: 7            # 缓存有效期（天）
+  exclude_patterns:                # 排除的目录模式
+    - "c#20size#20page"
+    - "d#20size#20page"
+    - "e#20size#20page"
+    - "gnd_earth"
+    - "gnd_power"
+    - "vcc_circle"
+    - "hole"                        # 安装孔（非元件）
+    - "mark"                        # 标记点（非元件）
+
+# ── 器件名别名表 (v2c) ──
+# 用于 ActiveMatcher 部件名 token 匹配：
+# 当 CIS part_name 的 token 在候选名中找不到直接子串时，
+# 若 token 命中别名表，则别名中的任意词出现在候选名中也视为匹配。
+# 键: 小写 token；值: 候选名中常见的小写替代词列表。
+part_name_aliases:
+  mj8: [rj45, modular, jack]
+  mj: [rj45, modular]
+
+# ── 匹配置信度配置 ──
+matching:
+  exact_threshold: 0.95
+  fuzzy_threshold: 0.75
+  feature_threshold: 0.60
+  fallback_threshold: 0.30
+  unity_boost_single: 0.15         # 单候选提升
+  value_hint_boost: 0.20           # 值提示提升
+  max_confidence: 0.85             # 回退匹配上限

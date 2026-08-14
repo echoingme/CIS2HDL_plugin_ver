@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'TMI7608R'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN7x7-48'      | 'TMI7608R' | '集成电路TMI7608R QFN7x7-48' | 'QFN50P700X700X80-49N' | ''(~TMI7608R) = ''           | 'AC00'  | '集成电路' | 'TMI7608R QFN7x7-48' | ''        
+
+END_PART
+
+END.
+

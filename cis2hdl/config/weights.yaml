@@ -1,0 +1,11 @@
+# MultiScorer dimension weights
+# Edit these values to adjust match scoring behavior.
+# All weights are normalized to sum to 1.0.
+
+weights:
+  footprint: 0.25    # extract_pkg_size match against primitive name
+  prefix: 0.20        # PHYS_DES_PREFIX affinity (dynamic learning)
+  pin_count: 0.20     # pin count proximity
+  value: 0.15         # normalized value comparison
+  jedec: 0.10         # JEDEC_TYPE exact match
+  part_name: 0.10     # substring overlap scoring

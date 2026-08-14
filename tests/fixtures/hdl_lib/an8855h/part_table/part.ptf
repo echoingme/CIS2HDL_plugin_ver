@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AN8855H'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                     | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN88'      | 'AN8855H' | '集成电路 AN8855H QFN88' | 'QFN40P1000X1000X90-89N' | ''(~AN8855H) = ''           | 'AC00'  | '集成电路' | 'AN8855H QFN88' | ''
+
+END_PART
+
+END.
+

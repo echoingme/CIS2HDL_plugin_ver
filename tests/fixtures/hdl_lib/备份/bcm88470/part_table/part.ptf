@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BCM88470'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE(OPT)         | DESCRIPTION(OPT)                      | JEDEC_TYPE(OPT)                   | SN_NUM(OPT)              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                 | LIFE_CYCLE ;
+{========================================================================================}
+ 'FCBGA1365'  | 'BCM88470CB0KFSBG' | '集成电路BCM88470CB0KFSBG  FCBGA1365' | 'BGA1365C100P37X37_3750X3750X353' | 'M04.100827'(~BCM88470CB0KFSBG) = ''           | 'AC00'  | '集成电路' | 'BCM88470CB0KFSBG  FCBGA1365' | ''        
+
+END_PART
+
+END.
+

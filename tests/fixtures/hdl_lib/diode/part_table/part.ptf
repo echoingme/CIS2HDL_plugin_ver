@@ -1,0 +1,111 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'DIODE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER              | USEAGE                            ;
+{========================================================================================}
+ 'SOD323'     | 'BAS21-03W'     | '贴片二极管BAS21-03W SOD323'     | 'SOD2513X90N'    | 'M03.020021'(~BAS21-03W) = ''           | 'AE00'  | '贴片二极管' | 'BAS21-03W SOD323'     | ''         | ''            | 'VR=250V  IF=200mA'    | ''                                :  = ''
+ 'SMB'        | 'CP1101SB'      | '贴片二极管CP1101SB SMB'         | 'CAPMP5336X244N' | 'M03.020104'(~CP1101SB) = ''           | 'AE00'  | '贴片二极管' | 'CP1101SB SMB'         | ''         | ''            | ''                     | '电话口防雷，ONU类项目默认不使用'
+ 'SOD323'     | 'BAS316'        | '贴片二极管BAS316 SOD323'        | 'SOD2513X90N'    | 'M03.020035'(~BAS316) = ''           | 'AE00'  | '贴片二极管' | 'BAS316 SOD323'        | 'NA'       | ''            | 'VR=100V  IF=250mA'    | ''                               
+ 'SMB'        | 'ES2B'          | '贴片二极管ES2B SMB'             | 'CAPMP5336X244N' | 'M03.020057'(~ES2B)   = ''           | 'AE00'  | '贴片二极管' | 'ES2B SMB'             | ''         | ''            | 'VRRM=100V  IF=2A'     | ''                               
+ 'SOD123'     | '1N4148W-7-F'   | '贴片二极管1N4148W-7-F SOD123'   | 'SOD3616X135N'   | 'M03.020017'(~1N4148W-7-F) = ''           | 'AE00'  | '贴片二极管' | '1N4148W-7-F SOD123'   | ''         | ''            | 'VRRM=100V  IFM=300mA' | ''                               
+ 'DO-214AC'   | 'ES1D'          | '贴片二极管ES1D DO-214AC'        | 'CAPMP5327X244N' | 'M03.020004'(~ES1D)   = ''           | 'AE00'  | '贴片二极管' | 'ES1D DO-214AC'        | ''         | ''            | 'VRRM=200V  IF=1A'     | ''                               
+ 'SOD123'     | 'BZT52C43-7-F'  | '贴片二极管BZT52C43-7-F SOD123'  | 'SOD3616X135N'   | 'M03.020067'(~BZT52C43-7-F) = ''           | 'AE00'  | '贴片二极管' | 'BZT52C43-7-F SOD123'  | 'NA'       | ''            | ''                     | ''                               
+ 'SOD123'     | 'MMSZ5248B-7-F' | '贴片二极管MMSZ5248B-7-F SOD123' | 'SOD3616X135N'   | 'M03.020093'(~MMSZ5248B-7-F) = ''           | 'AE00'  | '贴片二极管' | 'MMSZ5248B-7-F SOD123' | 'NA'       | ''            | ''                     | ''                               
+ 'SMA'        | 'STPS1150A'     | '贴片二极管STPS1150A SMA'        | 'CAPMP5327X244N' | 'M03.020087'(~STPS1150A) = ''           | 'AE00'  | '贴片二极管' | 'STPS1150A SMA'        | 'NA'       | ''            | ''                     | ''                               
+ 'DO-214AC'   | 'ES2D'          | '贴片二极管ES2D DO-214AC'        | 'CAPMP5327X244N' | 'M03.020125'(~ES2D)   = ''           | 'AE00'  | '贴片二极管' | 'ES2D DO-214AC'        | 'NA'       | ''            | 'VRRM=200V  IF=2A'     | ''                               
+ 'SOD323'     | '1N4148WS-7-F'  | '贴片二极管1N4148WS-7-F SOD323'  | 'SOD2513X90N'    | 'M03.010013'(~1N4148WS-7-F) = ''           | 'AE00'  | '贴片二极管' | '1N4148WS-7-F SOD323'  | 'NA'       | ''            | ''                     | ''                               
+ 'SMA'        | 'ES1J'          | '贴片二极管ES1J SMA'             | 'CAPMP5327X244N' | 'M03.020002'(~ES1J)   = ''           | 'AE00'  | '贴片二极管' | 'ES1J SMA'             | 'NA'       | ''            | 'VRRM=600V  IF=1A'     | ''                               
+ 'DO-214AC'   | 'SS34'          | '贴片二极管SS34 DO-214AC'        | 'CAPMP5327X244N' | 'M03.020012'(~SS34)   = ''           | 'AE00'  | '贴片二极管' | 'SS34 DO-214AC'        | ''         | ''            | ''                     | ''                               
+ 'SOD123'     | '1N4148W'       | '贴片二极管1N4148W SOD123'       | 'SOD3616X135N'   | 'M03.020134'(~1N4148W) = ''           | 'AE00'  | '贴片二极管' | '1N4148W SOD123'       | 'NA/NA'    | ''            | ''                     | ''                               
+ 'SMC'        | 'B540C'         | '贴片二极管B540C SMC'            | 'CAPMP7959X250N' | 'M03.020043'(~B540C)  = ''           | 'AE00'  | '贴片二极管' | 'B540C SMC'            | 'NA'       | ''            | ''                     | ''                               
+ 'DO-214AC'   | 'SS24'          | '贴片二极管SS24 DO-214AC'        | 'CAPMP5327X244N' | 'M03.020007'(~SS24)   = ''           | 'AE00'  | '贴片二极管' | 'SS24 DO-214AC'        | 'NA'       | ''            | ''                     | ''                               
+ 'LL-34'      | 'LL4148ST'      | '贴片二极管LL4148ST LL-34'       | 'DIOMELF3415N'   | 'M03.020085'(~LL4148ST) = ''           | 'AE00'  | '贴片二极管' | ''                     | 'NA'       | '1N4148W-7-F' | ''                     | ''                               
+ 'DO-214AB'   | 'SS64'          | '贴片二极管SS64 DO-214AB'        | 'CAPMP7959X250N' | 'M03.020307'(~SS64)   = ''           | 'AE00'  | '贴片二极管' | 'SS64 DO-214AB'        | ''         | ''            | 'VRRM=40V  IF=6A'      | ''                               
+
+END_PART
+
+PART 'DIODE_1NC'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER              | USEAGE                            ;
+{========================================================================================}
+ 'TO252-1'    | 'ED504S'        | '贴片二极管ED504S TO252'         | 'TO252-A'        | 'M03.020034'(~ED504S) = ''           | 'AE00'  | '贴片二极管' | 'ED504S TO252'         | ''         | ''            | 'VRRM=400V  IF=5A'     | ''                               
+ 'SOT23'      | 'BAS16-7-F'     | '贴片二极管BAS16-7-F SOT23'      | 'SOT23'          | 'M03.020068'(~BAS16-7-F) = ''           | 'AE00'  | '贴片二极管' | 'BAS16-7-F SOT23'      | 'NA'       | ''            | ''                     | ''                               
+ 'SOT23'      | 'BAS21LT1'      | '贴片二极管BAS21LT1 SOT23'       | 'SOT23'          | 'M03.020040'(~BAS21LT1) = ''           | 'AE00'  | '贴片二极管' | 'BAS21LT1 SOT23'       | 'NA/NA'    | ''            | ''                     | ''                               
+ 'SOT23'      | 'BZX84C18'      | '贴片二极管BZX84C18 SOT23'       | 'SOT23'          | 'M03.020136'(~BZX84C18) = ''           | 'AE00'  | '贴片二极管' | 'BZX84C18 SOT23'       | 'NA'       | ''            | ''                     | ''                               
+
+END_PART
+
+PART 'D_DIODE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER              | USEAGE                            ;
+{========================================================================================}
+ 'TO-263AB'   | 'MBRS10100'     | '贴片二极管MBRS10100 TO-263AB'   | 'TO-263AB'       | 'M03.020080'(~MBRS10100) = ''           | 'AE00'  | '贴片二极管' | 'MBRS10100 TO-263AB'   | ''         | ''            | 'VRRM=100V  IF=10A'    | ''                               
+ 'SOT23'      | 'BAV23C'        | '贴片二极管BAV23C SOT23'         | 'SOT23'          | 'M03.030047'(~BAV23C) = ''           | 'AE00'  | '贴片二极管' | 'BAV23C SOT23'         | 'NA'       | ''            | ''                     | ''                               
+ 'TO-263AB'   | 'MBRS20100'     | '贴片二极管MBRS20100 TO-263AB'   | 'TO-263AB'       | 'M03.020121'(~MBRS20100) = ''           | 'AE00'  | '贴片二极管' | 'MBRS20100 TO-263AB'   | ''         | ''            | 'VRRM=100V  IF=20A'    | ''                               
+
+END_PART
+
+PART 'REGULATOR'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER              | USEAGE                            ;
+{========================================================================================}
+ 'SOT23'      | 'AZ431AN-ATRE1' | '贴片二极管AZ431AN-ATRE1 SOT23'  | 'SOT23'          | 'M03.030010'(~AZ431AN-ATRE1) = ''           | 'AF00'  | '贴片二极管' | 'AZ431AN-ATRE1 SOT23'  | ''         | ''            | ''                     | '稳压二极管'                     
+
+END_PART
+
+PART 'D_DIODE_B'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER                 | USEAGE                            ;
+{========================================================================================}
+ 'SOT23'      | 'BAV23A'        | '贴片二极管BAV23A SOT23'         | 'SOT23'          | 'M03.030043'(~BAV23A) = ''           | 'AE00'  | '贴片二极管' | 'BAV23A SOT23'         | ''         | ''            | 'VRRM=250V  IF=125/225mA' | ''                               
+
+END_PART
+
+PART 'D_DIODE_C'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER                 | USEAGE                            ;
+{========================================================================================}
+ 'SOT23'      | 'BAV23S'        | '贴片二极管BAV23S SOT23'         | 'SOT23'          | 'M03.030041'(~BAV23S) = ''           | 'AE00'  | '贴片二极管' | 'BAV23S SOT23'         | ''         | ''            | 'VRRM=250V  IF=125/225mA' | ''                               
+ 'SOT23'      | 'MMBD3004S-7-F' | '贴片二极管MMBD3004S-7-F SOT23'  | 'SOT23'          | 'M03.020066'(~MMBD3004S-7-F) = ''           | 'AE00'  | '贴片二极管' | 'MMBD3004S-7-F SOT23'  | 'NA'       | ''            | 'VRRM=350V  IF=125/225mA' | ''                               
+ 'SOT23'      | 'BAV99'         | '贴片二极管BAV99 SOT23'          | 'SOT23'          | 'M03.020122'(~BAV99)  = ''           | 'AE00'  | '贴片二极管' | 'BAV99 SOT23'          | 'NA'       | ''            | 'VRRM=70V  IF=200mA'      | ''                               
+
+END_PART
+
+PART 'D_DIODE_CATHODE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                      | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION          | LIFE_CYCLE | REPLACE       | PARAMETER                    | USEAGE                               ;
+{========================================================================================}
+ 'SMB'        | 'CP3500SB'      | '贴片二极管CP3500SB SMB'         | 'CAPMP5336X244N' | 'M03.010029'(~CP3500SB) = ''           | 'AE00'  | '贴片二极管' | 'CP3500SB SMB'         | ''         | ''            | '电话防雷/网口防雷/350V泄放' | ''                                  
+ 'SOD323'     | 'BV03C'         | '贴片二极管BV03C SOD323'         | 'SOD2513X90N'    | 'M03.040005'(~BV03C)  = ''           | 'AE00'  | '贴片二极管' | 'BV03C SOD323'         | 'NA'       | ''            | ''                           | '差模防雷'                          
+ 'SMB'        | 'SMBJ18CA'      | '贴片二极管SMBJ18CA SMB'         | 'CAPMP5336X244N' | 'M03.020083'(~SMBJ18CA) = ''           | 'AE00'  | '贴片二极管' | 'SMBJ18CA SMB'         | ''         | ''            | ''                           | '默认ONU类不使用'                   
+ 'SMA'        | 'SMAJ100CA'     | '贴片二极管SMAJ100CA SMA'        | 'CAPMP5327X244N' | 'M03.020090'(~SMAJ100CA) = ''           | 'AE00'  | '贴片二极管' | 'SMAJ100CA SMA'        | ''         | ''            | ''                           | '双向瞬态抑制二极管'                
+ 'SMA'        | 'SMAJ18CA'      | '贴片二极管SMAJ18CA SMA'         | 'CAPMP5327X244N' | 'M03.020105'(~SMAJ18CA) = ''           | 'AE00'  | '贴片二极管' | 'SMAJ18CA SMA'         | ''         | ''            | ''                           | '双向瞬态抑制二极管/ONU类默认不焊接'
+ 'SMA'        | 'SMAJ15CA'      | '贴片二极管SMAJ15CA SMA'         | 'CAPMP5327X244N' | 'M03.020115'(~SMAJ15CA) = ''           | 'AE00'  | '贴片二极管' | 'SMAJ15CA SMA'         | ''         | ''            | ''                           | '双向瞬态抑制二极管/ONU类默认不焊接'
+ 'SMA'        | 'SMAJ6.0CA'     | '贴片二极管SMAJ6.0CA SMA'        | 'CAPMP5327X244N' | 'M03.020119'(~SMAJ6.0CA) = ''           | 'AE00'  | '贴片二极管' | 'SMAJ6.0CA SMA'        | ''         | ''            | ''                           | ''                                  
+ 'DO-15'      | 'P6KE18CA'      | '插件二极管P6KE18CA DO-15'       | 'DO-15'          | 'M03.020065'(~P6KE18CA) = ''           | 'BE00'  | '插件二极管' | 'P6KE18CA DO-15'       | 'NA'       | ''            | ''                           | ''                                  
+ 'DO-15'      | 'P6KE15CA'      | '插件二极管P6KE15CA DO-15'       | 'DO-15'          | 'M03.040013'(~P6KE15CA) = ''           | 'BE00'  | '插件二极管' | 'P6KE15CA DO-15'       | 'NA'       | ''            | ''                           | ''                                  
+ 'SOD323'     | 'SLC05C'        | '贴片二极管SLC05C SOD323'        | 'SOD2513X90N'    | 'M03.010016'(~SLC05C) = ''           | 'AE00'  | '贴片二极管' | 'SLC05C SOD323'        | 'NA/NA'    | ''            | ''                           | '差模防雷'                          
+ 'SMB'        | 'CP0300SC'      | '贴片二极管CP0300SC SMB'         | 'CAPMP5336X244N' | 'M03.010034'(~CP0300SC) = ''           | 'AE00'  | '贴片二极管' | 'CP0300SC SMB'         | ''         | ''            | '6KV防雷/30V泄放'            | ''                                  
+ 'SOD323'     | 'JEB05C'        | '贴片二极管JEB05C SOD323'        | 'SOD2513X90N'    | 'M03.010203'(~JEB05C) = ''           | 'AE00'  | '贴片二极管' | 'JEB05C SOD323'        | ''         | ''            | ''                           | '差模防雷'                          
+
+END_PART
+
+PART 'D_DIODE_ANODE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                          | JEDEC_TYPE       | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION              | LIFE_CYCLE | REPLACE       | PARAMETER                    | USEAGE                               ;
+{========================================================================================}
+ 'DFN1006-2L' | 'ESD5451N-2/TR' | '贴片二极管ESD5451N-2/TR DFN1006-2L' | 'DFN1006-2L'     | 'M03.010207'(~ESD5451N-2/TR) = ''           | 'AE00'  | '贴片二极管' | 'ESD5451N-2/TR DFN1006-2L' | ''         | ''            | ''                           | '静电防护器件'                      
+
+END_PART
+
+END.
+

@@ -1,0 +1,248 @@
+(Cell	power_dip4
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.14)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	08/21/15,14:46:57)
+
+			(User	Administrator)
+
+			(Path	hdl_vs_lib.power_dip4)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	08/21/15,15:12:24)
+
+			(User	Administrator)
+
+			(Path	hdl_vs_lib.power_dip4)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.14)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000004cc8803d)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	08/21/15,15:11:22)
+
+							(User	Administrator)
+
+							(Path	hdl_vs_lib.power_dip4)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001cc903b2)
+
+		)
+
+		(View	Schematic
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.1)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Dcf	
+
+				(Checksum	0000000003469ab3)
+
+			)
+
+			(Xcon	
+
+				(Checksum	00000000a4ad4ba1)
+
+			)
+
+			(Pages	0)
+
+			(Checksum	000000001edc0409)
+
+		)
+
+		(View	Chips
+
+			(Checksum	0000000069d9f7f7)
+
+			(Primitives	1
+
+				(Primitive	POWER_DIP4
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.6)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	08/21/15,14:52:29)
+
+							(User	Administrator)
+
+							(Path	hdl_vs_lib.power_dip4)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	POWER_DIP4
+
+							(PackType	POWER_DIP4)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+						(Linkages	
+
+							(DefaultFootPrint	
+
+								(Name	DC_4P_yz)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001cbe03b1)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	SPECCTRAQuest_EE)
+
+	)
+
+	(Checksum	000000001da003d2)
+
+)
+

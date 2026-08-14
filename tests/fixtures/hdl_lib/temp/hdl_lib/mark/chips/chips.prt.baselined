@@ -1,0 +1,22 @@
+FILE_TYPE=LIBRARY_PARTS;
+primitive 'TEST_PORT';
+  pin
+    'TP':
+      PIN_NUMBER='(1)';
+      PIN_TYPE='ANALOG';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      NO_ASSERT_CHECK='TRUE';
+      NO_DIR_CHECK='TRUE';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='TEST_PORT';
+    BODY_NAME='MARK';
+    JEDEC_TYPE='TEST_PORT';
+    PHYS_DES_PREFIX='TP';
+    CLASS='DISCRETE';
+  end_body;
+end_primitive;
+
+END.

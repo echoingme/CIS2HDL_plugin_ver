@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8192XAR'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION             | JEDEC_TYPE               | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION   | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN76'      | 'RTL8192XAR-CG' | '集成电路RTL8192XAR-CG' | 'QFN40P900X900X90-77N_A' | 'M04.100788'(~RTL8192XAR-CG) = ''           | 'AC00'  | '集成电路' | 'RTL8192XAR-CG' | ''        
+
+END_PART
+
+END.
+

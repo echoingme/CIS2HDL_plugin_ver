@@ -1,0 +1,60 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'DDR2_84'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                       | JEDEC_TYPE        | SN_NUM                   = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA84'      | 'W9751G6NB-25'     | '集成电路W9751G6NB-25 FBGA84'     | 'BGA84_080M_15X9' | 'M04.100566'(~W9751G6NB-25) = ''           | 'AC00'  | '集成电路' | 'W9751G6NB-25 FBGA84'     | ''        
+ 'BGA84'      | 'MT47H64M16NF-25E' | '集成电路MT47H64M16NF-25E FBGA84' | 'BGA84_080M_15X9' | 'M04.100611'(~MT47H64M16NF-25E) = ''           | 'AC00'  | '集成电路' | 'MT47H64M16NF-25E FBGA84' | ''        
+ 'BGA84'      | 'W971GG6SB-25'     | '集成电路W971GG6SB-25 FBGA84'     | 'BGA84_080M_15X9' | 'M04.100671'(~W971GG6SB-25) = ''           | 'AC00'  | '集成电路' | 'W971GG6SB-25 FBGA84'     | ''        
+ 'BGA84'      | 'NT5TU64M16HG-AC'  | '集成电路NT5TU64M16HG-AC FBGA84'  | 'BGA84_080M_15X9' | 'M04.100684'(~NT5TU64M16HG-AC) = ''           | 'AC00'  | '集成电路' | 'NT5TU64M16HG-AC FBGA84'  | ''        
+
+END_PART
+
+PART 'DDR3_96'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                           | JEDEC_TYPE                   | SN_NUM                       = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                 | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA96'      | 'K4B1G1646I-BCMA'          | '集成电路K4B1G1646I-BCMA FBGA96'      | 'BGA96C80P9X16_800X1400X110' | 'M04.100524'(~K4B1G1646I-BCMA) = ''           | 'AC00'  | '集成电路' | 'K4B1G1646I-BCMA FBGA96'      | ''        
+ 'BGA96'      | 'K4B2G1646F-BYMA'          | '集成电路K4B2G1646F-BYMA FBGA96'      | 'BGA96C80P9X16_800X1400X110' | 'M04.100495'(~K4B2G1646F-BYMA) = ''           | 'AC00'  | '集成电路' | 'K4B2G1646F-BYMA FBGA96'      | ''        
+ 'BGA96'      | 'K4B4G1646E-BYMA'          | '集成电路K4B4G1646E-BYMA FBGA96'      | 'BGA96C80P9X16_800X1400X110' | 'M04.100612'(~K4B4G1646E-BYMA) = ''           | 'AC00'  | '集成电路' | 'K4B4G1646E-BYMA FBGA96'      | ''        
+ 'BGA96'      | 'MT41K256M16TW-107:P'      | '集成电路MT41K256M16TW-107:P FBGA96'  | 'BGA96C80P9X16_800X1400X110' | 'M04.100610'(~MT41K256M16TW-107:P) = ''           | 'AC00'  | '集成电路' | 'MT41K256M16TW-107:P FBGA96'  | ''        
+ 'BGA96'      | 'MT41K64M16TW-107IT:J'     | '集成电路MT41K64M16TW-107IT:J FBGA96' | 'BGA96C80P9X16_800X1400X110' | 'M04.100613'(~MT41K64M16TW-107IT:J) = ''           | 'AC00'  | '集成电路' | 'MT41K64M16TW-107IT:J FBGA96' | ''        
+ 'BGA96'      | 'K4B4G1646E-BCMA'          | '集成电路K4B4G1646E-BCMA FBGA96'      | 'BGA96C80P9X16_800X1400X110' | 'M04.100692'(~K4B4G1646E-BCMA) = ''           | 'AC00'  | '集成电路' | 'K4B4G1646E-BCMA FBGA96'      | ''        
+ 'BGA96'      | 'MT41K128M16JT-125:K'      | '集成电路MT41K128M16JT-125:K FBGA96'  | 'BGA96C80P9X16_800X1400X110' | 'M04.100715'(~MT41K128M16JT-125:K) = ''           | 'AC00'  | '集成电路' | 'MT41K128M16JT-125:K FBGA96'  | ''        
+ 'VFBGA96'    | 'W631GU6NB-12'             | '集成电路W631GU6NB-12 VFBGA96'        | 'BGA96C80P9X16_800X1400X110' | 'M04.030004'(~W631GU6NB-12)  = ''           | 'AC00'  | '集成电路' | 'W631GU6NB-12 VFBGA96'        | ''        
+ 'BGA96'      | 'SCB15H1G160CF-13K  BGA96' | '集成电路SCB15H1G160CF-13K  BGA96'    | 'BGA96C80P9X16_800X1400X110' | 'M04.030003'(~SCB15H1G160CF-13K) = ''           | 'AC00'  | '集成电路' | 'SCB15H1G160CF-13K  BGA96'    | ''        
+
+END_PART
+
+PART 'DDR3_78'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                           | JEDEC_TYPE                   | SN_NUM                       = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                 | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA78'      | 'MT41K512M8DA-107:P'       | '集成电路MT41K512M8DA-107:P BGA78'    | 'BGA78C80P9X13_800X1050X110' | 'M04.100738'(~MT41K512M8DA-107:P) = ''           | 'AC00'  | '集成电路' | 'MT41K512M8DA-107:P BGA78'    | ''        
+
+END_PART
+
+PART 'DDR4_96'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                              | JEDEC_TYPE                   | SN_NUM                          = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                   | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA96'      | 'MT40A512M16TB-062E IT:R'  | '集成电路MT40A512M16TB-062E IT:R  BGA96' | 'BGA96C80P9X16_750X1300X110' | 'M04.100828'(~MT40A512M16TB-062E IT:R) = ''           | 'AC00'  | '集成电路' | 'MT40A512M16TB-062E IT:R BGA96' | ''        
+
+END_PART
+
+PART 'LPDDR4_200'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                               | JEDEC_TYPE                         | SN_NUM                           = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                     | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA200'     | 'MT53E128M32D2FW-046 WT:A' | '集成电路MT53E128M32D2FW-046 WT:A BGA200' | 'BGA200C80X65P12X22_1000X1450X110' | 'M04.100829'(~MT53E128M32D2FW-046 WT:A) = ''           | 'AC00'  | '集成电路' | 'MT53E128M32D2FW-046 WT:A BGA200' | ''        
+
+END_PART
+
+END.
+

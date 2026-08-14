@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LD_EPAD'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                     | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'LD_EPAD'      | 'LD_EPAD' | '' | 'LD_EPAD' | ''(~LD_EPAD) = ''           | 'AC00'  | '' | '' | ''        
+
+END_PART
+
+END.
+

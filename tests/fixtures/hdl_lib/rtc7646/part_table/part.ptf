@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTC7646'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION             | JEDEC_TYPE              | SN_NUM          = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION   | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN16'      | 'RTC7646' | '集成电路RTC7646 QFN16' | 'QFN50P300X300X100-17N' | 'M04.100966'(~RTC7646) = ''           | 'AC00'  | '集成电路' | 'RTC7646 QFN16' | ''        
+
+END_PART
+
+END.
+

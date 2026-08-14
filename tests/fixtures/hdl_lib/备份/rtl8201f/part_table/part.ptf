@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8201F'
+
+{========================================================================================}
+:PACKAGE_TYPE(OPT)   | VALUE(OPT)       | DESCRIPTION(OPT)                | JEDEC_TYPE(OPT)         | SN_NUM(OPT)            = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION           | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN32'             | 'RTL8201F-VB-CG' | '集成电路RTL8201F-VB-CG  QFN32' | 'QFN50P500X500X100-33N' | 'M04.100209'(~RTL8201F-VB-CG) = ''           | 'AC00'  | '集成电路' | 'RTL8201F-VB-CG  QFN32' | ''        
+
+END_PART
+
+END.
+

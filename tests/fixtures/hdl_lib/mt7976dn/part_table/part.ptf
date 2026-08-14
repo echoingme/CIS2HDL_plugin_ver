@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MT7976DN'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                  | JEDEC_TYPE  | SN_NUM           = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'DR-QFN144'  | 'MT7976DN' | '集成电路MT7976DN DR-QFN144' | 'DR-QFN144' | 'M04.100934'(~MT7976DN) = ''          | 'AC00'  | '集成电路' | 'MT7976DN DR-QFN144' | ''        
+
+END_PART
+
+END.
+

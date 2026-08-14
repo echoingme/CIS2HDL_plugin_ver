@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LE9622'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION               | JEDEC_TYPE             | SN_NUM            = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION     | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN53'      | 'LE9622RQC' | '集成电路LE9622RQC QFN53' | 'QFN40P700X700X90-54N' | 'M04.100635'(~LE9622RQC) = ''           | 'AA00'  | '集成电路' | 'LE9622RQC QFN53' | ''        
+
+END_PART
+
+END.
+

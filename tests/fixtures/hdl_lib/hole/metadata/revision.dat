@@ -1,0 +1,180 @@
+(Cell	hole
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.1)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/24/06,15:46:02)
+
+			(User	panj)
+
+			(Path	100comm_lib.hole)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	03/24/06,16:11:40)
+
+			(User	panj)
+
+			(Path	100comm_lib.hole)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000ff7137bb)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/24/06,15:46:02)
+
+							(User	panj)
+
+							(Path	100comm_lib.hole)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001da003e3)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000008e715165)
+
+			(Primitives	1
+
+				(Primitive	HOLE
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/24/06,15:46:02)
+
+							(User	panj)
+
+							(Path	100comm_lib.hole)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	HOLE
+
+							(PackType	HOLE)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+						(Linkages	
+
+							(DefaultFootPrint	
+
+								(Name	hole3_2pad)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001cbb037d)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	15.50-p002)
+
+		(License	PCB_design_expert)
+
+	)
+
+	(Checksum	000000001d6e03d7)
+
+)
+

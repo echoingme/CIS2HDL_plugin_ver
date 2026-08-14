@@ -1,0 +1,131 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '4X8_MALE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                                | JEDEC_TYPE     | SN_NUM                   = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION               | LIFE_CYCLE ;
+{========================================================================================}
+ '4X8_MALE'   | 'ENG_CD_2287288_A' | '高速正交连接器 4X8 公头 ENG_CD_2287288_A' | 'CON_4X8_MALE' | ''(~ENG_CD_2287288_A)    = ''           | 'BK00'  | '高速正交连接器' | '4X8 公头 ENG_CD_2287288_A' | ''        
+
+END_PART
+
+PART '4X8_FEMALE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE               | DESCRIPTION                                 | JEDEC_TYPE       | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '4X8_FEMALE' | 'ENG_CD_2289433_A1' | '高速正交连接器 4X8 母头 ENG_CD_2289433_A1' | 'CON_4X8_FEMALE' | ''(~ENG_CD_2289433_A1)    = ''           | 'BK00'  | '高速正交连接器' | '4X8 母头 ENG_CD_2289433_A1' | ''        
+
+END_PART
+
+PART '6X12_MALE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE               | DESCRIPTION                                 | JEDEC_TYPE       | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '6X12_MALE'  | 'ENG_CD_2198174_B'  | '高速正交连接器 6X12 公头 ENG_CD_2198174_B' | 'CON_6X12_MALE'  | 'M08.080027'(~ENG_CD_2198174_B)     = ''           | 'BK00'  | '高速正交连接器' | '6X12 公头 ENG_CD_2198174_B' | ''        
+
+END_PART
+
+PART '12X6_FEMALE'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE               | DESCRIPTION                                 | JEDEC_TYPE        | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '12X6_FEMALE' | 'ENG_CD_2274518_D'  | '高速正交连接器 12X6 母头 ENG_CD_2274518_D' | 'CON_12X6_FEMALE' | ''(~ENG_CD_2274518_D)     = ''           | 'BK00'  | '高速正交连接器' | '12X6 母头 ENG_CD_2274518_D' | ''        
+
+END_PART
+
+PART '12X6_FEMALE_B'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '12X6_FEMALE_B' | 'ENG_CD_2198200_B'  | '高速正交连接器 12X6 母头 ENG_CD_2198200_B' | 'CON_12X6_FEMALE_B' | 'M08.080028'(~ENG_CD_2198200_B)     = ''           | 'BK00'  | '高速正交连接器' | '12X6 母头 ENG_CD_2198200_B' | ''        
+
+END_PART
+
+PART '6X6'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '6X6_MALE'      | '10129467-101LF'    | '高速正交连接器 6X6 公头 10129467-101LF'    | 'CON_6X6_MALE'      | ''(~10129467-101LF)       = ''           | 'BK00'  | '高速正交连接器' | '6X6 公头 10129467-101LF'    | ''        
+ '6X6_FEMALE'    | '10131760-12JLF'    | '高速正交连接器 6X6 母头 10131760-12JLF'    | 'CON_6X6_FEMALE'    | ''(~10131760-12JLF)       = ''           | 'BK00'  | '高速正交连接器' | '6X6 母头 10131760-12JLF'    | ''        
+
+END_PART
+
+PART '4X6_FEMALE_B'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '4X6_FEMALE_B'  | 'ENG_CD_2187510_D'  | '高速正交连接器 4X6 母头 ENG_CD_2187510_D'  | 'CON_4X6_FEMALE_B'  | 'M08.080030'(~ENG_CD_2187510_D)     = ''           | 'BK00'  | '高速正交连接器' | '4X6 母头 ENG_CD_2187510_D'  | ''        
+
+END_PART
+
+PART '4X6_MALE_B'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '4X6_MALE_B'    | 'ENG_CD_2187658_D'  | '高速正交连接器 4X6 公头 ENG_CD_2187658_D'  | 'CON_4X6_MALE_B'    | 'M08.080029'(~ENG_CD_2187658_D)     = ''           | 'BK00'  | '高速正交连接器' | '4X6 母头 ENG_CD_2187658_D'  | ''        
+
+END_PART
+
+PART 'GUIDE_PIN'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ 'GUIDE_PIN'     | 'ENG_CD_5223985_G2'  | '导向针 公头 ENG_CD_5223985_G2'              | 'GUIDE_PIN'         | ''(~ENG_CD_5223985_G2)     = ''           | 'BK00'  | '导向针'         | '公头 ENG_CD_5223985_G2'      | ''        
+
+END_PART
+
+PART 'FEMALE_GUIDE'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ 'FEMALE_GUIDE'  | 'ENG_CD_5223986_P' | '导向针 母头 ENG_CD_5223986_P'             | 'FEMALE_GUIDE'      | ''(~ENG_CD_5223986_P)    = ''           | 'BK00'  | '导向针'         | '母头 ENG_CD_5223986_P'     | ''        
+
+END_PART
+
+PART '5X11_MALE'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ '5X11_MALE'     | 'ENG_CD_5100161_G'  | '低速连接器 5X11 公头 ENG_CD_5100161_G'     | 'CON_5X11_MALE'     | 'M08.080031'(~ENG_CD_5100161_G)     = ''           | 'BK00'  | '低速连接器'     | '5X11 公头 ENG_CD_5100161_G' | ''        
+
+END_PART
+
+PART '5X11_FEMALE'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                 | LIFE_CYCLE ;
+{========================================================================================}
+ '5X11_FEMALE'   | 'ENG_CD_5100159_F1' | '低速连接器 5X11 母头 ENG_CD_5100159_F1'    | 'CON_5X11_FEMALE'   | 'M08.080032'(~ENG_CD_5100159_F1)    = ''           | 'BK00'  | '低速连接器'     | '5X11 母头 ENG_CD_5100159_F1' | ''        
+
+END_PART
+
+PART '4X4_PWR_MOD_MALE'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                 | LIFE_CYCLE ;
+{========================================================================================}
+ '4X4_MALE'      | 'ENG_CD_5646954_D4' | '电源连接器 4X4 公头 ENG_CD_5646954_D4'     | 'CON_4X4_MALE'      | 'M08.080033'(~ENG_CD_5646954_D4)    = ''           | 'BK00'  | '电源连接器'     | '4X4 公头 ENG_CD_5646954_D4'  | ''        
+
+END_PART
+
+PART '4X4_PWR_MOD_FEMALE'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE               | DESCRIPTION                                 | JEDEC_TYPE          | SN_NUM                    = MANUFACTURER | BOM_SEQ | TYPE_NAME        | SPECIFICATION                 | LIFE_CYCLE ;
+{========================================================================================}
+ '4X4_FEMALE'    | 'ENG_CD_5223995_P2' | '电源连接器 4X4 母头 ENG_CD_5223995_P2'     | 'CON_4X4_FEMALE'    | 'M08.080034'(~ENG_CD_5223995_P2)    = ''           | 'BK00'  | '电源连接器'     | '4X4 母头 ENG_CD_5223995_P2'  | ''        
+
+END_PART
+
+END.
+

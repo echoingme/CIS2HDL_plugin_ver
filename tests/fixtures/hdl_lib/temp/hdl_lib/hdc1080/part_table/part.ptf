@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'HDC1080'
+
+{========================================================================================}
+:PACKAGE_TYPE(OPT)   | VALUE(OPT)    | DESCRIPTION(OPT)            | JEDEC_TYPE(OPT)        | SN_NUM(OPT)     = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'WSON6'             | 'HDC1080DMBT' | '集成电路HDC1080DMBT WSON6' | 'SON100P300X300X80-7N' | 'M04.100551'(~HDC1080) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

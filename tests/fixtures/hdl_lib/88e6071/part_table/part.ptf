@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '88E6071'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE     | DESCRIPTION                         | JEDEC_TYPE              | SN_NUM          = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION               | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN64'      | '88E6071' | '集成电路88E6071-xx-NNC2I000 QFN64' | 'QFN50P900X900X100-65N' | 'M04.100659'(~88E6071) = ''           | 'AC00'  | '集成电路' | '88E6071-xx-NNC2I000 QFN64' | ''        
+
+END_PART
+
+END.
+

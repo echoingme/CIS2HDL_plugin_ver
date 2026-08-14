@@ -1,0 +1,194 @@
+(Cell	sgm41282c
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.11)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	05/27/22,10:19:43)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.sgm41282c)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	05/27/22,10:52:09)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.sgm41282c)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.9)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000b23cc88e)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.9)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	05/27/22,10:21:59)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.sgm41282c)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d6803e3)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000000ab7c627)
+
+			(Primitives	1
+
+				(Primitive	SGM41282C
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	05/27/22,10:19:47)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.sgm41282c)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	SGM41282C
+
+							(PackType	SGM41282C)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001c7c03d7)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c9e03ad)
+
+)
+

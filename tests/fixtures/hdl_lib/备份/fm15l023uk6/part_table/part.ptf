@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'FM15L023UK6'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN32'      | 'FM15L023UK6' | '集成电路FM15L023UK6 QFN32' | 'QFN50P500X500X80-33N' | 'M04.100855'(~FM15L023UK6) = ''           | 'AC00'  | '集成电路' | 'FM15L023UK6 QFN32' | ''        
+
+END_PART
+
+END.
+

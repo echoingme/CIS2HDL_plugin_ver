@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RJ45_1X5'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                                                  | JEDEC_TYPE          | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                                           | LIFE_CYCLE | REPLACE | PARAMETER  | USEAGE ;
+{========================================================================================}
+ 'RJ45_1X5'   | 'M1-55105-0001' | 'RJ45 1*5 M1-55105-0001 71.3*13.1*13.2mm 不带灯 无屏蔽' | 'RJ45_1X5_NL_NT_NS_A' | ''(~M1-55105-0001) = ''           | 'BM00'  | '插件RJ45' | '1*5 M1-55105-0001 71.3*13.1*13.2mm 不带灯 无屏蔽' | ''         | ''      | '' | ''    
+
+END_PART
+
+END.
+

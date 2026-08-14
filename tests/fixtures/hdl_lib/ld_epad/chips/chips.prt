@@ -1,0 +1,21 @@
+FILE_TYPE=LIBRARY_PARTS;
+primitive 'LD_EPAD';
+  pin
+    'EPAD':
+      PIN_NUMBER='(29)';
+      PINUSE='GROUND';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      NO_ASSERT_CHECK='TRUE';
+      NO_DIR_CHECK='TRUE';
+      ALLOW_CONNECT='TRUE';
+  end_pin;
+  body
+    PART_NAME='LD_EPAD';
+    BODY_NAME='LD_EPAD';
+    PHYS_DES_PREFIX='IC';
+    CLASS='IC';
+  end_body;
+end_primitive;
+
+END.

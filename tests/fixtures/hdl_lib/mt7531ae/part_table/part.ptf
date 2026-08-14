@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MT7531AE'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                  | JEDEC_TYPE                 | SN_NUM           = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'LQFP128P'   | 'MT7531AE' | '集成电路 MT7531AE LQFP128P' | 'QFP40P1600x1600X160-128N' | 'M04.100963'(~MT7531AE) = ''          | 'AC00'  | '集成电路' | 'MT7531AE LQFP128P' | ''        
+
+END_PART
+
+END.
+

@@ -1,0 +1,234 @@
+(Cell	lpddr3_sdram
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.1)
+
+		(ModificationStatus	NULL)
+
+		(Status	Modified)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	)
+
+			(User	)
+
+			(Path	)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	1.0.5)
+
+				(ModificationStatus	NULL)
+
+				(Status	Baselined)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	06/26/15,12:24:34)
+
+					(User	dmcanfie)
+
+					(Path	memory.lpddr3_sdram)
+
+				)
+
+			)
+
+			(Symbols	2
+
+				(Symbol	sym_2
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000000acb29b9)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	1.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Modified)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/26/15,12:24:34)
+
+							(User	dmcanfie)
+
+							(Path	memory.lpddr3_sdram)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000004b8ee6a4)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	1.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Modified)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/26/15,12:24:34)
+
+							(User	dmcanfie)
+
+							(Path	memory.lpddr3_sdram)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001b37037c)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000005d9c36f6)
+
+			(Primitives	1
+
+				(Primitive	MT52L256M32D1PF
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Modified)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	)
+
+							(User	)
+
+							(Path	)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	MT52L256M32D1PF
+
+							(PackType	MT52L256M32D1PF)
+
+							(PackType	MT52L256M32D1PF_BGA)
+
+						)
+
+					)
+
+					(Packages	2
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_2)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001bf60384)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c75037f)
+
+)
+

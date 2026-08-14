@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MT52L256M32D1PF'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                       | JEDEC_TYPE                | SN_NUM                  = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE ;
+{========================================================================================}
+ 'FBGA178'    | 'MT52L256M32D1PF' | '集成电路MT52L256M32D1PF FBGA178' | 'BGA178_LPDDR3_1_80X65MA' | ''(~MT52L256M32D1PF)    = ''          | 'AC00'  | '集成电路' | 'MT52L256M32D1PF FBGA178' | ''        
+
+END_PART
+
+END.
+

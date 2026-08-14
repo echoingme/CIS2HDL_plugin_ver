@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SFP_TOP'
+{========================================================================================}
+:PACKAGE_TYPE | VALUE          | DESCRIPTION                   | JEDEC_TYPE             | SN_NUM            = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'SFP_TOP'      | 'SFP_TOP' | '' | 'SFP_TOP'| ''(~SFP_TOP) = ''          | ''  | '' | '' | ''        
+
+END_PART
+END.
+

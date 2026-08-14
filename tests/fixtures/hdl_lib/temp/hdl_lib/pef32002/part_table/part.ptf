@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PEF32002'
+
+{========================================================================================}
+:PCAKAGE_TYPE(OPT)   | VALUE(OPT)   | DESCRIPTION(OPT)                | JEDEC_TYPE(OPT)        | SN_NUM(OPT)        = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'QFN68'             | 'PEF32002VT' | '集成电路PEF32002VT V1.1 QFN68' | 'QFN40P800X800X95-69N' | 'M04.100555'(~PEF32002VT) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

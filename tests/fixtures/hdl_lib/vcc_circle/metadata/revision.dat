@@ -1,0 +1,124 @@
+(Cell	p2_5v
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.1)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/16/07,13:33:14)
+
+			(User	user)
+
+			(Path	power.p2_5v)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(Symbols	2
+
+				(Symbol	sym_2
+
+					(Symbol_Type	Sizable)
+
+					(Max_Size	0)
+
+					(Checksum	00000000df99423b)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/16/07,13:33:14)
+
+							(User	user)
+
+							(Path	power.p2_5v)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Sizable)
+
+					(Max_Size	0)
+
+					(Checksum	00000000ca624217)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/16/07,13:33:14)
+
+							(User	user)
+
+							(Path	power.p2_5v)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001dd603b7)
+
+		)
+
+		(Checksum	000000001cce03ac)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	15.50-p002)
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001dd60404)
+
+)
+

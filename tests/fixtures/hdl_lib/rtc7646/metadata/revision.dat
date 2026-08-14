@@ -1,0 +1,194 @@
+(Cell	rtc7646
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.3)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	12/19/22,13:24:19)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.rtc7646)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	12/19/22,13:38:22)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.rtc7646)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.2)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000005631d287)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	12/19/22,13:24:47)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.rtc7646)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001ae60355)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000457c121b)
+
+			(Primitives	1
+
+				(Primitive	RTC7646
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	12/19/22,13:24:22)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.rtc7646)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	RTC7646
+
+							(PackType	RTC7646)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001a0f031c)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c3b03a0)
+
+)
+

@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BCM56150K'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                        | JEDEC_TYPE                       | SN_NUM                   = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'BGA1006'    | 'BCM56150A0KFSBLG' | '集成电路BCM56150A0KFSBLG BGA1006' | 'BGA1006C80P35X35_2900X2900X320' | 'M04.100603'(~BCM56150A0KFSBLG) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

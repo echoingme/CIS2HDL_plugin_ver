@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8812FR'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE          | DESCRIPTION                  | JEDEC_TYPE             | SN_NUM               = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'QFN56'      | 'RTL8812FR-CG' | '集成电路RTL8812FR-CG QFN56' | 'QFN40P700X700X90-57N' | 'M04.100670'(~RTL8812FR-CG) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

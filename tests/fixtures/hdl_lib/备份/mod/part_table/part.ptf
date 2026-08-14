@@ -1,0 +1,49 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LDFE75-48S12PS'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                   | JEDEC_TYPE | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME          | SPECIFICATION    | LIFE_CYCLE ;
+{========================================================================================}
+ 'LDFE75'     | 'LDFE75-48S12PS' | 'DC-DC电源模块LDFE75-48S12PS' | 'LDFE75'   | 'M07.020022'(~LDFE75-48S12PS) = ''           | 'BL00'  | '插件直流电源模块' | 'LDFE75-48S12PS' | ''        
+
+END_PART
+
+PART 'BBS8N24P12FHG'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                                        | JEDEC_TYPE | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME          | SPECIFICATION                         | LIFE_CYCLE ;
+{========================================================================================}
+ 'LDFE75'     | 'BBS8N24P12FHG'  | 'DC-DC电源模块BBS8N24P12FHG 不带绝缘垫片 带散热片' | 'LDFE75'   | 'M07.020060'(~BBS8N24P12FHG) = ''           | 'BL00'  | '插件直流电源模块' | 'BBS8N24P12FHG 不带绝缘垫片 带散热片' | ''        
+
+END_PART
+
+PART 'RM500Q-GL'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                                        | JEDEC_TYPE  | SN_NUM                  = MANUFACTURER        | BOM_SEQ | TYPE_NAME             | SPECIFICATION                                      | LIFE_CYCLE ;
+{========================================================================================}
+ 'RM500Q-GL'  | 'RM500Q-GL'      | 'mini PCI-E连接器SD-80149-002/5G信号模块RM500Q-GL' | 'RM500Q-GL' | 'M08.010118/M07.140001'(~RM500Q-GL) = '深圳裕彤电子/移远' | 'AL00'  | '信号连接器/信号模块' | 'mini PCI-E连接器SD-80149-002/5G信号模块RM500Q-GL' | ''        
+
+END_PART
+
+PART 'EC20_R21'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE            | DESCRIPTION                                        | JEDEC_TYPE  | SN_NUM                  = MANUFACTURER        | BOM_SEQ | TYPE_NAME             | SPECIFICATION                                      | LIFE_CYCLE ;
+{========================================================================================}
+ 'LCC80_LGA64' | 'EC20 R21'       | '4G信号模块EC20 R2.1'                              | 'EC20_R21'  | 'M07.070007'(~EC20_R21) = '移远'              | 'AL00'  | '4G信号模块'          | '4G信号模块EC20 R2.1'                              | ''        
+
+END_PART
+
+PART 'EC200T-CN'
+
+{========================================================================================}
+:PACKAGE_TYPE  | VALUE            | DESCRIPTION                                        | JEDEC_TYPE  | SN_NUM                  = MANUFACTURER        | BOM_SEQ | TYPE_NAME             | SPECIFICATION                                      | LIFE_CYCLE ;
+{========================================================================================}
+ 'LCC80_LGA64' | 'EC200T-CN'      | '4G信号模块EC200T-CN'                              | 'EC20_R21'  | 'M07.070008'(~EC200T-CN) = '移远'              | 'AL00'  | '4G信号模块'          | '4G信号模块EC200T-CN'                              | ''        
+
+END_PART
+
+END.
+

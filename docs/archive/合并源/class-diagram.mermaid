@@ -1,0 +1,186 @@
+classDiagram
+    direction TB
+
+    %% ── IR Layer ──
+    class ComponentDef {
+        +str library_id
+        +str part_name
+        +str category
+        +str phys_des_prefix
+        +str footprint
+        +list~str~ footprint_alt
+        +list~PinDef~ pins
+        +int pin_count
+        +str value
+        +str tolerance
+        +dict extra_data
+        +str fingerprint()$
+    }
+
+    class MatchResult {
+        +float confidence
+        +MatchStrategy strategy
+        +str source_library_id
+        +str target_library_id
+        +dict pin_mapping
+        +str phase1_type
+        +float phase1_prior_conf
+        +str phase2_strategy_detail
+        +float phase2_within_conf
+        +list~dict~ top3_candidates
+    }
+
+    class MatchStrategy {
+        <<enumeration>>
+        EXACT
+        JEDEC
+        FUZZY
+        FEATURE
+        VALUE
+        FALLBACK
+        MANUAL
+        PASSIVE_EXACT
+        PASSIVE_EXACT_MULTI
+        PASSIVE_VALUE_ONLY
+        PASSIVE_VALUE_NEAR
+        PASSIVE_SIZE_ONLY
+        PASSIVE_PREFIX_ONLY
+        ACTIVE_WITHIN_TYPE
+        NEEDS_REVIEW
+    }
+
+    %% ── Phase 1 ──
+    %% 已修改：TypeHypothesisGenerator 属性 _type_gate_config→_config/_type_hypotheses/_value_boost/_pst_boost，方法 _from_prefix→_from_yaml（补 _normalise）
+    class TypeHypothesisGenerator {
+        -MatchConfig _config
+        -PrefixAffinityCalculator _affinity
+        -dict _type_hypotheses
+        -dict _value_boost
+        -dict _pst_boost
+        +generate(refdes, value, pst_data) list~TypeHypothesis~
+        -_from_yaml(prefix) list~TypeHypothesis~
+        -_apply_pst_boost(hypotheses, pst_data)
+        -_apply_value_hints(hypotheses, value)
+        -_apply_learned_affinity(hypotheses, prefix)
+        -_normalise(hypotheses) list~TypeHypothesis~
+    }
+
+    class TypeHypothesis {
+        +str type_name
+        +float prior_conf
+        +str source
+    }
+
+    %% 已修改：PrefixAffinityCalculator load()→私有 _load()（补 _save()；affinity/record_match 第二参数 phys_des_prefix→type_name）
+    class PrefixAffinityCalculator {
+        -dict _matrix
+        -Path _path
+        +affinity(refdes_prefix, type_name) float
+        +record_match(refdes_prefix, type_name)
+        +save()
+        -_load()
+        -_save()
+    }
+
+    %% ── Phase 1.5 ──
+    class CandidatePoolBuilder {
+        -ComponentDB _db
+        +build(type_hypotheses) CandidatePool
+        -_filter_by_type(candidates, type_name) list~ComponentDef~
+    }
+
+    class CandidatePool {
+        +list~TypeCandidateSet~ type_sets
+        +iter_in_priority_order() Iterator
+    }
+
+    class TypeCandidateSet {
+        +str type_name
+        +float prior_conf
+        +list~ComponentDef~ candidates
+    }
+
+    %% ── Phase 2A ──
+    %% 已修改：PassiveMatcher 5 级方法 _match_level1..5→_match_value_size_exact/_match_value_only/_match_value_near_size/_match_size_only/_match_prefix_fallback（补 _matches_type）
+    class PassiveMatcher {
+        +match(source, candidates, src_type) MatchResult
+        -_match_value_size_exact(source, candidates) MatchResult
+        -_match_value_only(source, candidates) MatchResult
+        -_match_value_near_size(source, candidates) MatchResult
+        -_match_size_only(source, candidates) MatchResult
+        -_match_prefix_fallback(source, candidates, src_type) MatchResult
+        -_matches_type(candidate, type_name) bool$
+    }
+
+    %% ── Phase 2B ──
+    %% 已修改：ActiveMatcher 移除 _chain（实际为 _exact/_fuzzy/_feature/_value/_fallback 实例），_score_within_type→_score_dims+5 个 _score_*，_select_top3→_generate_top3
+    class ActiveMatcher {
+        -ExactMatcher _exact
+        -FuzzyNameMatcher _fuzzy
+        -FeatureExtractMatcher _feature
+        -ValueMatcher _value
+        -FallbackMatcher _fallback
+        +match(source, candidates, src_type) MatchResult
+        -_run_chain(source, candidates) MatchResult
+        -_score_dims(source, candidate) dict~str, float~
+        -_score_footprint(source, candidate) float$
+        -_score_value(source, candidate) float$
+        -_score_jedec(source, candidate) float$
+        -_score_pin_count(source, candidate) float$
+        -_score_part_name(source, candidate) float$
+        -_generate_top3(source, candidates) list~dict~
+    }
+
+    %% ── Pipeline ──
+    %% 已修改：MatcherPipeline 移除 _type_gen/_pool_builder 属性（run_batch 内局部创建）与 _is_passive_type/_compute_final_conf（类型判断 PASSIVE_TYPES 内联），_match_single 签名补齐；新增 ManualMatchResolver
+    class MatcherPipeline {
+        -PassiveMatcher _passive_matcher
+        -ActiveMatcher _active_matcher
+        -ManualMatchResolver _manual
+        +run_batch(sources, db) list~MatchResult~
+        -_match_single(source, type_gen, pool_builder, affinity_calc) MatchResult
+        -_generate_cross_type_top3(all_results) list~dict~$
+    }
+
+    class ManualMatchResolver {
+        -dict _match_map
+        +match(source, candidates) MatchResult
+        +resolve(source, candidates) MatchResult
+        +accept(source_library_id, target_library_id) MatchResult
+        +export_rules(output_path) int
+        +import_rules(input_path) int
+        +save_rules(config_path) int
+    }
+
+    class MatcherBase {
+        <<abstract>>
+        +str MATCHER_NAME
+        +int MATCHER_PRIORITY
+        +match(source, candidates) MatchResult
+        +confidence_threshold() float
+    }
+
+    %% ── Relationships ──
+    %% 已修改：MatcherPipeline 与 TypeHypothesisGenerator/CandidatePoolBuilder 改为 run_batch() 局部创建（弱依赖），新增 *-- ManualMatchResolver
+    MatcherPipeline *-- PassiveMatcher
+    MatcherPipeline *-- ActiveMatcher
+    MatcherPipeline *-- ManualMatchResolver
+    MatcherPipeline ..> TypeHypothesisGenerator : run_batch() 局部创建
+    MatcherPipeline ..> CandidatePoolBuilder : run_batch() 局部创建
+
+    TypeHypothesisGenerator --> PrefixAffinityCalculator
+    TypeHypothesisGenerator ..> TypeHypothesis : creates
+    TypeHypothesisGenerator ..> MatchResult : populates
+
+    CandidatePoolBuilder --> ComponentDB : queries
+    CandidatePoolBuilder ..> CandidatePool : builds
+    CandidatePool *-- TypeCandidateSet
+
+    PassiveMatcher ..|> MatcherBase
+    ActiveMatcher ..|> MatcherBase
+    ActiveMatcher o-- MatcherBase : chain (Exact→Fuzzy→Feature→Value→Fallback)
+    ManualMatchResolver ..|> MatcherBase
+
+    PassiveMatcher ..> MatchResult : returns
+    ActiveMatcher ..> MatchResult : returns
+    MatcherPipeline ..> MatchResult : returns

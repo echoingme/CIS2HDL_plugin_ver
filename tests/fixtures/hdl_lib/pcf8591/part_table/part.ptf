@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PCF8591'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION             | JEDEC_TYPE             | SN_NUM           = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION   | LIFE_CYCLE ;
+{========================================================================================}
+ 'SO16'       | 'PCF8591T' | '集成电路PCF8591T SO16' | 'SOIC127P1032X265-16N' | 'M04.100727'(~PCF8591T) = ''           | 'AC00'  | '集成电路' | 'PCF8591T SO16' | ''        
+
+END_PART
+
+END.
+

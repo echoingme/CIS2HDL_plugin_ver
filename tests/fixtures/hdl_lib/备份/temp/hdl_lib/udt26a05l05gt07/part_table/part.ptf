@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'UDT26A05L05GT07'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                     | JEDEC_TYPE         | SN_NUM                  = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SOT25'      | 'UDT26A05L05GT07' | '集成电路UDT26A05L05GT07 SOT25' | 'SOT95P285X112-6N' | 'M04.100486'(~UDT26A05L05GT07) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

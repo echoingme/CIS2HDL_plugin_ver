@@ -1,0 +1,16 @@
+FILE_TYPE=LIBRARY_PARTS;
+TIME=' Created/Modified on Thu Mar 31 08:56:44 2005' ;
+primitive 'HOLE';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      INPUT_LOAD='(-0.01,0.01)';
+  end_pin;
+  body
+    CLASS='IO';
+    PART_NAME='HOLE';
+    PHYS_DES_PREFIX='H';
+    JEDEC_TYPE='hole3_2pad';
+  end_body;
+end_primitive;
+END.

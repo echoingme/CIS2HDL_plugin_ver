@@ -1,0 +1,24 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'FLAN'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE  | DESCRIPTION                 | JEDEC_TYPE | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'FLAN'       | 'FLAN' | '法兰盘 蓝色 SC/UPC 贴板式' | 'FLAN'     | 'M09.140023'(~FLAN_140023) = ''           | 'BX00'  | '法兰盘'  | '蓝色 SC/UPC 贴板式' | ''        
+ 'FLAN'       | 'FLAN' | '法兰盘 绿色 SC/APC 贴板式' | 'FLAN'     | 'M09.140034'(~FLAN_140034) = ''           | 'BX00'  | '法兰盘'  | '绿色 SC/APC 贴板式' | ''        
+
+END_PART
+
+PART 'FLAN_6P'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE  | DESCRIPTION                 | JEDEC_TYPE | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'FLAN_6P'    | 'FLAN' | '法兰盘 蓝色 SC/UPC 卡板式' | 'FLAN_K'   | 'M09.140018'(~FLAN_140018) = ''           | 'CX00'  | '法兰盘'  | '蓝色 SC/UPC 卡板式' | ''        
+ 'FLAN_6P'    | 'FLAN' | '法兰盘 绿色 SC/APC 卡板式' | 'FLAN_K'   | 'M09.140019'(~FLAN_140019) = ''           | 'CX00'  | '法兰盘'  | '绿色 SC/APC 卡板式' | ''        
+
+END_PART
+
+END.
+

@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '88E6320'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                 | DESCRIPTION                          | JEDEC_TYPE                | SN_NUM                      = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN108'     | '88E6320-XX-NAZ2C000' | '集成电路88E6320-XX-NAZ2C000 QFN108' | 'QFN40P1200X1200X90-109N' | 'M04.100762'(~88E6320-XX-NAZ2C000) = ''           | 'AC00'  | '集成电路' | '88E6320-XX-NAZ2C000 QFN108' | ''        
+
+END_PART
+
+END.
+

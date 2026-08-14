@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SGM41282C'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE       | DESCRIPTION                       | JEDEC_TYPE             | SN_NUM            = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION            | LIFE_CYCLE ;
+{========================================================================================}
+ 'TQFN-3×3-16L' | 'SGM41282C' | '集成电路 SGM41282C TQFN-3-3-16L' | 'QFN50P300X300X80-17N' | 'M04.100923'(~SGM41282C) = ''           | 'AC00'  | '集成电路' | 'SGM41282C TQFN-3-3-16L' | ''        
+
+END_PART
+
+END.
+

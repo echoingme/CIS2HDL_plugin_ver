@@ -1,0 +1,20 @@
+SPLBPD-209,Symbol 'sym_9':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_1':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_10':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_11':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_12':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_13':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_14':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_15':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_16':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_17':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_18':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_19':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_2':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_3':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_4':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_5':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_6':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_7':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_8':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-146,Cell 'orthogonal_connector':The part might not be usable in the flow because the pin types of pin(s) 'A2,A3,B2,B3,C2,C3,D2,D3,A1,A4,B1,B4,C1,C4,D1,D4' are not same in all of the packages. Make sure that this pin type specification is intended.,Warning

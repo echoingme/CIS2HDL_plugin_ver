@@ -1,0 +1,38 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'N_MOS_3'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE        | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'TO252'      | 'ZXMN20B28K'     | '贴片MOS管ZXMN20B28K TO252-3L'   | 'TO252'           | 'M03.040044'(~ZXMN20B28K) = ''           | 'AF00'  | '贴片MOS管' | 'ZXMN20B28K TO252-3L'   | ''         | ''      | ''        | ''    
+ 'TO252'      | 'ZXMN15A27K'     | '贴片MOS管ZXMN15A27K TO252-3L'   | 'TO252'           | 'M03.040050'(~ZXMN15A27K) = ''           | 'AF00'  | '贴片MOS管' | 'ZXMN15A27K TO252-3L'   | ''         | ''      | ''        | ''    
+ 'SOT416'     | 'SI1012R-T1-GE3' | '贴片MOS管SI1012R-T1-GE3 SOT416' | 'SOT416'          | 'M03.040055'(~SI1012R-T1-GE3) = ''           | 'AF00'  | '贴片MOS管' | 'SI1012R-T1-GE3 SOT416' | ''         | ''      | ''        | ''    
+ 'SOT23'      | '2N7002'         | '贴片MOS管2N7002 SOT23'          | 'SOT23'           | 'M03.030001'(~2N7002)  = ''           | 'AF00'  | '贴片MOS管' | '2N7002 SOT23'          | ''         | ''      | ''        | ''    
+ 'SOT23'      | 'IRLM0100TRPBF'  | '贴片MOS管IRLM0100TRPBF SOT23'   | 'SOT23'           | 'M03.040049'(~IRLM0100TRPBF) = ''           | 'AF00'  | '贴片MOS管' | 'IRLM0100TRPBF SOT23'   | ''         | ''      | ''        | ''    
+ 'SC-70'      | '2SK3018'        | '贴片MOS管2SK3018 SC-70'         | 'SOT65P210X90-3N' | 'M03.040058'(~2SK3018) = ''           | 'AF00'  | '贴片MOS管' | '2SK3018 SC-70'         | 'NA/NA'    | ''      | ''        | ''    
+ 'SOT-23'     | '2SK3018'        | '贴片MOS管2SK3018 SOT-23'        | 'SOT23'           | 'M03.040063'(~2SK3018-SOT23) = ''           | 'AF00'  | '贴片MOS管' | '2SK3018 SOT-23'        | ''         | ''      | ''        | ''    
+
+END_PART
+
+PART 'N_MOS_4'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE        | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'TO-263'     | 'IRFS3607TRLPBF' | '贴片MOS管IRFS3607TRLPBF TO263'  | 'TO-263'          | 'M03.040033'(~IRFS3607TRLPBF) = ''           | 'AF00'  | '贴片MOS管' | 'IRFS3607TRLPBF TO263'  | ''         | ''      | ''        | ''    
+ 'TO-263'     | 'IPB600N25N3G'   | '贴片MOS管IPB600N25N3G TO263'    | 'TO-263'          | 'M03.040051'(~IPB600N25N3G) = ''           | 'AF00'  | '贴片MOS管' | 'IPB600N25N3G TO263'    | 'NA/NA'    | ''      | ''        | ''    
+
+END_PART
+
+PART 'N_MOS_8'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                      | JEDEC_TYPE           | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME   | SPECIFICATION           | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SOIC8'      | 'DMN6066SSS SOIC8' | '集成电路DMN6066SSS SOIC8'       | 'SOIC127P600X175-8N' | 'M03.030050'(~DMN6066SSS) = ''           | 'AF00'  | '集成电路'  | 'DMN6066SSS SOIC8'      | ''         | ''      | ''        | ''    
+
+END_PART
+
+END.
+

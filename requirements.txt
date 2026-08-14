@@ -1,0 +1,68 @@
+# =====================================================================
+# CIS2HDL requirements.txt — 环境与依赖清单
+# 编制日期：2026-08-07 ｜ 依据：pyproject.toml + .venv 实测（Python 3.13.14）
+# =====================================================================
+
+# ---------- 环境要求（安装前阅读）----------
+# * Python >= 3.12（实测开发环境 3.13.14）
+# * 主要目标平台：Windows（路径/环境变量默认 Windows）
+# * 外部软件（非 pip）：Cadence OrCAD CIS 16.6+（输入源）、Cadence DEHDL/Concept HDL（输出目标，默认 C:\Cadence\SPB_16.6）
+# * 环境变量：$CHDL_LIB_INST_DIR（cds.lib SOFTINCLUDE 路径）
+# * tkinter 为标准库，Windows 自带；精简 Linux 需安装系统包 python3-tk
+
+# ---------- 运行时依赖（runtime）----------
+# 与 pyproject.toml [project].dependencies 对齐
+pydantic>=2.0
+sexpdata>=1.0
+PySide6>=6.5
+rapidfuzz>=3.0
+PyYAML>=6.0
+
+# ---------- 开发/测试/工具依赖（dev）----------
+# 与 pyproject.toml [project.optional-dependencies].dev 对齐
+pytest>=8.0
+pytest-cov>=4.0
+ruff>=0.3
+mypy>=1.8
+pyinstaller>=6.0   # 打包用；注意：当前 .venv 未安装，需要打包时执行 pip install pyinstaller
+
+# ---------- 构建依赖（build）----------
+# 与 pyproject.toml [build-system].requires 对齐
+setuptools>=68.0
+wheel
+
+# ---------- 锁定版本（lock，精确复现 .venv 2026-08-07）----------
+# 完整 pip freeze 输出；含传递依赖；pip check 通过
+# （共 26 项：runtime 5 + dev 4 + 传递 17；pyinstaller 未安装故不在 freeze 中）
+pydantic==2.13.4
+PySide6==6.11.1
+PyYAML==6.0.3
+RapidFuzz==3.14.5
+sexpdata==1.0.2
+pytest==9.1.1
+pytest-cov==7.1.0
+ruff==0.16.0
+mypy==2.3.0
+annotated-types==0.8.0
+pydantic_core==2.46.4
+typing-inspection==0.4.2
+typing_extensions==4.16.0
+PySide6_Addons==6.11.1
+PySide6_Essentials==6.11.1
+shiboken6==6.11.1
+ast_serialize==0.6.0
+librt==0.13.0
+mypy_extensions==1.1.0
+pathspec==1.1.1
+coverage==7.15.2
+colorama==0.4.6
+iniconfig==2.3.0
+packaging==26.2
+pluggy==1.6.0
+Pygments==2.20.0
+
+# ---------- 安装用法 ----------
+# 常规安装（含运行时+开发+构建）：pip install -r requirements.txt
+# 仅运行时：pip install -r requirements.txt --target ... 或手动截取 runtime 段
+# 仅锁定复现：pip install -r requirements.txt --constraint 或直接使用 lock 段
+# 官方入口：python -m cis2hdl convert <dsn> --output <dir> --hdl-lib <dir>

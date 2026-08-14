@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '706'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                     | JEDEC_TYPE           | SN_NUM                  = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SOIC8'      | 'SGM706-RYS8G/TR' | '集成电路SGM706-RYS8G/TR SOIC8' | 'SOIC127P600X175-8N' | 'M04.100115'(~SGM706-RYS8G/TR) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LM75'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION              | JEDEC_TYPE           | SN_NUM            = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SOP8'       | 'LM75BIM-3' | '集成电路LM75BIM-3 SOP8' | 'SOIC127P600X175-8N' | 'M04.010073'(~LM75BIM-3) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

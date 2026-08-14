@@ -1,0 +1,30 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\26暑假\cis2hdl
+configfile: pytest.ini (WARNING: ignoring pytest config in pyproject.toml!)
+collected 291 items
+
+tests\unit\test_conversion_readiness.py ...                              [  1%]
+tests\unit\test_cpm_writer.py ..                                         [  1%]
+tests\unit\test_cross_validator.py ......                                [  3%]
+tests\unit\test_diagnostic_report.py .....                               [  5%]
+tests\unit\test_dsn_ole_reader.py s.s                                    [  6%]
+tests\unit\test_dsn_parser.py .ss                                        [  7%]
+tests\unit\test_dsn_structures.py .....................                  [ 14%]
+tests\unit\test_error_diagnosis.py .......s.                             [ 17%]
+tests\unit\test_file_inventory.py ..........s                            [ 21%]
+tests\unit\test_ir_models.py ...........                                 [ 25%]
+tests\unit\test_matcher_v2.py .......................................... [ 39%]
+........................................................................ [ 64%]
+....................                                                     [ 71%]
+tests\unit\test_output_compatibility.py .......................          [ 79%]
+tests\unit\test_pst_parsers.py ............                              [ 83%]
+tests\unit\test_sch_writer.py ......                                     [ 85%]
+tests\integration\test_full_pipeline.py ss                               [ 86%]
+tests\integration\test_matcher_pipeline.py .........s.....               [ 91%]
+tests\integration\test_multi_source_validator.py sss                     [ 92%]
+tests\e2e\test_rtl8367rb_full.py sssssssssss                             [ 96%]
+tests\e2e\test_verify_fixes.py ...........                               [100%][safe-delete][SAFE_DELETE_FAIL_CLOSED] {"target": "\\\\?\\C:\\Users\\echo\\AppData\\Local\\Temp\\pytest-of-echo\\garbage-533ed8c3-b945-4750-804d-d0292fc04ae0", "reason": "windows-sandbox-recycle-bin-unavailable"}
+
+
+======================= 268 passed, 23 skipped in 2.08s =======================

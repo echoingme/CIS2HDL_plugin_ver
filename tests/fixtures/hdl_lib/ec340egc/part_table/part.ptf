@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'EC340EGC'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION                  | JEDEC_TYPE         | SN_NUM           = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION                | LIFE_CYCLE | REPLACE | PARAMETER | USEAGE ;
+{========================================================================================}
+ 'SOT23-6'    | 'EC340EGC' | '集成电路  EC340EGC SOT23-6' | 'SOT95P285X112-6N' | 'M04.100916'(~EC340EGC) = ''           | 'AC00'  | '集成电路' | '集成电路  EC340EGC SOT23-6' | ''         | ''      | ''        | ''    
+
+END_PART
+
+END.
+

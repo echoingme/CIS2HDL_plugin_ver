@@ -1,0 +1,194 @@
+(Cell	rtl8814
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.9)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	02/25/19,17:23:19)
+
+			(User	bacon)
+
+			(Path	hdllib_lib.rtl8814)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	02/25/19,17:54:07)
+
+			(User	bacon)
+
+			(Path	hdllib_lib.rtl8814)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.9)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000043f366e8)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.9)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	02/25/19,17:53:54)
+
+							(User	bacon)
+
+							(Path	hdllib_lib.rtl8814)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001bb4038a)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000a1fb7d8f)
+
+			(Primitives	1
+
+				(Primitive	RTL8814
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	02/25/19,17:23:25)
+
+							(User	bacon)
+
+							(Path	hdllib_lib.rtl8814)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	RTL8814
+
+							(PackType	RTL8814)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001eee03e1)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001dc603da)
+
+)
+

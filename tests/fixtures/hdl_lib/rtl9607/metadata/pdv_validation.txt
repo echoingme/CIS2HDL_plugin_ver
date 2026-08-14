@@ -1,0 +1,10 @@
+SPLBPD-209,Symbol 'sym_6':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_9':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_8':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_7':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_1':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_2':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_3':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_4':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_5':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-146,Cell 'rtl9607':The part might not be usable in the flow because the pin types of pin(s) 'GND_1,GND_2,GND_3,GND_4,GND_5,AGND,U0VDDH,GPIO08/LED2/SDA1/SDAS,GPIO09/LED3/SCK1/SCKS,GPIO10/LED4/SW_MDIO,GPIO12/LED5/SW_MDC,GPIO20/LED13/URXD1,GPIO21/LED14/UTXD1,GPIO35/LED17/SLED_DA,GPIO36/JTAG0_CK,GPIO37/JTAG0_TMS,GPIO38/JTAG0_TDO/DIS_JTAG0,GPIO39/JTAG0_TDI,GPIO40/JTAG0_NRST,GPIO41/UTXD0,GPIO42/URXD0,NRESET_I,XTALI,XTALO,MDIREF,P0MDI_AN,P0MDI_AP,P0MDI_BN,P0MDI_BP,P0MDI_CN,P0MDI_CP,P0MDI_DN,P0MDI_DP,P1MDI_AN,P1MDI_AP,P1MDI_BN,P1MDI_BP,P1MDI_CN,P1MDI_CP,P1MDI_DN,P1MDI_DP,P2MDI_AN,P2MDI_AP,P2MDI_BN,P2MDI_BP,P2MDI_CN,P2MDI_CP,P2MDI_DN,P2MDI_DP,P3MDI_AN,P3MDI_AP,P3MDI_BN,P3MDI_BP,P3MDI_CN,P3MDI_CP,P3MDI_DN,P3MDI_DP,HSIN,HSIP,HSOENN,HSON,HSOP,HSSD,TX_SD/GPIO03,U0HSDM,U0HSDP,U0HSIN,U0HSIP,U0HSON,U0HSOP,U1HSDM,U1HSDP,PE0_HSIN,PE0_HSIP,PE0_HSON,PE0_HSOP,PE0_REFCLK_M,PE0_REFCLK_P,PE1_HSIN,PE1_HSIP,PE1_HSON,PE1_HSOP,PE1_REFCLK_M,PE1_REFCLK_P,DIS_TX/GPIO02,RSVD_A/TOD/GPIO04,SDA0/GPIO01' are not same in all of the packages. Make sure that this pin type specification is intended.,Warning

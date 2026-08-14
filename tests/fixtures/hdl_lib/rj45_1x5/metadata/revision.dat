@@ -1,0 +1,194 @@
+(Cell	rj45_1x5
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.4)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	06/09/25,19:49:34)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.rj45_1x5)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	06/09/25,19:53:14)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.rj45_1x5)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.4)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000004ddb6cf)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.4)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/09/25,19:50:36)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.rj45_1x5)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d5e040e)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000005ca2d313)
+
+			(Primitives	1
+
+				(Primitive	RJ45_1X5
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	06/09/25,19:49:39)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.rj45_1x5)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	RJ45_1X5
+
+							(PackType	RJ45_1X5)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001c090377)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001b48034f)
+
+)
+

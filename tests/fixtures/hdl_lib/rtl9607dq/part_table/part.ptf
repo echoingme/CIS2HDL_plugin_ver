@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL9607DQ'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION                   | JEDEC_TYPE                      | SN_NUM            = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'TFBGA484'   | 'RTL9607DQ' | '集成电路 RTL9607DQ TFBGA484' | 'BGA484C65P22X22_1500X1500X141' | ''(~RTL9607DQ)    = ''          | 'AC00'  | '集成电路' | 'RTL9607DQ TFBGA484' | ''        
+
+END_PART
+
+END.
+

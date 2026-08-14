@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MT7981B'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION         | JEDEC_TYPE                      | SN_NUM           = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'TFBGA338'   | 'MT7981BA' | '集成电路 MT7981BA' | 'BGA338C65P20X18_1300X1170X120' | 'M04.100962'(~MT7981BA) = ''          | 'AC00'  | '集成电路' | 'MT7981BA TFBGA338' | ''        
+
+END_PART
+
+END.
+

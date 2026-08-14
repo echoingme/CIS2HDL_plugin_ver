@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8192FR'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION               | JEDEC_TYPE      | SN_NUM            = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION     | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN32'      | 'RTL8192FR' | '集成电路RTL8192FR QFN32' | 'QFN32-0_4-4X4' | 'M04.100626'(~RTL8192FR) = ''           | 'AC00'  | '集成电路' | 'RTL8192FR QFN32' | ''        
+
+END_PART
+
+END.
+

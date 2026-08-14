@@ -1,0 +1,19 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AT24CXX'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE               | DESCRIPTION                                  | JEDEC_TYPE           | SN_NUM                    = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SOIC8'      | 'AT24C02'           | '集成电路AT24C02 SOP8 （先烧录）'            | 'SOIC127P600X175-8N' | 'M04.100504'(~AT24C02)    = ''           | 'AC00' 
+ 'SOIC8'      | 'AT24C08C-SSHM-T'   | '集成电路AT24C08C-SSHM-T SOIC8 （先烧录）'   | 'SOIC127P600X175-8N' | 'M04.100155'(~AT24C08C-SSHM-T) = ''           | 'AC00' 
+ 'SOIC8'      | 'AT24C08B-SO'       | '集成电路AT24C08B-SO SOP8 （先烧录）'        | 'SOIC127P600X175-8N' | 'M04.100171'(~AT24C08-SO) = ''           | 'AC00' 
+ 'SOIC8'      | 'M24C01'            | '集成电路M24C01 SO8 （先烧录）'              | 'SOIC127P600X175-8N' | 'M04.100045'(~M24C01)     = ''           | 'AC00' 
+ 'SOIC8'      | 'AT24C64D-SSHM-T'   | '集成电路AT24C64D-SSHM-T SOIC8 （先烧录）'   | 'SOIC127P600X175-8N' | 'M04.100456'(~AT24C64D-SSHM-T) = ''           | 'AC00' 
+ 'SOIC8'      | 'AT24C32N-10SI-2.7' | '集成电路AT24C32N-10SI-2.7 SOIC8 （先烧录）' | 'SOIC127P600X175-8N' | 'M04.100567'(~AT24C32N-10SI-2.7) = ''           | 'AC00' 
+ 'SOIC8'      | 'AT24C32D-SSHM'     | '集成电路AT24C32D-SSHM SOIC8 （先烧录）'     | 'SOIC127P600X175-8N' | 'M04.100609'(~AT24C32D-SSHM) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

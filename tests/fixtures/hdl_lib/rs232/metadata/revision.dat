@@ -1,0 +1,184 @@
+(Cell	max3232e
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.1)
+
+		(ModificationStatus	NULL)
+
+		(Status	Modified)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	)
+
+			(User	)
+
+			(Path	)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.12)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000025c5b053)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	3.1.9)
+
+						(ModificationStatus	NULL)
+
+						(Status	Modified)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/21/07,14:53:28)
+
+							(User	Liang_NQ)
+
+							(Path	100comm_Modify.max3232e)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001be3037a)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000eb011199)
+
+			(Primitives	1
+
+				(Primitive	RS232_16
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	1.0.5)
+
+						(ModificationStatus	NULL)
+
+						(Status	Modified)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/21/07,14:53:28)
+
+							(User	Liang_NQ)
+
+							(Path	100comm_Modify.max3232e)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	RS232_16
+
+							(PackType	RS232_16)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001b2d034b)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c4903a3)
+
+)
+

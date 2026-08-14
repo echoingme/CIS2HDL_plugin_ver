@@ -1,0 +1,242 @@
+(Cell	mt7976cn
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.8)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	02/24/23,14:49:00)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.mt7976cn)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	02/24/23,15:22:27)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.mt7976cn)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.7)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	2
+
+				(Symbol	sym_2
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000ac84b907)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.5)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	02/24/23,14:50:06)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mt7976cn)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000d82d93bd)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	02/24/23,14:50:06)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mt7976cn)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001c3e03b0)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000006c00d33d)
+
+			(Primitives	1
+
+				(Primitive	MT7976CN
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	02/24/23,14:49:03)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mt7976cn)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	MT7976CN
+
+							(PackType	MT7976CN)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_2)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001ca303ec)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001cd803d4)
+
+)
+

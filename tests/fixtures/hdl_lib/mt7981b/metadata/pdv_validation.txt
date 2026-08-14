@@ -1,0 +1,6 @@
+SPLBPD-209,Symbol 'sym_6':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_1':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_2':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_3':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_4':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_5':Part name ? defined on the symbol could not be found.,Warning

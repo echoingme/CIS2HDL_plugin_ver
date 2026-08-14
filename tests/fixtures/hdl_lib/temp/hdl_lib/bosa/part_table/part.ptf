@@ -1,0 +1,14 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BOSA'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                                         | JEDEC_TYPE | SN_NUM                           = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'BOSA_P'     | 'X3D4-5-C15-L15-BOB'       | 'GPON BOSAÆ÷¼þX3D4-5-C15-L15-BOB Î²ÏË³¤230mm'       | 'BOSA_P'   | 'M07.010235'(~X3D4-5-C15-L15-BOB) = 'ÎäººÈðË¼¶Ù' | 'BK01' 
+ 'BOSA_P'     | 'ZB34BF13-9A4D393A-BKS-MJ' | 'GPON BOSAÆ÷¼þZB34BF13-9A4D393A-BKS-MJ Î²ÏË³¤150mm' | 'BOSA_P'   | 'M07.010219'(~ZB34BF13-9A4D393A-BKS-MJ) = 'Õ×½Ý'       | 'BK01' 
+
+END_PART
+
+END.
+

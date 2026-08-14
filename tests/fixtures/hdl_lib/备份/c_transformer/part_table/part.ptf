@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'C_TRANSFORMER'
+
+{========================================================================================}
+:PACKAGE_TYPE    | VALUE  | DESCRIPTION                               | JEDEC_TYPE      | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME    | SPECIFICATION                             | LIFE_CYCLE ;
+{========================================================================================}
+ 'C_TRANSFORMER' | 'HLX1' | '电流互感器HLX1 5(100)A/2.5mA  0.2  20Ω' | 'C_TRANSFORMER' | 'M05.120001'(~C_TRANSFORMER) = ''           | 'BK00'  | '电流互感器' | '电流互感器HLX1 5(100)A/2.5mA  0.2  20Ω' | ''        
+
+END_PART
+
+END.
+

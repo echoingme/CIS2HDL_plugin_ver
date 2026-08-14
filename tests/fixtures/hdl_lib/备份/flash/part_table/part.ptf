@@ -1,0 +1,71 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SPI_FLASH_8'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE               | DESCRIPTION                                  | JEDEC_TYPE           | SN_NUM                    = MANUFACTURE | BOM_SEQ | TYPE_NAME  | SPECIFICATION                        | LIFE_CYCLE ;
+{========================================================================================}
+ 'SOIC8-W'    | 'GD25Q128CSIG'      | '集成电路GD25Q128CSIG SOP8 （先烧录）'       | 'SOIC127P798X216-8N' | 'M04.100430'(~GD25Q128CSIG) = ''          | 'AC00'  | '集成电路' | 'GD25Q128CSIG SOP8 （先烧录）'       | 'NA'      
+ 'SOIC8-W'    | 'GD25Q64CSIG'       | '集成电路GD25Q64CSIG SOP8 （先烧录）'        | 'SOIC127P798X216-8N' | 'M04.100464'(~GD25Q64CSIG) = ''          | 'AC00'  | '集成电路' | 'GD25Q64CSIG SOP8 （先烧录）'        | ''        
+ 'SOIC8-W'    | 'W25Q64FVSSIG'      | '集成电路W25Q64FVSSIG SOP8 （先烧录）'       | 'SOIC127P798X216-8N' | 'M04.010808'(~W25Q64FVSSIG) = ''          | 'AC00'  | '集成电路' | 'W25Q64FVSSIG SOP8 （先烧录）'       | 'NA'      
+ 'SOIC8-W'    | 'MX25L6406EM2I-12G' | '集成电路MX25L6406EM2I-12G SOP8 （先烧录）'  | 'SOIC127P798X216-8N' | 'M04.100248'(~MX25L6406EM2I-12G) = ''          | 'AC00'  | '集成电路' | 'MX25L6406EM2I-12G SOP8 （先烧录）'  | ''        
+ 'SOIC8-W'    | 'S25FL164K0XMFI011' | '集成电路S25FL164K0XMFI011 SOIC8 （先烧录）' | 'SOIC127P798X216-8N' | 'M04.100312'(~S25FL164K0XMFI011) = ''          | 'AC00'  | '集成电路' | 'S25FL164K0XMFI011 SOIC8 （先烧录）' | ''        
+ 'SOIC8-W'    | 'S25FL132K0XMFI011' | '集成电路S25FL132K0XMFI011 SOIC8 （先烧录）' | 'SOIC127P798X216-8N' | 'M04.100346'(~S25FL132K0XMFI011) = ''          | 'AC00'  | '集成电路' | 'S25FL132K0XMFI011 SOIC8 （先烧录）' | ''        
+ 'SOIC8-W'    | 'MX25L3206EM2I-12G' | '集成电路MX25L3206EM2I-12G SOP8 （先烧录）'  | 'SOIC127P798X216-8N' | 'M04.100327'(~MX25L3206EM2I-12G) = ''          | 'AC00'  | '集成电路' | 'MX25L3206EM2I-12G SOP8 （先烧录）'  | ''        
+ 'SOIC8-W'    | 'MX25L3233FM2I-08G' | '集成电路MX25L3233FM2I-08G SOP8 （先烧录）'  | 'SOIC127P798X216-8N' | 'M04.100328'(~MX25L3233FM2I-08G) = ''          | 'AC00'  | '集成电路' | 'MX25L3233FM2I-08G SOP8 （先烧录）'  | ''        
+ 'SOIC8-W'    | 'W25Q80JVSSIQ'      | '集成电路W25Q80JVSSIQ SOIC8 （先烧录）'      | 'SOIC127P798X216-8N' | 'M04.010532'(~W25Q80JVSSIQ) = ''          | 'AC00'  | '集成电路' | 'W25Q80JVSSIQ SOIC8 （先烧录）'      | 'NA'      
+ 'SOIC8-W'    | 'W25Q64JVSSIQ'      | '集成电路W25Q64JVSSIQ SOIC8 （先烧录）'      | 'SOIC127P798X216-8N' | 'M04.010536'(~W25Q64JVSSIQ) = ''          | 'AC00'  | '集成电路' | 'W25Q64JVSSIQ SOIC8 （先烧录）'      | ''        
+ 'SOIC8-W'    | 'W25Q32JVSSIQ'      | '集成电路W25Q32JVSSIQ SOIC8 （先烧录）'      | 'SOIC127P798X216-8N' | 'M04.010539'(~W25Q32JVSSIQ) = ''          | 'AC00'  | '集成电路' | 'W25Q32JVSSIQ SOIC8 （先烧录）'      | ''        
+ 'SOIC8-W'    | 'W25Q128JVSIQ'      | '集成电路W25Q128JVSIQ SOIC8 （先烧录）'      | 'SOIC127P798X216-8N' | 'M04.010565'(~W25Q128JVSIQ) = ''          | 'AC00'  | '集成电路' | 'W25Q128JVSIQ SOIC8 （先烧录）'      | ''        
+ 'SOIC8-W'    | 'FM25Q64-SOB'       | '集成电路FM25Q64-SOB SOP-8 （先烧录）'       | 'SOIC127P798X216-8N' | 'M04.100614'(~FM25Q64-SOB) = ''          | 'AC00'  | '集成电路' | 'FM25Q64-SOB SOP-8 （先烧录）'       | ''        
+ 'SOIC8-W'    | 'EM73E044SNA-G'     | '集成电路EM73E044SNA-G WSON8 （先烧录）'     | 'SOIC127P798X216-8N' | 'M04.100648'(~EM73E044SNA-G) = ''          | 'AC00'  | '集成电路' | 'EM73E044SNA-G WSON8 （先烧录）'     | ''        
+
+END_PART
+
+PART 'NOR_FLASH_56'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE               | DESCRIPTION                                   | JEDEC_TYPE           | SN_NUM                    = MANUFACTURE | BOM_SEQ | TYPE_NAME  | SPECIFICATION                         | LIFE_CYCLE ;
+{========================================================================================}
+ 'TSOP56'     | 'S29GL128P10TFI010' | '集成电路S29GL128P10TFI010 TSOP56 （先烧录）' | 'SOP50P2000X120-56N' | 'M04.010184'(~S29GL128P10TFI010) = ''          | 'AC00'  | '集成电路' | 'S29GL128P10TFI010 TSOP56 （先烧录）' | ''        
+
+END_PART
+
+PART 'NAND_FLASH_X8'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                | DESCRIPTION                                    | JEDEC_TYPE           | SN_NUM                     = MANUFACTURE | BOM_SEQ | TYPE_NAME  | SPECIFICATION                          | LIFE_CYCLE ;
+{========================================================================================}
+ 'TSOP48'     | 'W29N01HVSINF'       | '集成电路W29N01HVSINF TSOP48 （先烧录）'       | 'SOP50P2000X120-48N' | 'M04.100500'(~W29N01HVSINF) = ''          | 'AC00'  | '集成电路' | 'W29N01HVSINF TSOP48 （先烧录）'       | 'NA'      
+ 'TSOP48'     | 'S34ML02G200TFI000'  | '集成电路S34ML02G200TFI000 TSOP48 （先烧录）'  | 'SOP50P2000X120-48N' | 'M04.100390'(~S34ML02G200TFI000) = ''          | 'AC00'  | '集成电路' | 'S34ML02G200TFI000 TSOP48 （先烧录）'  | 'NA'      
+ 'TSOP48'     | 'S34ML04G200TFI000'  | '集成电路S34ML04G200TFI000 TSOP48 （先烧录）'  | 'SOP50P2000X120-48N' | 'M04.100527'(~S34ML04G200TFI000) = ''          | 'AC00'  | '集成电路' | 'S34ML04G200TFI000 TSOP48 （先烧录）'  | 'NA'      
+ 'TSOP48'     | 'S34ML01G200TFI000'  | '集成电路S34ML01G200TFI000 TSOP48 （先烧录）'  | 'SOP50P2000X120-48N' | 'M04.100549'(~S34ML01G200TFI000) = ''          | 'AC00'  | '集成电路' | 'S34ML01G200TFI000 TSOP48 （先烧录）'  | ''        
+ 'TSOP48'     | 'MT29F2G08ABAEAWP:E' | '集成电路MT29F2G08ABAEAWP:E TSOP48 （先烧录）' | 'SOP50P2000X120-48N' | 'M04.100587'(~MT29F2G08ABAEAWP:E) = ''          | 'AC00'  | '集成电路' | 'MT29F2G08ABAEAWP:E TSOP48 （先烧录）' | ''        
+ 'TSOP48'     | 'MT29F4G08ABADAWP'   | '集成电路MT29F4G08ABADAWP TSOP48 （先烧录）'   | 'SOP50P2000X120-48N' | 'M04.100653'(~MT29F4G08ABADAWP) = ''          | 'AC00'  | '集成电路' | 'MT29F4G08ABADAWP TSOP48 （先烧录）'   | ''        
+
+END_PART
+
+PART 'SPI_FLASH_9'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                | DESCRIPTION                                    | JEDEC_TYPE             | SN_NUM                     = MANUFACTURE | BOM_SEQ | TYPE_NAME  | SPECIFICATION                          | LIFE_CYCLE ;
+{========================================================================================}
+ 'WSON8'      | 'W25N01GVZEIG'       | '集成电路W25N01GVZEIG WSON8 （先烧录）'        | 'SON127P800X600X75-9N' | 'M04.100624'(~W25N01GVZEIG) = ''          | 'AC00'  | '集成电路' | 'W25N01GVZEIG WSON8 （先烧录）'        | ''        
+ 'WSON8'      | 'FM25S01A-DND-A-G'   | '集成电路FM25S01A-DND-A-G WSON8 （先烧录）'    | 'SON127P800X600X75-9N' | 'M04.100676'(~FM25S01A-DND-A-G) = ''          | 'AC00'  | '集成电路' | 'FM25S01A-DND-A-G WSON8 （先烧录）'    | ''        
+ 'WSON8'      | 'GD5F4GQ4UBYIG'      | '集成电路GD5F4GQ4UBYIG WSON8 （先烧录）'       | 'SON127P800X600X75-9N' | 'M04.100641'(~GD5F4GQ4UBYIG) = ''          | 'AC00'  | '集成电路' | 'GD5F4GQ4UBYIG WSON8 （先烧录）'       | ''        
+ 'WSON8'      | 'FM25S02A'           | '集成电路FM25S02A WSON8 （先烧录）'            | 'SON127P800X600X75-9N' | 'M04.100759'(~FM25S02A)    = ''          | 'AC00'  | '集成电路' | 'FM25S02A WSON8 （先烧录）'            | ''        
+
+END_PART
+
+PART 'NOR_FLASH_48'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                                    | JEDEC_TYPE             | SN_NUM                     = MANUFACTURE | BOM_SEQ | TYPE_NAME  | SPECIFICATION                          | LIFE_CYCLE ;
+{========================================================================================}
+ 'TSOP48'     | 'S29GL032N90TFI04 TSOP48'  | '集成电路S29GL032N90TFI04 TSOP48（先烧录）'    | 'SOP50P2000X120-48N'   | 'M04.010142'(~S29GL032N90TFI04) = ''          | 'AC00'  | '集成电路' | 'S29GL032N90TFI04 TSOP48（先烧录）'    | ''        
+ 'TSOP48'     | 'S29GL064N90TFI040 TSOP48' | '集成电路S29GL064N90TFI040 TSOP48（先烧录）'   | 'SOP50P2000X120-48N'   | 'M04.010008'(~S29GL064N90TFI040) = ''          | 'AC00'  | '集成电路' | 'S29GL064N90TFI040 TSOP48（先烧录）'   | ''        
+
+END_PART
+
+END.
+

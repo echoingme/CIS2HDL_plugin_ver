@@ -1,0 +1,204 @@
+(Cell	lm75
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.6)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	10/28/19,11:20:50)
+
+			(User	bacon)
+
+			(Path	hdllib_lib.lm75)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	10/28/19,11:25:07)
+
+			(User	bacon)
+
+			(Path	hdllib_lib.lm75)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.6)
+
+				(ModificationStatus	NULL)
+
+				(Status	Created)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	10/28/19,11:20:50)
+
+					(User	bacon)
+
+					(Path	hdllib_lib.lm75)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000cc3e07e5)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	10/28/19,11:24:51)
+
+							(User	bacon)
+
+							(Path	hdllib_lib.lm75)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001e2c03e0)
+
+		)
+
+		(View	Chips
+
+			(Checksum	0000000007b3ca1e)
+
+			(Primitives	1
+
+				(Primitive	LM75
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	10/28/19,11:20:50)
+
+							(User	bacon)
+
+							(Path	hdllib_lib.lm75)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	LM75
+
+							(PackType	LM75)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+						(Linkages	
+
+							(DefaultFootPrint	
+
+								(Name	nso-8)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001e120444)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001b330346)
+
+)
+

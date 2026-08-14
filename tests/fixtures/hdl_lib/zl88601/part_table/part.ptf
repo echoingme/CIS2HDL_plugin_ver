@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ZL88601'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE        | DESCRIPTION                | JEDEC_TYPE             | SN_NUM             = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN64'      | 'ZL88601DF1' | '集成电路ZL88601DF1 QFN64' | 'QFN50P900X900X90-65N' | 'M04.100433'(~ZL88601DF1) = ''           | 'AC00'  | '集成电路' | 'ZL88601DF1 QFN64' | ''        
+
+END_PART
+
+END.
+

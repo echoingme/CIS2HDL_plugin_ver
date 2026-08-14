@@ -1,0 +1,90 @@
+(Cell	inport
+
+	(RevisionInfoBlock	
+
+		(Baselined	1)
+
+		(Revision	1.0.0)
+
+		(ModificationStatus	NULL)
+
+		(Status	Baselined)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	03/06/05,16:51:46)
+
+			(User	sureshg)
+
+			(Path	standard.inport)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000612149ce)
+
+					(RevisionInfoBlock	
+
+						(Baselined	1)
+
+						(Revision	1.0.0)
+
+						(ModificationStatus	NULL)
+
+						(Status	Baselined)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	03/06/05,16:51:46)
+
+							(User	sureshg)
+
+							(Path	standard.inport)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001a9e0380)
+
+		)
+
+		(Checksum	000000001c47037c)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	15.50-d029)
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001b82037d)
+
+)
+

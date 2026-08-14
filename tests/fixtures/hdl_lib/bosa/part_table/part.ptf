@@ -1,0 +1,41 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BOSA'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                                         | JEDEC_TYPE | SN_NUM                           = MANUFACTURER | BOM_SEQ | TYPE_NAME           | SPECIFICATION                          | LIFE_CYCLE ;
+{========================================================================================}
+ 'BOSA_P'     | 'X3D4-5-C15-L15-BOB'       | 'GPON BOSAÆ÷¼þX3D4-5-C15-L15-BOB Î²ÏË³¤230mm'       | 'BOSA_P'   | 'M07.010235'(~X3D4-5-C15-L15-BOB) = 'ÎäººÈðË¼¶Ù' | 'BK01'  | '²å¼þGPON BOSAÆ÷¼þ' | 'X3D4-5-C15-L15-BOB Î²ÏË³¤230mm'       | ''        
+ 'BOSA_P'     | 'ZB34BF13-9A4D393A-BKS-MJ' | 'GPON BOSAÆ÷¼þZB34BF13-9A4D393A-BKS-MJ Î²ÏË³¤150mm' | 'BOSA_P'   | 'M07.010219'(~ZB34BF13-9A4D393A-BKS-MJ) = 'Õ×½Ý'       | 'BK01'  | '²å¼þGPON BOSAÆ÷¼þ' | 'ZB34BF13-9A4D393A-BKS-MJ Î²ÏË³¤150mm' | 'NA'      
+
+END_PART
+
+PART 'BOSA_UNIT'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                                         | JEDEC_TYPE  | SN_NUM                           = MANUFACTURER | BOM_SEQ | TYPE_NAME             | SPECIFICATION                          | LIFE_CYCLE ;
+{========================================================================================}
+ 'BOSA_UNIT'  | 'ZB34BF73-9A4D193R-BKS-AJ' | '²å°ÎÊ½GPON BOSAÆ÷¼þZB34BF73-9A4D193R-BKS-AJ'       | 'BOSA_UNIT' | 'M07.010263'(~ZB34BF73-9A4D193R-BKS-AJ) = 'Õ×½Ý'       | 'BK01'  | '²å°ÎÊ½GPON BOSAÆ÷¼þ' | 'ZB34BF73-9A4D193R-BKS-AJ'             | ''        
+
+END_PART
+
+PART 'BOSA_10G_A'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                      | DESCRIPTION                                         | JEDEC_TYPE     | SN_NUM                           = MANUFACTURER | BOM_SEQ | TYPE_NAME             | SPECIFICATION                          | LIFE_CYCLE ;
+{========================================================================================}
+ 'BOSA_10G_P' | 'X2D4-5-C15-L25-BOB'       | '10GPON BOSAÆ÷¼þX2D4-5-C15-L25-BOB Î²ÏË³¤235mm'     | 'BOSA_10G_P_A' | 'M07.010280'(~BOSA_10G_A)        = 'ÎäººÈðË¼¶Ù' | 'BK01'  | '²å¼þ10GPON BOSAÆ÷¼þ' | 'X2D4-5-C15-L25-BOB Î²ÏË³¤235mm'       | ''        
+
+END_PART
+
+PART 'BOSA_10G_B'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE                       | DESCRIPTION                                                    | JEDEC_TYPE     | SN_NUM                           = MANUFACTURER | BOM_SEQ | TYPE_NAME                | SPECIFICATION                            | LIFE_CYCLE ;
+{========================================================================================}
+ 'BOSA_10G_P' | 'RBDA-3157-101C-P2-C021001' | '²å¼þ10G XEPON BOSAÆ÷¼þRBDA-3157-101C-P2-C021001  Î²ÏË³¤230mm' | 'BOSA_10G_P_B' | 'M07.010301'(~BOSA_10G_B)        = 'ÎäººÈðË¼¶Ù' | 'BK01'  | '²å¼þ10G XEPON BOSAÆ÷¼þ' | 'RBDA-3157-101C-P2-C021001  Î²ÏË³¤230mm' | ''        
+
+END_PART
+
+END.
+

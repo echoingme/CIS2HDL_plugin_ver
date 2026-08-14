@@ -1,0 +1,31 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SKY85319'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN16'      | 'SKY85319-11' | '集成电路SKY85319-11 QFN16' | 'QFN50P300X300X80-17N' | 'M04.100594'(~SKY85319-11) = ''           | 'AC00'  | '集成电路' | 'SKY85319-11 QFN16' | ''        
+
+END_PART
+
+PART 'SKY85310'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN16'      | 'SKY85310-21' | '集成电路SKY85310-21 QFN16' | 'QFN50P300X300X80-17N' | 'M04.100585'(~SKY85310-21) = ''           | 'AC00'  | '集成电路' | 'SKY85310-21 QFN16' | ''        
+
+END_PART
+
+PART 'RTC7620'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN12'      | 'RTC7620'     | '集成电路RTC7620 QFN12'     | 'QFN50P200X200X50-13N' | 'M04.100946'(~RTC7620) = ''           | 'AC00'  | '集成电路' | 'RTC7620 QFN12'     | ''        
+
+END_PART
+
+END.
+

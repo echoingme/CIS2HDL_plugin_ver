@@ -1,0 +1,12 @@
+(
+  (version 16.6)
+  (tool
+    (creator "conceptHDL")
+    (last "conceptHDL")
+  )
+  (library "hdl_vs_lib")
+  (design "power_dip4"
+    (lastIds
+    )
+  )
+)

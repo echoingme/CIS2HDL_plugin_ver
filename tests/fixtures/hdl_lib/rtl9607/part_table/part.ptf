@@ -1,0 +1,23 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL9607'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE        | DESCRIPTION                  | JEDEC_TYPE                      | SN_NUM             = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA457'     | 'RTL9607-CP' | '集成电路RTL9607-CP  BGA457' | 'BGA457C65P25X25_1700X1700X150' | 'M04.100655'(~TRL9607-CP) = ''           | 'AC00'  | '集成电路' | 'RTL9607-CP  BGA457' | ''        
+
+END_PART
+
+PART 'RTL9607C'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE             | DESCRIPTION                       | JEDEC_TYPE                      | SN_NUM                  = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION             | LIFE_CYCLE ;
+{========================================================================================}
+ 'LQFP156'    | 'RTL9607C-VA5-CG' | '集成电路RTL9607C-VA5-CG LQFP156' | 'QFP40P1600X2200X160-157N' | 'M04.100821'(~TRL9607C-VA5-CG) = ''           | 'AC00'  | '集成电路' | 'RTL9607C-VA5-CG LQFP156' | ''        
+ 'LQFP156'    | 'RTL9607C-VA6-CG' | '集成电路RTL9607C-VA6-CG LQFP156' | 'QFP40P1600X2200X160-157N' | 'M04.100628'(~TRL9607C-VA6-CG) = ''           | 'AC00'  | '集成电路' | 'RTL9607C-VA6-CG LQFP156' | ''        
+
+END_PART
+
+END.
+

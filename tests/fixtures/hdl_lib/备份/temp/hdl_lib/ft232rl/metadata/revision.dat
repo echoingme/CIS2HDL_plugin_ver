@@ -1,0 +1,194 @@
+(Cell	ft232rl
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.7)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	07/01/20,16:57:42)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.ft232rl)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	07/01/20,17:11:54)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.ft232rl)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.7)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	0000000009b7c0fc)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.5)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/01/20,17:11:32)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.ft232rl)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001c8903df)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000fb8ce229)
+
+			(Primitives	1
+
+				(Primitive	FT232RL
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/01/20,16:57:46)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.ft232rl)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	FT232RL
+
+							(PackType	FT232RL)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001ae60354)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001c62037a)
+
+)
+

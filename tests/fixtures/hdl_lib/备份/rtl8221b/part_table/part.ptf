@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8221B'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE(OPT)    | DESCRIPTION(OPT)            | JEDEC_TYPE(OPT)         | SN_NUM(OPT)         = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN48'      | 'RTL8221B-CG' | '集成电路RTL8221B-CG QFN48' | 'QFN40P600X600X100-49N' | 'M04.100772'(~RTL8221B-CG) = ''           | 'AC00'  | '集成电路' | 'RTL8221B-CG QFN48' | ''        
+
+END_PART
+
+END.
+

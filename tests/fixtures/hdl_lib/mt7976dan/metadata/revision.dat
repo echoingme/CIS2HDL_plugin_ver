@@ -1,0 +1,242 @@
+(Cell	mt7976dan
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.19)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	07/11/22,16:32:46)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.mt7976dan)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	07/11/22,19:22:11)
+
+			(User	VSOL-PC)
+
+			(Path	hdllib_lib.mt7976dan)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.15)
+
+				(ModificationStatus	NULL)
+
+				(Status	Modified)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	2
+
+				(Symbol	sym_2
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	00000000e954029a)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.8)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/11/22,16:37:32)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mt7976dan)
+
+						)
+
+					)
+
+				)
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000008ddf8df6)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.11)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/11/22,16:37:32)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mt7976dan)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001a590328)
+
+		)
+
+		(View	Chips
+
+			(Checksum	00000000abe4f03e)
+
+			(Primitives	1
+
+				(Primitive	MT7976DAN
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.2)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	07/11/22,16:32:50)
+
+							(User	VSOL-PC)
+
+							(Path	hdllib_lib.mt7976dan)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	MT7976DAN
+
+							(PackType	MT7976DAN)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	2
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+							(FunctionGroup	2[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_2)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001d5b03b6)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-S102 (v16-6-112JG))
+
+		(License	PCB_librarian_expert)
+
+	)
+
+	(Checksum	000000001c8f03a8)
+
+)
+

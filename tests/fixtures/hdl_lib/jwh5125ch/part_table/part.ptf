@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'JWH5125CH'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE          | DESCRIPTION                   | JEDEC_TYPE             | SN_NUM            = MANUFACURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION        | LIFE_CYCLE ;
+{========================================================================================}
+ 'ESOP8'      | 'JWH5125CH' | '集成电路 JWH5125CH ESOP8' | 'SOIC127P600X170-9N' | ''(~JWH5125CH) = ''          | 'AC00'  | '集成电路' | 'JWH5125CH ESOP8' | ''        
+
+END_PART
+
+END.
+

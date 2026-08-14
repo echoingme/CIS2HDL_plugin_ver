@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL9601D'
+
+{========================================================================================}
+:PAKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE               | SN_NUM              = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'QFN88'     | 'RTL9601D-CG' | '集成电路RTL9601D-CG QFN88' | 'QFN40P1000X1000X90-89N' | 'M01.100665'(~RTL9601D-CG) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

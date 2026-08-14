@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8367N'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                     | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION          | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN88'      | 'RTL8367N' | '集成电路 RTL8367N-VB-CG QFN88' | 'QFN40P1000X1000X90-89N' | ''(~RTL8367N) = ''           | 'AC00'  | '集成电路' | 'RTL8367N-VB-CG QFN88' | ''        
+
+END_PART
+
+END.
+

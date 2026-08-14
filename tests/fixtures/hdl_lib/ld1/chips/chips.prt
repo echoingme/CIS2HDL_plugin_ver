@@ -1,0 +1,54 @@
+FILE_TYPE=LIBRARY_PARTS;
+primitive 'LD1';
+  pin
+    'A1':
+      PIN_NUMBER='(15)';
+      PIN_TYPE='ANALOG';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      NO_ASSERT_CHECK='TRUE';
+      NO_DIR_CHECK='TRUE';
+      ALLOW_CONNECT='TRUE';
+    'BIAS':
+      PIN_NUMBER='(16)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'VDD_TX':
+      PIN_NUMBER='(17)';
+      PINUSE='POWER';
+      NO_LOAD_CHECK='Both';
+      NO_IO_CHECK='Both';
+      NO_ASSERT_CHECK='TRUE';
+      NO_DIR_CHECK='TRUE';
+      ALLOW_CONNECT='TRUE';
+    'LASER-':
+      PIN_NUMBER='(18)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'LASER+':
+      PIN_NUMBER='(19)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'TX_FAULT':
+      PIN_NUMBER='(20)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+    'TX_DISABLE':
+      PIN_NUMBER='(21)';
+      BIDIRECTIONAL='TRUE';
+      INPUT_LOAD='(-0.01,0.01)';
+      OUTPUT_LOAD='(1.0,-1.0)';
+  end_pin;
+  body
+    PART_NAME='LD1';
+    BODY_NAME='LD1';
+    PHYS_DES_PREFIX='IC';
+    CLASS='IC';
+  end_body;
+end_primitive;
+
+END.

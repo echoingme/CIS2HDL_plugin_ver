@@ -1,0 +1,37 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'N_MOS_3'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE        | SN_NUM                 = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'TO252'      | 'ZXMN20B28K'     | 'ÌùÆ¬MOS¹ÜZXMN20B28K TO252-3L'   | 'TO252'           | 'M03.040044'(~ZXMN20B28K) = ''           | 'AF00' 
+ 'TO252'      | 'ZXMN15A27K'     | 'ÌùÆ¬MOS¹ÜZXMN15A27K TO252-3L'   | 'TO252'           | 'M03.040050'(~ZXMN15A27K) = ''           | 'AF00' 
+ 'TO-263'     | 'IPB600N25N3G'   | 'ÌùÆ¬MOS¹ÜIPB600N25N3G TO263'    | 'TO-263'          | 'M03.040051'(~IPB600N25N3G) = ''           | 'AF00' 
+ 'TO-263'     | 'IRFS3607TRLPBF' | 'ÌùÆ¬MOS¹ÜIRFS3607TRLPBF TO263'  | 'TO-263'          | 'M03.040033'(~IRFS3607TRLPBF) = ''           | 'AF00' 
+ 'SOT416'     | 'SI1012R-T1-GE3' | 'ÌùÆ¬MOS¹ÜSI1012R-T1-GE3 SOT416' | 'SOT416'          | 'M03.040055'(~SI1012R-T1-GE3) = ''           | 'AF00' 
+ 'SOT23'      | '2N7002'         | 'ÌùÆ¬MOS¹Ü2N7002 SOT23'          | 'SOT23'           | 'M03.030001'(~2N7002)  = ''           | 'AF00' 
+ 'SOT23'      | 'IRLM0100TRPBF'  | 'ÌùÆ¬MOS¹ÜIRLM0100TRPBF SOT23'   | 'SOT23'           | 'M03.030049'(~IRLM0100TRPBF) = ''           | 'AF00' 
+ 'SC-70'      | '2SK3018'        | 'ÌùÆ¬MOS¹Ü2SK3018 SC-70'         | 'SOT65P210X90-3N' | 'M03.040058'(~2SK3018) = ''           | 'AF00' 
+
+END_PART
+
+PART 'N_MOS_4'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                      | JEDEC_TYPE        | SN_NUM                 = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+
+END_PART
+
+PART 'N_MOS_8'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE              | DESCRIPTION                      | JEDEC_TYPE           | SN_NUM                 = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'SOIC8'      | 'DMN6066SSS SOIC8' | 'ÌùÆ¬MOS¹ÜDMN6066SSS SOIC8'      | 'SOIC127P600X175-8N' | 'M03.030050'(~DMN6066SSS) = ''           | 'AF00' 
+
+END_PART
+
+END.
+

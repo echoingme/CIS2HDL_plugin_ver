@@ -1,0 +1,204 @@
+(Cell	si32919
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.12)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	04/18/13,11:10:03)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.si32919)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	07/23/18,17:40:08)
+
+			(User	Administrator)
+
+			(Path	hdllib_lib.si32919)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Symbol
+
+			(RevisionInfoBlock	
+
+				(Baselined	0)
+
+				(Revision	0.0.5)
+
+				(ModificationStatus	NULL)
+
+				(Status	)
+
+				(ErrorStatus	0)
+
+				(CreateInfo	
+
+					(Time	)
+
+					(User	)
+
+					(Path	)
+
+				)
+
+			)
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000004765acfe)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.8)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/18/13,13:56:49)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.si32919)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001c1c03e6)
+
+		)
+
+		(View	Chips
+
+			(Checksum	000000005f185739)
+
+			(Primitives	1
+
+				(Primitive	SI32919
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.3)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	04/18/13,13:45:58)
+
+							(User	Administrator)
+
+							(Path	hdllib_lib.si32919)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	SI32919
+
+							(PackType	SI32919)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+						(Linkages	
+
+							(DefaultFootPrint	
+
+								(Name	SOIC127P600X175-16N)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(Checksum	000000001c2e03af)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.6-p001 (v16-6-112A))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001cb303d6)
+
+)
+

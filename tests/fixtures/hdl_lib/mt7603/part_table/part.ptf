@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MT7603'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE      | DESCRIPTION              | JEDEC_TYPE             | SN_NUM           = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION    | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN56'      | 'MT7603EN' | '集成电路MT7603EN QFN56' | 'QFN40P700X700X80-57N' | 'M04.100765'(~MT7603EN) = ''           | 'AC00'  | '集成电路' | 'MT7603EN QFN56' | ''        
+
+END_PART
+
+END.
+

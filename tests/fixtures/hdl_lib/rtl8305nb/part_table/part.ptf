@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8305NB'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                 | JEDEC_TYPE             | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION       | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN48'      | 'RTL8305NB' | '集成电路RTL8305NB-VC-CG QFN48' | 'QFN40P600X600X100-49N' | ''(~RTL8305NB) = ''           | 'AC00'  | '集成电路' | 'RTL8305NB-VC-CG QFN48' | ''        
+
+END_PART
+
+END.
+

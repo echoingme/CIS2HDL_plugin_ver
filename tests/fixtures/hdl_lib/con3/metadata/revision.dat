@@ -1,0 +1,170 @@
+(Cell	con3
+
+	(RevisionInfoBlock	
+
+		(Baselined	0)
+
+		(Revision	0.0.2)
+
+		(ModificationStatus	NULL)
+
+		(Status	Created)
+
+		(ErrorStatus	0)
+
+		(CreateInfo	
+
+			(Time	09/28/14,09:32:48)
+
+			(User	Administrator)
+
+			(Path	hdl_lib.con3)
+
+		)
+
+		(LastModifyInfo	
+
+			(Time	09/28/14,09:37:15)
+
+			(User	Administrator)
+
+			(Path	hdl_lib.con3)
+
+		)
+
+	)
+
+	(Views	
+
+		(View	Chips
+
+			(Checksum	00000000140cbbf0)
+
+			(Primitives	1
+
+				(Primitive	CON3
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	09/28/14,09:32:51)
+
+							(User	Administrator)
+
+							(Path	hdl_lib.con3)
+
+						)
+
+					)
+
+					(LogicalPhysicalPartRelation	
+
+						(LogicalPart	CON3
+
+							(PackType	CON3)
+
+						)
+
+					)
+
+					(Packages	1
+
+						(FunctionGroups	1
+
+							(FunctionGroup	1[1]
+
+								(Linkages	
+
+									(Linkage	Symbol
+
+										(Name	sym_1)
+
+									)
+
+								)
+
+							)
+
+						)
+
+					)
+
+				)
+
+			)
+
+		)
+
+		(View	Symbol
+
+			(Symbols	1
+
+				(Symbol	sym_1
+
+					(Symbol_Type	Normal)
+
+					(Max_Size	0)
+
+					(Checksum	000000006950824c)
+
+					(RevisionInfoBlock	
+
+						(Baselined	0)
+
+						(Revision	0.0.1)
+
+						(ModificationStatus	NULL)
+
+						(Status	Created)
+
+						(ErrorStatus	0)
+
+						(CreateInfo	
+
+							(Time	09/28/14,09:33:45)
+
+							(User	Administrator)
+
+							(Path	hdl_lib.con3)
+
+						)
+
+					)
+
+				)
+
+			)
+
+			(Checksum	000000001d3a03e3)
+
+		)
+
+		(Checksum	000000001c8103a5)
+
+	)
+
+	(VersionInfoBlock	
+
+		(ToolName	PDV)
+
+		(Version	16.5-p002 (v16-5-13B))
+
+		(License	Concept_HDL_expert)
+
+	)
+
+	(Checksum	000000001ba20377)
+
+)
+

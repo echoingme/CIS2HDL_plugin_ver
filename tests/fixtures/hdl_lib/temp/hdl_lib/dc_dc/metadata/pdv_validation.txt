@@ -1,0 +1,15 @@
+SPLBPD-209,Symbol 'sym_9':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_1':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_10':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_11':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_12':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_13':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_14':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_2':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_3':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_4':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_5':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_6':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_7':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-209,Symbol 'sym_8':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-170,Cell 'dc_dc':Pin(s) NC3,NC5,VOUT4,VOUT5,PGND13,NC7,PGND15,NC9 is (are) not present in any package or symbol. You can choose Pins - Add from the Package Pin page and delete these pins. If the HAS_FIXED_SIZE value has been reduced, reload the part.,Warning

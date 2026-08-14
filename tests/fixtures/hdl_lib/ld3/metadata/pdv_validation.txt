@@ -1,0 +1,2 @@
+SPLBPD-209,Symbol 'sym_1':Part name ? defined on the symbol could not be found.,Warning
+SPLBPD-170,Cell 'ld3':Pin(s) GND is (are) not present in any package or symbol. You can choose Pins - Add from the Package Pin page and delete these pins. If the HAS_FIXED_SIZE value has been reduced, reload the part.,Warning

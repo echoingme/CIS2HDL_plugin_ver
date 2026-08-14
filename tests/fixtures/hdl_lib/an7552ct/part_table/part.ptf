@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AN7552CT'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE            | DESCRIPTION                    | JEDEC_TYPE             | SN_NUM                 = MANUFACTURER | BOM_SEQ | TYPE_NAME | SPECIFICATION | LIFE_CYCLE             ;
+{========================================================================================}
+ 'LFBGA353L'      | 'AN7552CT' | '集成电路AN7552CT LFBGA353L' | 'BGA353C65P23X20_1500X1300X140' | ''(~AN7552CT)    = ''  | 'AC00'    | '集成电路'    | 'AN7552CT LFBGA353L'| ''        
+
+END_PART
+
+END.
+

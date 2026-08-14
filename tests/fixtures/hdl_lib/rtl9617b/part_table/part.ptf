@@ -1,0 +1,14 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL9617B'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE          | DESCRIPTION                   | JEDEC_TYPE                      | SN_NUM               = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION         | LIFE_CYCLE ;
+{========================================================================================}
+ 'BGA481'     | 'RTL9617B-CG'  | '集成电路RTL9617B-CG BGA481'  | 'BGA484C65P22X22_1500X1500X120' | 'M04.100770'(~RTL9617B-CG) = ''           | 'AC00'  | '集成电路' | 'RTL9617B-CG BGA481'  | ''        
+ 'BGA481'     | 'RTL9607DA-CG' | '集成电路RTL9607DA-CG BGA481' | 'BGA484C65P22X22_1500X1500X120' | 'M04.100848'(~RTL9607DA-CG) = ''           | 'AC00'  | '集成电路' | 'RTL9607DA-CG BGA481' | ''        
+
+END_PART
+
+END.
+

@@ -1,0 +1,14 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'RTL8814'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE       | DESCRIPTION                 | JEDEC_TYPE   | SN_NUM            = MANUFACTURER | BOM_SEQ ;
+{========================================================================================}
+ 'QFN128'     | 'RTL8814AR' | '集成电路RTL8814AR  QFN128' | 'QFN128DR_1' | 'M04.100656'(~RTL8814AR) = ''           | 'AC00' 
+ 'QFN128'     | 'RTL8194AE' | '集成电路RTL8194AE  QFN128' | 'QFN128DR_1' | 'M04.100657'(~RTL8194AE) = ''           | 'AC00' 
+
+END_PART
+
+END.
+

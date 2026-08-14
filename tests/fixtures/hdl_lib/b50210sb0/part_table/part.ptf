@@ -1,0 +1,14 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'B50210SB0'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE           | DESCRIPTION                   | JEDEC_TYPE             | SN_NUM                = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION         | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN64'      | 'B50210SB0KMLG' | '集成电路B50210SB0KMLG QFN64' | 'QFN50P900X900X90-65N' | 'M04.100679'(~B50210SB0KMLG) = ''           | 'AC00'  | '集成电路' | 'B50210SB0KMLG QFN64' | ''        
+ 'QFN64'      | 'B50210SB0IMLG' | '集成电路B50210SB0IMLG QFN64' | 'QFN50P900X900X90-65N' | 'M04.100678'(~B50210SB0IMLG) = ''           | 'AC00'  | '集成电路' | 'B50210SB0IMLG QFN64' | ''        
+
+END_PART
+
+END.
+

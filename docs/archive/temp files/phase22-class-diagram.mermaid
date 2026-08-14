@@ -1,0 +1,92 @@
+classDiagram
+    class WireLayoutEngine {
+        +cfg
+        +_pin_bodies: dict
+        +_three_outlines: list
+        +route_nets(net_pin_map, body_outlines, **ctx) dict
+        +route_net(net_name, pins, body_outlines) RoutedNet
+        +_route_horizontal(pins, trunk) list
+        +_route_vertical(pins, trunk) list
+        +_stub_lead_cfg() tuple
+        +_lead_map(pins, base_lead, differentiate, min_gap) dict
+        +_lead_point(x, y, lead) tuple
+        +_three_stage_enabled() bool
+        +_three_stage_stub(pin, trunk, vertical, outlines, busy_h, busy_v, lead, jog_lanes) list
+        +_try_jog_candidates(pin, ex, ey, trunk, vertical, outlines, busy_h, busy_v, jog_lanes, base) list
+        +_stub_direct_blocked(direct, outlines, busy_h, busy_v, vertical) bool
+        +wires_through_bodies(wires, outlines) list
+    }
+    class DetourRouter {
+        +name() str
+        +route_nets(net_pin_map, body_outlines, **ctx) dict
+        +_detour_segment(seg, outlines, busy_h, busy_v) list
+        +_build_detour(seg, ox0, oy0, ox1, oy1, busy_h, busy_v) list
+    }
+    class CSAWriter {
+        +_build_csa_content_conn(conn, page_conn) str
+        +_compute_pin_geometry(conn, page_conn, body_coords) tuple
+        +_pin_offset_map: dict
+        +_ioport_cluster_order: dict
+        +_build_ioport_cluster_order(page_conn, net_pin_map) None
+        +_ioport_position_cfg(index) tuple
+        +_lastpins_for_instance(conn, page_conn, irec, pin_coords, source_pins, body_coord) list
+        +_route_nets(net_pin_map, body_outlines, conn, page_conn, pin_bodies) dict
+        +_emit_conn_instance_block(conn, irec, body_name, x, y, lastpin_lines, label_offsets, label_orient, placeholder) list
+        +_sig_name_on_wire(coord, net_display, label_offsets) list
+    }
+    class WireSimplifier {
+        +parallel_short_wires(pins, max_dist, stub_lead, outlines) list
+        +plan_parallel_short(pins, max_dist, stub_lead, outlines) tuple
+        +simplify_wires(wires, pins, dot_merge, max_wire_len, obstacles, break_long, net_display) SimplifyResult
+    }
+    class GndClusterPlanner {
+        +route_cluster_parallel(cluster_pins, hub, outlines, stub_lead, max_dist, gnd_coord) list
+        +hub_for(cluster_pins) Point
+        +hub_short_wires(hub, outlines, stub_lead) list
+    }
+    class NetNameConnect {
+        +cross_page_bare_names(conn) set
+        +net_name_endpoints(net_pin_map, wire_segments, cross_page, use_net_name) list
+        +net_name_labels(net_pin_map, source_pin_keys, cross_page, use_net_name) list
+    }
+    class TextLayoutOptimizer {
+        +optimize(page_conn, body_coords, pin_coords, routed_nets, net_pin_map, ioport_positions) TextLayoutResult
+        +collect_text_items(page_conn, body_coords, pin_coords, routed_nets, net_pin_map, ioport_positions) list
+    }
+    class TextLayoutResult {
+        +offsets: dict
+        +label_orient: dict
+        +collisions_before: int
+        +collisions_after: int
+    }
+    class XconWriter {
+        +_build_xcon_content(conn) str
+        +write_with_manager(conn, mgr) list
+    }
+    class OutputManager {
+        +write_xcon(cell_name, library_alias, num_pages, content_override) Path
+        +generate_all_cell_files(...) list
+    }
+    class AestheticReport {
+        +add_wire_through_body(page, net, seg, outline, exempt) None
+        +add_lastpin_miss(page, refdes, pin, coord, expected, exempt, reason) None
+        +write(output_dir) Path
+    }
+    class RoutingConfig {
+        +three_stage_stub: bool
+        +stub_lead: int
+        +wire_simplify: WireSimplifyCfg
+        +ioport: IoportCfg
+        +text_layout: TextLayoutCfg
+        +overlap: OverlapCfg
+    }
+
+    DetourRouter --|> WireLayoutEngine : inherits (三段式共享)
+    CSAWriter ..> WireLayoutEngine : create_router(p0/detour)
+    CSAWriter ..> WireSimplifier : D4 plan_parallel_short
+    WireSimplifier ..> GndClusterPlanner : 复用 hub/短接算法
+    CSAWriter ..> NetNameConnect : D3 net_name_endpoints
+    CSAWriter ..> TextLayoutOptimizer : D7 label_orient
+    CSAWriter ..> AestheticReport : D2/D8 报告
+    OutputManager ..> XconWriter : D6 唯一内容源(content_override)
+    WireLayoutEngine ..> RoutingConfig : cfg 门控

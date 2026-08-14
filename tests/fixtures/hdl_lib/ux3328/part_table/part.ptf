@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'UX3328'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE    | DESCRIPTION            | JEDEC_TYPE             | SN_NUM         = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION   | LIFE_CYCLE ;
+{========================================================================================}
+ 'QFN32'      | 'UX3328' | '集成电路UX3328 QFN32' | 'QFN50P500X500X80-33N' | 'M04.100859'(~UX3328) = ''           | 'AC00'  | '集成电路' | 'UX3328  QFN32' | ''        
+
+END_PART
+
+END.
+

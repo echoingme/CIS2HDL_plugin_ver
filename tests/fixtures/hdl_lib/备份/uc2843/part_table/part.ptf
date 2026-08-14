@@ -1,0 +1,13 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'UC2843'
+
+{========================================================================================}
+:PACKAGE_TYPE | VALUE         | DESCRIPTION                | JEDEC_TYPE           | SN_NUM              = MANUFACTURER | BOM_SEQ | TYPE_NAME  | SPECIFICATION      | LIFE_CYCLE ;
+{========================================================================================}
+ 'SOP8'       | 'UC2843AD8TR' | '集成电路UC2843AD8TR SOP8' | 'SOIC127P600X175-8N' | 'M04.010222'(~UC2843AD8TR) = ''           | 'AC00'  | '集成电路' | 'UC2843AD8TR SOP8' | ''        
+
+END_PART
+
+END.
+

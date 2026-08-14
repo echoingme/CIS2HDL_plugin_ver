@@ -1,0 +1,100 @@
+FILE_TYPE = EXPANDEDPARTLIST;
+{ Using PSTWRITER 14.01-p001 Dec-03-2001 at 12:25:16 }
+DIRECTIVES
+ PST_VERSION='PST_HDL_CENTRIC_VERSION_0';
+ ROOT_DRAWING='FULLADD';
+ POST_TIME='Nov 28 2001 18:44:56';
+ SOURCE_TOOL='CAPTURE_WRITER';
+END_DIRECTIVES;
+
+PART_NAME
+ U1 'ORGATE':;
+
+SECTION_NUMBER 1
+ '@FULLADD.FULLADD(SCH_1):I505679590@FULLADD.74LS32.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):i505679590@fulladd.\74ls32.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='A';
+
+SECTION_NUMBER 2
+ '@FULLADD.FULLADD(SCH_1):HALFADD_A@FULLADD.HALFADD(SCH_1):I505679615@FULLADD.74LS32.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_a@fulladd.halfadd(sch_1):i505679615@fulladd.\74ls32.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='B';
+
+SECTION_NUMBER 3
+ '@FULLADD.FULLADD(SCH_1):HALFADD_B@FULLADD.HALFADD(SCH_1):I505679615@FULLADD.74LS32.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_b@fulladd.halfadd(sch_1):i505679615@fulladd.\74ls32.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='C';
+
+PART_NAME
+ U2 'ANDGATE':;
+
+SECTION_NUMBER 1
+ '@FULLADD.FULLADD(SCH_1):HALFADD_A@FULLADD.HALFADD(SCH_1):I505679611@FULLADD.74LS08.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_a@fulladd.halfadd(sch_1):i505679611@fulladd.\74ls08.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='A';
+
+SECTION_NUMBER 2
+ '@FULLADD.FULLADD(SCH_1):HALFADD_A@FULLADD.HALFADD(SCH_1):I505679613@FULLADD.74LS08.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_a@fulladd.halfadd(sch_1):i505679613@fulladd.\74ls08.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='B';
+
+SECTION_NUMBER 3
+ '@FULLADD.FULLADD(SCH_1):HALFADD_A@FULLADD.HALFADD(SCH_1):I505679614@FULLADD.74LS08.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_a@fulladd.halfadd(sch_1):i505679614@fulladd.\74ls08.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='C';
+
+SECTION_NUMBER 4
+ '@FULLADD.FULLADD(SCH_1):HALFADD_B@FULLADD.HALFADD(SCH_1):I505679611@FULLADD.74LS08.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_b@fulladd.halfadd(sch_1):i505679611@fulladd.\74ls08.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='D';
+
+PART_NAME
+ U3 'NOTGATE':;
+
+SECTION_NUMBER 1
+ '@FULLADD.FULLADD(SCH_1):HALFADD_A@FULLADD.HALFADD(SCH_1):I505679610@FULLADD.74LS04.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_a@fulladd.halfadd(sch_1):i505679610@fulladd.\74ls04.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='A';
+
+SECTION_NUMBER 2
+ '@FULLADD.FULLADD(SCH_1):HALFADD_A@FULLADD.HALFADD(SCH_1):I505679612@FULLADD.74LS04.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_a@fulladd.halfadd(sch_1):i505679612@fulladd.\74ls04.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='B';
+
+SECTION_NUMBER 3
+ '@FULLADD.FULLADD(SCH_1):HALFADD_B@FULLADD.HALFADD(SCH_1):I505679610@FULLADD.74LS04.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_b@fulladd.halfadd(sch_1):i505679610@fulladd.\74ls04.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='C';
+
+SECTION_NUMBER 4
+ '@FULLADD.FULLADD(SCH_1):HALFADD_B@FULLADD.HALFADD(SCH_1):I505679612@FULLADD.74LS04.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_b@fulladd.halfadd(sch_1):i505679612@fulladd.\74ls04.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='D';
+
+PART_NAME
+ U4 'ANDGATE':;
+
+SECTION_NUMBER 1
+ '@FULLADD.FULLADD(SCH_1):HALFADD_B@FULLADD.HALFADD(SCH_1):I505679613@FULLADD.74LS08.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_b@fulladd.halfadd(sch_1):i505679613@fulladd.\74ls08.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='A';
+
+SECTION_NUMBER 2
+ '@FULLADD.FULLADD(SCH_1):HALFADD_B@FULLADD.HALFADD(SCH_1):I505679614@FULLADD.74LS08.NORMAL(CHIPS)':
+ C_PATH='@fulladd.fulladd(sch_1):halfadd_b@fulladd.halfadd(sch_1):i505679614@fulladd.\74ls08.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='B';
+
+END.
