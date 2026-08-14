@@ -1,0 +1,17 @@
+# profiles/max-beauty.yaml — 内置只读 profile（极致美化）
+# 说明：default + wire_simplify + three_stage_stub + text_layout；
+#       routing.mode=detour（美观布线）。params 为相对 default 的增量。
+schema_version: 1
+profile:
+  name: max-beauty
+  description: "极致美化：default + wire_simplify + three_stage_stub + text_layout"
+  builtin: true
+  plugins:
+    beautify: [overlap_resolve, gnd_cluster, parallel_short, wire_simplify, three_stage_stub, text_layout]
+  params:
+    routing:            # 布线器：美观模式
+      mode: detour
+    wire_simplify:
+      enabled: true
+    text_layout:
+      enabled: true
