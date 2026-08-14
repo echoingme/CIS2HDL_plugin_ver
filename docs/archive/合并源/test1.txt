@@ -1,0 +1,191 @@
+这是两项需要 Cadence 环境的人工验证操作。给你详细的实操方案。
+
+---
+
+## 操作 18：验证生成的 HDL 工程可被 Project Manager 打开
+
+### 前置条件
+
+| 要求 | 说明 |
+|------|------|
+| Cadence SPB 16.6 | 完整安装（含 Design Entry HDL） |
+| 生成输出目录 | `tests/fixtures/RTL8367RB_test_output/`（执行转换后生成） |
+| 输出文件 | `.cpm` + `cds.lib` + `*.sch` |
+
+### 第一步：生成待验证的 HDL 工程
+
+```bash
+cd D:\26暑假\cis2hdl
+.venv\Scripts\activate
+python -m cis2hdl convert tests/fixtures/RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.DSN --output tests/fixtures/RTL8367RB_test_output/
+```
+
+### 第二步：拷贝输出到 Cadence 工作目录
+
+```bash
+# 在 Cadence 电脑上
+# 1. 创建项目目录
+mkdir C:\Cadence_Projects\RTL8367RB_HDL\
+
+# 2. 复制 CIS2HDL 生成的 5-8 个文件到这个目录
+#    - RTL8367RB.cpm / top.cpm
+#    - cds.lib
+#    - top.sch.1.1, top.sch.1.2, top.sch.1.3 ...
+```
+
+### 第三步：在 Cadence Project Manager 中打开
+
+```
+Step 1: 启动 Project Manager
+  Start → Cadence → Release 16.6 → PCB Editor Utilities → Project Manager
+
+Step 2: 新建/打开项目
+  File → New → Project
+  · Name: RTL8367RB_HDL_verify
+  · Location: C:\Cadence_Projects\RTL8367RB_HDL\
+  · 选择 "Design Entry HDL" 作为设计入口
+  · 点击 OK
+
+Step 3: 导入已有设计文件
+  File → Import → Design
+  · 选择生成的 .cpm 文件
+  · 确保 cds.lib 和 .sch 文件在同一目录
+  · 导入后查看项目结构
+
+Step 4: 验证内容
+  ✓ 项目是否正常打开（无报错）
+  ✓ 原理图页面是否正确显示（6 页）
+  ✓ 器件符号是否正确摆放
+  ✓ 网络连线是否可见
+  ✓ 引脚连接是否完整
+```
+
+### 第四步：记录验证结果
+
+创建一个简单的核对表：
+
+| 检查项 | 期望 | 实际 | 通过？ |
+|--------|------|------|:--:|
+| 工程能被打开 | 无报错 | | |
+| 页面数量 | 6 页 | | |
+| 器件符号可见 | 矩形/芯片符号 | | |
+| 网络名可见 | 423 nets | | |
+| 引脚连接 | 引脚有 net 名 | | |
+| 无弹窗报错 | 0 个错误弹窗 | | |
+
+---
+
+## 操作 19：验证 CDS 属性系统
+
+### 什么是 CDS 属性系统
+
+Cadence 的 HDL 工程中，每个器件/网络/引脚都有标准属性。这些属性需要从 CIS 源工程正确迁移：
+
+| 属性类别 | 关键属性名 | 在 CIS 中的来源 |
+|---------|-----------|---------------|
+| 器件标识 | `REFDES`（位号，如 R1/C5/U3） | CIS Instance → Reference |
+| 器件值 | `VALUE`（如 10K/0.1uF） | CIS Instance → Value |
+| 封装 | `PCB Footprint`（如 0805/SOIC8） | CIS Instance → PCB Footprint |
+| 器件名 | `PART_NAME` | CIS Instance → Part Name |
+| 库引用 | `SOURCE_LIBRARY` | OLB 文件路径 |
+| 引脚属性 | `PIN_NUMBER` / `PIN_NAME` | CIS Pin → Number / Name |
+| 网络属性 | `NET_NAME` / `NET_PHYSICAL_TYPE` | CIS Net → Name / Type |
+| BOM 信息 | `BOM_IGNORE` / `BOM_SEQ` | CIS Instance 属性 |
+
+### 验证方法
+
+```bash
+# 方法 1：在 Project Manager 中直接查看
+# 打开 HDL 工程后，双击打开任意 .sch 页面
+# 选中一个器件 → 右键 → Properties → 查看属性面板
+```
+
+```
+检查每个器件类别的属性：
+
+  R（电阻）:
+    □ REFDES = R?（从 CIS 迁移）
+    □ VALUE = 具体阻值（如 10K）
+    □ PCB Footprint = 封装名（如 0805）
+    □ PART_NAME = 器件库名
+    □ 引脚 1 和 2 的网络名
+
+  C（电容）:
+    □ REFDES = C?
+    □ VALUE = 具体容值（如 0.1uF）
+    □ PCB Footprint = 封装名
+    □ 极性电容的 pin 1（正极）是否正确标记
+
+  U（芯片）:
+    □ REFDES = U?
+    □ VALUE = 芯片型号（如 RTL8367RB）
+    □ PCB Footprint = 封装（如 LQFP128EP）
+    □ 所有引脚编号和名称
+    □ 电源引脚是否连接到正确的电源网络
+```
+
+### 方法 2：导出 BOM 交叉验证
+
+```
+Step 1: 在 Capture CIS 中打开原始 DSN 工程
+  Tools → Bill of Materials → 导出 BOM 为 CSV
+
+Step 2: 在 Project Manager 中打开 HDL 工程
+  Tools → Bill of Materials → 导出 BOM 为 CSV
+
+Step 3: 用 Excel 对比两个 BOM
+  · 列：位号 / 器件值 / 封装
+  · 逐行对比，标记差异
+```
+
+### 方法 3：用 Python 脚本自动对比
+
+```python
+# 在 Cadence 电脑上运行（需要能访问两个 BOM CSV）
+import csv
+
+def load_bom(csv_path):
+    with open(csv_path) as f:
+        return {row['REFDES']: row for row in csv.DictReader(f)}
+
+cis_bom = load_bom("cis_bom.csv")
+hdl_bom = load_bom("hdl_bom.csv")
+
+mismatches = []
+for refdes in cis_bom:
+    if refdes not in hdl_bom:
+        mismatches.append(f"{refdes}: MISSING in HDL")
+    elif cis_bom[refdes]['VALUE'] != hdl_bom[refdes]['VALUE']:
+        mismatches.append(f"{refdes}: VALUE mismatch ({cis_bom[refdes]['VALUE']} vs {hdl_bom[refdes]['VALUE']})")
+
+print(f"Total mismatches: {len(mismatches)}")
+for m in mismatches[:20]:
+    print(f"  {m}")
+```
+
+---
+
+## 如果验证失败怎么办
+
+| 症状 | 可能原因 | 修复方向 |
+|------|---------|---------|
+| 打开工程报 "library not found" | cds.lib 路径错误 | 检查 cds.lib 中的库路径是否有效 |
+| 器件显示为红色矩形 | 符号文件缺失 | 需要提供 OLB 库并配置符号降级路径 |
+| 网络名空白 | DSN net 解析不完整 | 检查 T0x10/Net 解析日志 |
+| 属性值为空 | 属性迁移未完成 | 检查 CIS→HDL 属性映射配置 |
+| 电源引脚未连接 | 电源网络分类错误 | 检查 `classify_net()` 逻辑 |
+
+---
+
+## 总结：操作清单
+
+在 Cadence 电脑上按顺序执行：
+
+1. **复制文件**：CIS2HDL 生成的 `.cpm` + `cds.lib` + `*.sch` → `C:\Cadence_Projects\RTL8367RB_HDL\`
+2. **打开验证**：Project Manager → File → New Project → Design Entry HDL → 导入
+3. **逐页检查**：6 页全开，确认符号/网络/引脚
+4. **属性抽查**：选 10 个器件（2R + 2C + 2U + 2Connector + 2Power），逐项查属性
+5. **BOM 对比**：导出 CIS BOM 和 HDL BOM，Excel 全量对比
+6. **记录结果**：填好核对表，标注所有差异项
+
+预计耗时：30-45 分钟。需要我调整代码的地方，把验证结果（以核对表+截图+错误信息的形式）发给我即可。

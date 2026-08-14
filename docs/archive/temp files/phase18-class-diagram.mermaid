@@ -1,0 +1,90 @@
+classDiagram
+    class MockSymbol {
+        +str cell_name
+        +list[str] pin_numbers
+        +list[str] pin_names
+        +dict offsets
+        +dict sides
+        +dict labels
+        +str outline
+        +str kind
+        +offset_for(pin_number, pin_name) tuple
+    }
+    class MockIconLibrary {
+        +bool enabled
+        +str lib_name
+        +symbol_for(refdes, section, pins) MockSymbol
+        +write_to_temp_lib(root) list[Path]
+        +_symbol_css(symbol) str
+        +_append_pin_line(a, px, py, side, x0, x1, label) None
+        +_master_tag(role) str
+        +_entity_files(symbol) dict
+    }
+    class SymbolCssValidator {
+        +validate_symbol_css(content, source) list[str]
+        +validate_temp_lib_structure(root) list[str]
+    }
+    class CSAWriter {
+        +_effective_view(irec, body_name, section) tuple
+        +_select_rotation_view(body_name, refdes, rot) tuple
+        +_gnd_power_sig_name(body_name, net) str
+        +_lastpin_coord_hit(coord, body, offset, rot, mirror) bool
+        +_inject_crossref_props(irec, props, x, y) list[str]
+        +_lastpins_for_instance(conn, page_conn, irec, pin_coords, source_pins) list[str]
+        +_emit_power_symbol_block(conn, irec, body_name, x, y) list[str]
+        +_plan_and_inject_gnd_symbols(conn, page_conn, body_coords, pin_coords, net_pin_map) list[dict]
+    }
+    class GndClusterPlanner {
+        +route_cluster_parallel(cluster_pins, hub, outlines, stub_lead) list
+        +place_gnd_symbol(cluster_pins, outlines, pin_points, margin, edge_clearance) tuple
+        +hub_for(cluster_pins) tuple
+    }
+    class DetourRouter {
+        +_three_stage_stub(pin, trunk, vertical, outlines, busy_h, busy_v) list[WireSegment]
+        +_route_horizontal(pins, trunk) list[WireSegment]
+        +_build_detour(seg, ox0, oy0, ox1, oy1, busy_h, busy_v) list[WireSegment]
+    }
+    class WireLayoutEngine {
+        +_find_lane(trunk, lo, hi, used, outlines, vertical, other_by_x, other_by_y, tracks) int
+        +_avoid_outlines(coord, outlines, vertical) int
+        +_pin_on_trunk(candidate, lo, hi, vertical, other_by_x, other_by_y) bool
+    }
+    class WireSimplifier {
+        +simplify_wires(wires, pins, dot_merge, max_wire_len, obstacles, break_long) SimplifyResult
+        +split_long_wires(wires, max_len) tuple
+        +long_wire_report(wires, max_len) list
+    }
+    class OverlapDetector {
+        +detect_collisions(geoms_a, geoms_b, margin) list[Collision]
+        +self_intersections(wires) list
+        +segment_near_pin(seg, pins, radius) tuple
+    }
+    class OverlapResolver {
+        +resolve(movables, fixed) ResolverResult
+        +resolve_passives(passives, fixed, max_move) ResolverResult
+    }
+    class NetNameConnect {
+        +cross_page_bare_names(conn) set[str]
+        +ioport_skip_plan(off_pages, use_net_name) list[dict]
+        +net_name_labels(net_pin_map, source_pin_keys, cross_page, use_net_name, wire_endpoints) list
+        +net_name_endpoints(routed, net_pin_map, cross_page) list
+    }
+    class PowerCandidateScorer {
+        +candidates_for(pin_count, pin_names, connected_nets) list[dict]
+        +best_auto(pin_count, pin_names, connected_nets) dict
+        +_symbol_pin_names(library_id, section) list[str]
+    }
+    class AuditOriginRefs {
+        +audit_origin_refs(hdl_lib_root, csa_pages) list[str]
+    }
+
+    MockIconLibrary "1" --> "*" MockSymbol : builds
+    MockIconLibrary ..> SymbolCssValidator : validates
+    CSAWriter ..> MockIconLibrary : mock takeover
+    CSAWriter ..> GndClusterPlanner : GND parallel short
+    CSAWriter ..> NetNameConnect : net-name labels
+    CSAWriter ..> OverlapDetector : avoidance assertions
+    CSAWriter ..> AuditOriginRefs : ORIGIN gate
+    DetourRouter --|> WireLayoutEngine : inherits
+    OverlapResolver ..> OverlapDetector : uses detect_collisions
+    PowerCandidateScorer ..> CSAWriter : POWER_IC_AUTO override

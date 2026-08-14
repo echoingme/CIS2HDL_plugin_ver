@@ -1,0 +1,166 @@
+classDiagram
+    direction LR
+
+    %% ─── 领域模型（现有 IR，P0-A 已就绪） ───────────────────────────
+    class DesignIR {
+        +str project_name
+        +list~PageIR~ pages
+        +list~str~ global_nets
+        +all_instances
+        +all_nets
+        +total_pins
+        +instances_by_refdes()
+        +net_connection_map()
+    }
+    class PageIR {
+        +str page_id
+        +str page_name
+        +int width
+        +int height
+        +list~ComponentInstanceIR~ instances
+        +list~NetIR~ nets
+        +list~WireSegment~ wires
+        +list~dict~ ports
+        +list~dict~ off_pages
+    }
+    class ComponentInstanceIR {
+        +str refdes
+        +str library_id
+        +int section
+        +int loc_x
+        +int loc_y
+        +int rotation
+        +dict pin_connections
+        +dict properties
+    }
+    class ComponentDef {
+        +str library_id
+        +str part_name
+        +list~PinDef~ pins
+        +int sections
+    }
+    class PinDef {
+        +str number
+        +str name
+        +ElectricalType type
+    }
+    class NetIR {
+        +str name
+        +NetCategory category
+        +list~NetConnection~ connections
+        +list~WireSegment~ wires
+        +connection_signature
+    }
+    class NetConnection {
+        +str refdes
+        +str pin_number
+    }
+    class WireSegment {
+        +list~tuple~int,int~~ points
+        +int start_x
+        +int start_y
+        +int end_x
+        +int end_y
+        +str net_name
+        +str page_id
+    }
+
+    %% ─── P0-B 新模块：con/xcon/csv/cpc 写入器 ──────────────────────
+    class ConWriter {
+        +write(design, match_map, output_mgr) Path
+        +_collect_cells(design) list
+        +_collect_nets(design) list
+        +_collect_instances(design) list
+        +_compute_last_ids(n_cells, n_nets, n_pins) dict
+        +_emit_s_expr() str
+    }
+    class XconWriter {
+        +write(design, match_map, output_mgr) Path
+        +_build_cells_xml() str
+        +_build_nets_xml() str
+        +_build_aliases_xml() str
+        +_build_instances_xml() str
+        +_build_net_scopes_xml() str
+        +_build_pages_xml() str
+    }
+    class PageCsvWriter {
+        +write(page, page_num, net_id_map, output_mgr) Path
+        +_build_net_header(page) str
+        +_build_instance_blocks(page) str
+        +_pin_line(inst, pin_num, pin_name, net_id) str
+    }
+    class CpcWriter {
+        +write(page, page_num, output_mgr) Path
+        +_build_iscell_entries(page) list
+        +_build_cell_entries(page) list
+    }
+
+    %% ─── P0-C 新模块：连线生成 ─────────────────────────────────────
+    class CSAWriter {
+        +write_with_manager(page, mgr) list~Path~
+        +_build_csa_content(page, page_num) str
+        +_build_component_blocks(page) str
+        +_build_lastpin_section(page, coord_map) str
+        +_build_wire_section(page, pin_coords) str
+        +_build_dot_section(page) str
+        +_build_sig_name_labels(page) str
+    }
+    class WireLayoutEngine {
+        +route(net_pin_map) list~WireSegment~
+        +_pick_trunk(pins) tuple
+        +_avoid_body(trunk, bodies) int
+        +_compute_dots(segments) list~tuple~
+        +_label_position(pins) tuple
+    }
+    class SymbolCssPinParser {
+        +parse_pin_offsets(cell, section, hdl_lib_path) dict~str,tuple~
+        +parse_outline(cell, section) tuple
+        +fallback_offsets(cell, pin_count) dict
+    }
+    class CoordTransform {
+        +map_instances(instances) dict~str,tuple~int,int~~
+        +map_point(x, y) tuple
+        +PAGE_X_MIN : int = -10750
+        +PAGE_Y_MAX : int = 8275
+    }
+    class NetNameUtils {
+        +con_name(display_name, page, local) str
+        +csv_display_name(net, page, global) str
+        +auto_net_name(instance, pin, page) str
+        +unnamed_from_un(net_name) str
+        +is_power(net) bool
+    }
+
+    %% ─── 编排 ──────────────────────────────────────────────────────
+    class ConversionEngine {
+        +convert(input_path, output_dir) ConversionReport
+        +_stage_edif_parse() DesignIR
+        +_stage_pstxnet_inject()
+        +_stage_write_con_xcon()
+        +_stage_write_csv_cpc()
+        +_stage_write_csa()
+        +use_dsn_components : bool = False
+    }
+
+    DesignIR "1" *-- "1..*" PageIR
+    PageIR "1" *-- "0..*" ComponentInstanceIR
+    PageIR "1" *-- "0..*" NetIR
+    PageIR "1" *-- "0..*" WireSegment
+    NetIR "1" *-- "0..*" NetConnection
+    NetIR "1" *-- "0..*" WireSegment
+    ComponentDef "1" *-- "0..*" PinDef
+    ComponentInstanceIR ..> ComponentDef : references (via library_id)
+
+    ConWriter ..> NetNameUtils : 网络名清洗
+    XconWriter ..> NetNameUtils
+    PageCsvWriter ..> NetNameUtils
+    PageCsvWriter ..> CoordTransform : 体坐标
+    CSAWriter ..> CoordTransform : 体坐标
+    CSAWriter ..> SymbolCssPinParser : 引脚偏移
+    CSAWriter ..> WireLayoutEngine : 拓扑合成
+    WireLayoutEngine ..> SymbolCssPinParser : 引脚坐标来源
+    ConversionEngine ..> ConWriter : T02
+    ConversionEngine ..> XconWriter : T02
+    ConversionEngine ..> PageCsvWriter : T03
+    ConversionEngine ..> CpcWriter : T03
+    ConversionEngine ..> CSAWriter : T04

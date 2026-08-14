@@ -1,0 +1,66 @@
+sequenceDiagram
+    autonumber
+    participant CLI as __main__.py
+    participant CFG as Config/RoutingConfig
+    participant ENG as ConversionEngine
+    participant MAT as matcher pipeline
+    participant MM as ManualMatchesConfig
+    participant PIS as PowerIcScorer
+    participant CSA as CSAWriter
+    participant RTR as WireRouterBase (registry)
+    participant TXT as TextLayoutOptimizer
+    participant OVL as OverlapDetector
+    participant REP as AestheticReport
+
+    Note over CLI,REP: 转换主流程（含 D3 人工匹配 → D5 路由器分发 → D1/D2 美观化）
+
+    CLI->>CFG: --routing detour --manual-matches manual_matches.yaml --aesthetic
+    CFG->>CFG: load routing.yaml + CLI 覆盖（mode/text_layout/overlap/power_ic）
+
+    ENG->>ENG: _stage_parse() → DesignIR
+    ENG->>ENG: _stage_scan() → ComponentDB（hdl_lib [+ --extra-hdl-lib]）
+
+    Note over ENG,MAT: D3 注入点：自动匹配之后、catalog 重建之前
+    ENG->>MAT: _stage_match() → match_results（自动，U* conf=0.4475 ACTIVE_WITHIN_TYPE）
+    alt manual_matches 配置存在
+        ENG->>MM: ManualMatchesConfig.load(manual_matches.yaml)
+        MM-->>ENG: matches[{refdes:U6, library_id:dc_dc, section:1}]
+        ENG->>ENG: _apply_manual_matches() 覆盖 MatchResult(strategy=MANUAL, conf=1.0)
+        ENG->>ENG: 校验引脚数：不匹配 → warning 入报告，继续转换
+    end
+
+    alt power_ic.enabled
+        ENG->>PIS: candidates(instance)（引脚数+引脚名+电源网名评分）
+        PIS-->>ENG: score ≥ 0.80 → 自动替换 MatchResult（POWER_IC_AUTO）
+        Note over PIS: score 0.50-0.80 → 进 export_unmatched candidates
+    end
+
+    ENG->>CSA: CSAWriter(router=create_router(mode), text_optimizer, report)
+    CSA->>CSA: _compute_pin_geometry() → pin_coords（body + 真实符号 css 偏移）
+    CSA->>RTR: route_nets(net_pin_map, body_outlines, design, page)
+    alt mode=detour
+        RTR->>RTR: LaneRouter 车道法 + _stub_with_detour（正交绕障）
+    else mode=edif_reuse
+        RTR->>RTR: EDIF 折线映射 + 端点重定到引脚
+    else mode=p0 / 异常回退
+        RTR->>RTR: LaneRouter 车道法（logger.warning 记录回退）
+    end
+    RTR-->>CSA: routed_nets（WIRE/DOT 端点 = LASTPIN 坐标，硬约束）
+
+    opt text_layout.enabled
+        CSA->>TXT: optimize(page_conn, body_coords, pin_coords, routed_nets)
+        TXT->>TXT: collect_text_items() → bbox 估算 → detect_collisions() → resolve()
+        TXT->>TXT: align_net_names(x=snap25(trunk_min_x+375)) / align_ports / diff_pair_pn
+        TXT-->>CSA: label_offsets（仅标签坐标，LASTPIN/WIRE 不变）
+    end
+
+    opt overlap.check
+        CSA->>OVL: detect(page, body_coords, _collect_body_outlines())
+        OVL-->>REP: overlaps[]
+    end
+
+    CSA->>REP: add_text_stats / add_align_stats / add_grid_stats
+    CSA->>CSA: 写出 pageN.csa（FORCEADD+LASTPIN → WIRE → DOT）
+    REP->>REP: write(output_dir) → aesthetic_report.txt
+
+    ENG-->>CLI: ConversionReport（+ unmatched_report.yaml 若 --export-unmatched）

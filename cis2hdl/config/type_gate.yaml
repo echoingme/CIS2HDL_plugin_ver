@@ -1,0 +1,74 @@
+# type_gate.yaml — Phase 1 类型假设配置
+# v2.0: 集中管理 refdes prefix → 有序类型假设列表
+#
+# 格式: prefix → [[type_name, prior_conf], ...]
+# 列表按 prior_conf 降序排列（Phase 2 搜索顺序）
+version: "2.0"
+
+# ── 类型假设（prefix → 有序类型列表）─────────────────────────────────────
+type_hypotheses:
+  # ── 精确前缀（单一类型，无歧义）──
+  C:    [[capacitor, 1.0]]
+  R:    [[resistor, 1.0]]
+  L:    [[inductor, 1.0]]
+  LED:  [[led, 1.0]]
+  FB:   [[ferrite_bead, 1.0]]
+  IC:   [[IC, 0.95], [voltage_regulator, 0.70]]
+
+  # ── 歧义前缀（多类型排序）──
+  D:    [[diode, 0.95], [zener, 0.80], [tvs, 0.60]]
+  U:    [[IC, 0.85], [interface, 0.70], [connector, 0.40], [voltage_regulator, 0.35]]
+  J:    [[connector, 0.80], [rj45, 0.60], [header, 0.50]]
+  T:    [[transformer, 0.70], [inductor, 0.60]]
+  TP:   [[test_point, 0.90], [mark, 0.70], [hole, 0.50]]
+  M:    [[mark, 0.80], [test_point, 0.60]]
+  X:    [[crystal, 0.85], [oscillator, 0.75]]
+  Y:    [[crystal, 0.85], [oscillator, 0.75]]
+  S:    [[switch, 0.70], [button, 0.60]]
+  LB:   [[ferrite_bead, 0.75], [inductor, 0.50]]
+  P:    [[connector, 0.60], [power, 0.50]]
+  K:    [[relay, 0.80]]
+  Z:    [[zener, 0.80], [diode, 0.60], [filter, 0.50]]  # FILTER 值元件（如 Z1/Z2）可匹配 filter 库
+  VR:   [[voltage_regulator, 0.90]]
+  RN:   [[resistor_network, 0.90]]
+  F:    [[fuse, 0.90]]
+  Q:    [[transistor, 0.85], [mosfet, 0.75]]
+  RD:   [[resistor, 0.90]]            # RD prefix → 电阻（如 RD25 = 4.7K）
+
+# ── 值特征辅助（提升特定类型的 prior_conf）───────────────────────────────
+value_type_boost:
+  NH: [inductor, 0.15]
+  UH: [inductor, 0.15]
+  mH: [inductor, 0.10]
+  nH: [inductor, 0.10]
+  MHz: [crystal, 0.20]
+  kHz: [crystal, 0.15]
+  MARK: [mark, 0.30]
+  TESTPOINT: [test_point, 0.30]
+
+# ── PST 数据辅助（基于 pstchip JEDEC_TYPE 提升 prior_conf）──────────────
+pst_type_boost:
+  CAPACITOR: [capacitor, 0.10]
+  RESISTOR: [resistor, 0.10]
+  INDUCTOR: [inductor, 0.10]
+  DIODE: [diode, 0.10]
+  ZENER: [zener, 0.15]
+  CONNECTOR: [connector, 0.15]
+  IC: [IC, 0.10]
+  FPGA: [IC, 0.20]
+  CRYSTAL: [crystal, 0.20]
+  OSCILLATOR: [oscillator, 0.15]
+  TRANSFORMER: [transformer, 0.15]
+  SWITCH: [switch, 0.15]
+
+# ── 被动元件类型标识（触发 Phase 2A 确定性规则匹配）─────────────────────
+passive_types: [capacitor, resistor, inductor, diode, zener, ferrite_bead, led]
+
+# ── 固定前缀强绑定（第一个类型假设的匹配置信度不满足 STOP_SEARCH 时
+#    也强制采纳，不再尝试第二优先级类型）────────────────────────────────
+#    用于 LB/LED/TP/FB 等前缀有明确物理含义的场景。
+fixed_prefixes:
+  LB: ferrite_bead    # 磁珠固定→ferrite_bead，不降级为 inductor
+  LED: led            # LED固定→led
+  FB: ferrite_bead    # FB固定→ferrite_bead
+  TP: test_point      # 测试点固定→test_point，不降级为 mark

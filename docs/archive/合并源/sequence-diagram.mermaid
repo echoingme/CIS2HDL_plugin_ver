@@ -1,0 +1,70 @@
+sequenceDiagram
+    participant Engine as ConversionEngine
+    participant Pipeline as MatcherPipeline
+    participant Phase1 as TypeHypothesisGenerator
+    participant Affinity as PrefixAffinityCalculator
+    participant Phase1_5 as CandidatePoolBuilder
+    participant DB as ComponentDB
+    participant Phase2A as PassiveMatcher
+    participant Phase2B as ActiveMatcher
+    participant VM as ValueMatcher
+    participant Fallback as FallbackMatcher
+
+    Engine->>Pipeline: run_batch(sources: list[ComponentDef], db: ComponentDB)
+
+    loop 每个 source (CIS 元件)
+        Note over Pipeline: ═══ Phase 1: 类型假设生成 ═══
+        Pipeline->>Pipeline: extract_prefix(source.refdes)
+        Pipeline->>Phase1: generate(refdes, value, pst_data)
+        Phase1->>Phase1: _from_yaml(prefix)
+        Phase1->>Affinity: affinity(prefix, learned_types)
+        Affinity-->>Phase1: learned_adjustments
+        Phase1->>Phase1: _apply_pst_boost()
+        Phase1->>Phase1: _apply_value_hints()
+        Phase1-->>Pipeline: [(type1, 1.0), (type2, 0.85), (type3, 0.70), ...]
+
+        Note over Pipeline: ═══ Phase 1.5: 候选池构建 ═══
+        Pipeline->>Phase1_5: build(type_hypotheses)
+        Phase1_5->>DB: list_all() — 全量候选
+        Phase1_5->>Phase1_5: 按 type 分组过滤
+        Phase1_5-->>Pipeline: CandidatePool (按优先序 type_sets)
+
+        Note over Pipeline: ═══ Phase 2: 按类型优先序搜索 ═══
+
+        alt 被动元件 (C/R/L/D/FB/LED)
+            Pipeline->>Phase2A: match(source, typed_candidates, src_type)
+            Note over Phase2A: 层级1: 值+尺寸双精确 (conf=1.0)
+            Note over Phase2A: 层级2: 值精确尺寸未知 (conf=0.80)
+            Note over Phase2A: 层级3: 值精确尺寸近似 (conf=0.70)
+            Note over Phase2A: 层级4: 尺寸精确值近似 (conf=0.60)
+            Note over Phase2A: 层级5: 前缀兜底 (conf=0.40)
+            Phase2A-->>Pipeline: MatchResult (strategy=PASSIVE_*)
+
+        else 主动元件 (U/J/T/M/X/Y/S/P/K/Z/Q/VR/RN/F)
+            %% 已修改：Phase2B 调用改为链内各 matcher 的 match()（_run_chain）；match_typed() 标注为预留 API 未被链调用
+            Pipeline->>Phase2B: match(source, type_set, src_type)
+            Phase2B->>Phase2B: _score_dims 5维类型内评分排序 top-20
+            Phase2B->>Phase2B: _run_chain(top20) — 链内各 matcher 调 match()
+            Phase2B->>VM: match(source, top20)（链内 ValueMatcher）
+            VM-->>Phase2B: result or no_match
+            Phase2B->>Fallback: match(source, top20)
+            Fallback-->>Phase2B: result or no_match
+            Note over Phase2B, VM: match_typed() 为预留 API —— 链内未调用，各 matcher 调 match()
+            Phase2B-->>Pipeline: MatchResult (ACTIVE_WITHIN_TYPE or NEEDS_REVIEW)
+        end
+
+        Note over Pipeline: final_conf = phase1_prior × phase2_within
+
+        alt final_conf < NEEDS_REVIEW_THRESHOLD (0.40)
+            Pipeline->>Pipeline: 尝试下一个类型假设
+        else 找到满足阈值的匹配
+            Pipeline->>Pipeline: 记录匹配，更新 Affinity
+        else 所有类型假设耗尽
+            Pipeline->>Pipeline: 返回 NEEDS_REVIEW
+        end
+
+        Pipeline->>Pipeline: _generate_cross_type_top3(all_type_results)
+    end
+
+    Pipeline->>Affinity: save() — 持久化学习矩阵
+    Pipeline-->>Engine: list[MatchResult]

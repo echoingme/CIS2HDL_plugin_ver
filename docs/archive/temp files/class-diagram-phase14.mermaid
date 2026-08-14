@@ -1,0 +1,169 @@
+classDiagram
+    direction LR
+
+    class RoutingConfig {
+        +str mode
+        +bool detour_stubs
+        +bool use_edif_wires
+        +bool cross_page_opt
+        +bool fallback_to_p0
+        +TextLayoutCfg text_layout
+        +OverlapCfg overlap
+        +str manual_matches
+        +str export_unmatched
+        +PowerIcCfg power_ic
+        +AestheticCfg aesthetic
+    }
+
+    class Config {
+        +PageConfig page
+        +RoutingConfig routing
+        +load_from_file(path)
+    }
+
+    class WireRouterBase {
+        <<abstract>>
+        +RoutingConfig cfg
+        +str name
+        +route_nets(net_pin_map, body_outlines, **ctx) dict
+        +compute_dots(wires) list
+    }
+
+    class ROUTER_REGISTRY {
+        <<dict>> str -> type[WireRouterBase]
+    }
+
+    class WireLayoutEngine {
+        +route_net(net_name, pins, body_outlines) RoutedNet
+        +route_nets(net_pin_map, body_outlines) dict
+        +_find_lane(trunk, lo, hi, used, outlines, vertical)
+        +_lane_free(candidate, lo, hi, used) bool
+        +_pin_on_trunk(...) bool
+        +_avoid_outlines(coord, outlines, vertical) int
+        +_route_horizontal(pins, trunk) list
+        +_route_vertical(pins, trunk) list
+    }
+
+    class DetourRouter {
+        +_stub_with_detour(seg, outlines) list
+    }
+
+    class EDIFWireRouter {
+        +CoordTransform coord_xform
+        +DesignIR design
+        +map_polylines(page) dict
+    }
+
+    class TextLayoutOptimizer {
+        +float CHAR_WIDTH_FACTOR
+        +int PADDING
+        +float ALIGN_NET_LEFT_GRID
+        +collect_text_items(page_conn, body_coords, pin_coords, routed_nets) list
+        +detect_collisions(items) list
+        +resolve(items, collisions) TextLayoutResult
+        +align_net_names(items)
+        +align_ports(items)
+        +enforce_diff_pairs(items, net_names)
+        +optimize(...) TextLayoutResult
+    }
+
+    class TextItem {
+        +str key
+        +str kind
+        +str text
+        +tuple anchor
+        +int font_size
+        +float scale
+        +bool movable
+        +int priority
+        +bbox() tuple
+    }
+
+    class TextLayoutResult {
+        +dict offsets
+        +int collisions_before
+        +int collisions_after
+        +list unresolved
+    }
+
+    class OverlapDetector {
+        +int min_area
+        +detect(page, body_coords, outlines_by_refdes) list
+    }
+
+    class Overlap {
+        +int page
+        +str refdes_a
+        +str refdes_b
+        +tuple bbox_a
+        +tuple bbox_b
+        +tuple overlap_rect
+        +int area
+        +str kind
+    }
+
+    class AestheticReport {
+        +add_overlap(ov)
+        +add_text_stats(before, after, unresolved)
+        +add_align_stats(net_align, port_align, diff_ok, diff_total)
+        +add_grid_stats(off_grid_labels, off_grid_wires)
+        +write(output_dir) Path
+    }
+
+    class ManualMatch {
+        +str refdes
+        +str library_id
+        +int section
+        +str value
+        +str note
+    }
+
+    class ManualMatchesConfig {
+        +str version
+        +list matches
+        +load(path) ManualMatchesConfig
+    }
+
+    class PowerIcScorer {
+        +dict config
+        +score(instance, symbol) float
+        +candidates(instance) list
+        +apply(match_results, component_db) tuple
+    }
+
+    class CSAWriter {
+        +WireRouterBase router
+        +TextLayoutOptimizer text_optimizer
+        +AestheticReport report
+        +_build_csa_content_conn(conn, page_conn) str
+        +_compute_pin_geometry(...) tuple
+        +_lastpins_for_instance(...) list
+        +_emit_conn_instance_block(...) list
+    }
+
+    class ConversionEngine {
+        +_stage_match(...)
+        +_apply_manual_matches(match_results, manual)
+        +_stage_generate(...)
+        +convert(input_path, output_dir, hdl_lib_path) ConversionReport
+    }
+
+    WireRouterBase <|-- WireLayoutEngine
+    WireLayoutEngine <|-- DetourRouter
+    WireRouterBase <|-- EDIFWireRouter
+    ROUTER_REGISTRY ..> WireRouterBase : registers
+
+    CSAWriter o-- WireRouterBase : injected
+    CSAWriter o-- TextLayoutOptimizer : injected
+    CSAWriter o-- AestheticReport : injected
+    TextLayoutOptimizer "1" --> "*" TextItem : collects
+    TextLayoutOptimizer --> TextLayoutResult : produces
+
+    OverlapDetector "1" --> "*" Overlap : detects
+    AestheticReport o-- Overlap : collects
+
+    ConversionEngine o-- ManualMatchesConfig : loads
+    ConversionEngine ..> PowerIcScorer : D4 candidates
+    ManualMatchesConfig "1" --> "*" ManualMatch : contains
+
+    Config --> RoutingConfig : contains

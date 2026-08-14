@@ -1,0 +1,104 @@
+classDiagram
+    direction LR
+
+    %% ── Phase XVI: 镜像归一化 + IOPORT 核对 相关类型 ────────────────
+
+    class CoordTransform {
+        +page_x0: int = -10200
+        +page_x1: int = -550
+        +page_y0: int = 400
+        +page_y1: int = 7200
+        +scale_factor: float = 0.7
+        +map_page(instances) dict
+        +map_point(x, y, src_bbox) tuple
+        +map_page_instances(instances) dict
+        +_snap25(value) int
+    }
+
+    class rotate_point {
+        +rotate_point(x, y, rotation=0, mirror=0) tuple
+        +apply_edif_orientation(x, y, rotation=0, mirror=0) tuple
+        +closest_rotation_for_mirror(pin_offsets, rotation, mirror) int
+        +rotate_bbox(outline, rotation=0, mirror=0) str
+    }
+
+    class MirrorCfg {
+        +normalize: bool = True
+        +report: bool = True
+    }
+
+    class MirrorEntry {
+        +page: str
+        +refdes: str
+        +orient: str
+        +rline: int
+        +approx: bool
+    }
+
+    class IoportCfg {
+        +edge_layout: bool = False
+        +edge_x: int = -600
+        +edge_step: int = 100
+        +edge_margin: int = 300
+        +audit: bool = False
+        +skip_orphan: bool = False
+        +manual_names: dict
+    }
+
+    class RoutingConfig {
+        +mode: str = "p0"
+        +mirror: MirrorCfg
+        +ioport: IoportCfg
+        +text_layout: TextLayoutCfg
+        +aesthetic: AestheticCfg
+        +from_dict(data) RoutingConfig
+    }
+
+    class AestheticReport {
+        +project_name: str
+        +mirror_entries: list[MirrorEntry]
+        +add_mirror(entry) None
+        +write(output_dir) Path
+    }
+
+    class IOPortAuditor {
+        +enabled: bool
+        +skip_orphan: bool
+        +manual_names: dict
+        +unwired: list[UnwiredIoport]
+        +name_conflicts: list[NameConflict]
+        +orphans: list[OrphanIoport]
+        +audit_page(page_conn, net_pin_map, routed_nets) None
+        +finalize(conn) None
+        +write(output_dir) Path
+    }
+
+    class CSAWriter {
+        +_routing_cfg: RoutingConfig
+        +_aesthetic_report: AestheticReport
+        +_ioport_auditor: IOPortAuditor
+        +_mirror_rline: dict
+        +_mirror_entries: list[MirrorEntry]
+        +_compute_pin_geometry(conn, page_conn, body_coords) tuple
+        +_build_csa_content_conn(conn, page_conn) str
+        +_emit_conn_instance_block(conn, irec, body_name, x, y) list
+        +_emit_power_symbol_block(conn, irec, body_name, x, y) list
+        +_ioport_pin_coord(index) tuple
+        +write_all_with_conn(conn, mgr) list
+    }
+
+    class IOPortAuditReport {
+        +summary: dict
+        +sections: dict
+    }
+
+    CoordinateTransformUtils <|-- rotate_point : "几何工具(模块级函数)"
+    rotate_point --> CoordTransform : "同模块"
+    RoutingConfig *-- MirrorCfg
+    RoutingConfig *-- IoportCfg
+    CSAWriter --> RoutingConfig : "_routing_cfg"
+    CSAWriter --> AestheticReport : "报告收集(可选)"
+    CSAWriter --> IOPortAuditor : "审计(可选)"
+    AestheticReport *-- MirrorEntry : "mirror_entries"
+    IOPortAuditor --> IOPortAuditReport : "write() 生成"
+    CSAWriter ..> rotate_point : "引脚镜像/近似R行"

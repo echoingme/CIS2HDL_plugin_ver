@@ -1,0 +1,611 @@
+有的芯片有symbol显示，但是其他的绝大多数都没有显示
+page的名称仍然是page1，2，3，4，5等等，而不是原来的每一页的标题
+信息页也完全是空的，只有c size page
+二十几页开始全都是空白的，连c size page都没有
+连线和网络是完全都没有。
+
+
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35175\g
+has been deleted from the component RESISTOR_0402.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35189\g
+has been deleted from the component RESISTOR_0402.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35175\g
+has been deleted from the component RESISTOR_0402.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35189\g
+has been deleted from the component RESISTOR_0402.
+INFO(SPCOCN-543): The pin property SIG_NAME with value 3V3_PERg
+has been deleted from the component INTERFACE.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35175\g
+has been deleted from the component INTERFACE.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35175\g
+has been deleted from the component INTERFACE.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35189\g
+has been deleted from the component INTERFACE.
+INFO(SPCOCN-543): The pin property SIG_NAME with value N35175\g
+has been deleted from the component CAPACITOR_0402.
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.6
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   CAPACITOR_0402.SYM.1.1
+   RESISTOR_0402.SYM.1.1
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.8
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   CAPACITOR_0402.SYM.1.1
+   RESISTOR_0402.SYM.1.1
+
+INFO(SPCOCN-543): The pin property SIG_NAME with value GND\g has
+been deleted from the component CAPACITOR_0402.
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.10
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   CAPACITOR_0402.SYM.1.1
+   RESISTOR_0402.SYM.1.1
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.11
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   CAPACITOR_0402.SYM.1.1
+   RESISTOR_0402.SYM.1.1
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.12
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   RESISTOR_0402.SYM.1.1
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.13
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   CAPACITOR_0402.SYM.1.1
+   RESISTOR_0402.SYM.1.1
+
+INFO(SPCOCN-542): The default property LOCATION with value TP1 has
+been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property PART_NAME with value HOLE
+has been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property CDS_LMAN_SYM_OUTLINE
+with value -50,0,50,-25 has been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property PATH with value 1889 has
+been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property VALUE with value TESTPOINT
+has been deleted from the component HOLE.
+INFO(SPCOCN-545): To turn the deleted default properties into
+non-default properties, type SET STICKY_ON; GET; SET STICKY_OFF in
+the console window.
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.15
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   RESISTOR_0402.SYM.1.1
+
+INFO(SPCOCN-542): The default property LOCATION with value TP8 has
+been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property PART_NAME with value HOLE
+has been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property CDS_LMAN_SYM_OUTLINE
+with value -50,0,50,-25 has been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property PATH with value 1104 has
+been deleted from the component HOLE.
+INFO(SPCOCN-542): The default property VALUE with value TESTPOINT
+has been deleted from the component HOLE.
+INFO(SPCOCN-545): To turn the deleted default properties into
+non-default properties, type SET STICKY_ON; GET; SET STICKY_OFF in
+the console window.
+
+WARNING(SPCOCN-515): Design Name: <5015_lib>5015.SCH.1.17
+
+
+All the required libraries are not included in the cds.lib file. Make sure your project setup has all the necessary libraries. Exit Design Entry HDL and add the required libraries to the project using the Project Setup utility of Project Manager. The parts missing from the available libraries are: 
+   CAPACITOR_0402.SYM.1.1
+   RESISTOR_0402.SYM.1.1
+
+
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+Unknown word ADD_COMMENT
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+Unknown word x
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+Unknown word T
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+Unknown word F
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+Unknown word x
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1908): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page23.csa: error on line 2:
+{ and } don't match
+INFO(SPCOCN-1445): Reading 5015.SCH.1.24 into drawing #1.
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1891): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+syntax error
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+Unknown word F
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+Unknown word x
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 1:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+Unknown word ADD_COMMENT
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1909): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+Unknown word x
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1910): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+bad token
+ERROR(SPCOCN-1908): E:\26summer\CIS2HDL\tests\fixtures\output_final\worklib\5015\sch_1\page24.csa: error on line 2:
+{ and } don't match

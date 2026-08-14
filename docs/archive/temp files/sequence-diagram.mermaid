@@ -1,0 +1,56 @@
+sequenceDiagram
+    autonumber
+    actor User
+    participant CE as ConversionEngine
+    participant EP as EDIFParser
+    participant XR as CrossRefParser
+    participant PN as PstxnetParser
+    participant IR as DesignIR/PageIR
+    participant NU as NetNameUtils
+    participant CW as ConWriter
+    participant XW as XconWriter
+    participant CV as PageCsvWriter
+    participant CPC as CpcWriter
+    participant CA as CSAWriter
+    participant CT as CoordTransform
+    participant SC as SymbolCssPinParser
+    participant WL as WireLayoutEngine
+    participant OM as OutputManager
+
+    Note over User,OM: P0-A2 解析（已有基础）
+    CE->>EP: parse(EDF)
+    EP-->>IR: pages/instances/nets/wires/off_pages
+    CE->>XR: parse(CrossRef CSV)
+    XR-->>IR: 注入 loc_x/loc_y/value
+    CE->>PN: parse(pstxnet.dat)
+    PN-->>IR: 主注入 pin_connections(pin→net)
+
+    Note over CE,OM: T02 con/xcon（设计级）
+    CE->>NU: con_name()/auto_net_name()
+    NU-->>CW: 网络内部名表
+    CW->>IR: 收集 cells/nets/instances
+    CW-->>OM: write_con_file() → <cell>.con
+    XW->>IR: 复用 con 数据 + aliases/netScopes/pages
+    XW-->>OM: write_xcon() → <cell>.xcon
+
+    Note over CE,OM: T03 csv/cpc（页级）
+    loop 每页
+        CV->>NU: csv_display_name()/页内 netId
+        CV->>CT: map_instances() → 体坐标
+        CV-->>OM: write_csv_page() → pageN.csv
+        CPC-->>OM: write_cpc_file() → pageN.cpc
+    end
+
+    Note over CE,OM: T04 csa 连线（页级）
+    loop 每页
+        CA->>CT: 实例体坐标
+        CA->>SC: parse_pin_offsets(cell,section) → 引脚偏移
+        CA->>CA: LASTPIN = 体坐标 + 偏移（$PN/SIG_NAME）
+        CA->>WL: route(网→引脚点集) → WIRE 段 + DOT + 标签位
+        WL-->>CA: WIRE 端点 == LASTPIN 坐标
+        CA-->>OM: write_csa_page() → pageN.csa
+    end
+
+    Note over CE,OM: T05 验收断言
+    CE-->>User: A1 con nets==590 / A2 conn==2821 / A3 instances==906
+    CE-->>User: A4 csv $PN 完整 / A5 csa WIRE⊆LASTPIN / A6 con↔xcon 一致

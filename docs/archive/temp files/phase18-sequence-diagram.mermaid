@@ -1,0 +1,26 @@
+sequenceDiagram
+    autonumber
+    participant EDIF as EDIF/DesignConnectivity
+    participant CMD as Match(只限 hdl_lib)
+    participant MW as MockIconLibrary
+    participant VAL as validate_symbol_css
+    participant CSA as CSAWriter
+    participant OM as OutputManager
+
+    EDIF->>CMD: 实例(refdes, pins, rotation/mirror)
+    CMD-->>CSA: MatchResult(cell, conf)
+    alt 未匹配/低置信/J* 引脚数不符/PQ2016 引脚数不符
+        CMD->>MW: symbol_for(refdes, section, pins)
+        MW->>MW: distribute_mock_pin_offsets + 四边标签(justify R/L + X PIN_TEXT + 字号16)
+        MW->>MW: write_to_temp_lib(master.tag 分目录 + entity 四文件)
+        MW->>VAL: validate_symbol_css / validate_temp_lib_structure
+        VAL-->>MW: 0 错
+        MW-->>CSA: MockSymbol(offsets/outline/cell_name)
+    end
+    CSA->>CSA: _effective_view(被动元件旋转 → sym_2 横向视图, 不写 R 行)
+    CSA->>CSA: pin_coords = body + 所选视图 css 偏移(唯一坐标源)
+    CSA->>CSA: _lastpins_for_instance(坐标命中强校验 → LASTPIN/$PN/SIG_NAME)
+    CSA->>CSA: _inject_crossref_props(CrossRef 四字段属性块)
+    CSA-->>OM: CSA 页 + CDS_LIB(hdl_lib/temp_lib)
+    OM-->>OM: cds.lib DEFINE hdl_lib + DEFINE temp_lib temp_lib
+    OM-->>CAD: Cadence 16.6 打开 v9

@@ -1,0 +1,43 @@
+sequenceDiagram
+    autonumber
+    actor User as 用户 (Cadence 实测 L20 翻转 180°)
+    participant Engine as ConversionEngine
+    participant CSA as CSAWriter
+    participant CT as coord_transform (rotate_point / closest_rotation_for_mirror)
+    participant AR as AestheticReport
+    participant AUD as IOPortAuditor
+
+    Note over User, Engine: T1 镜像归一化（方案 A）—— 转换主链路
+    User->>Engine: convert(HG5015.EDF)  [mirror.normalize=true 默认]
+
+    rect rgb(238, 244, 255)
+        Note over CSA, CT: Pass 1 _compute_pin_geometry（每页）
+        CSA->>CSA: 解析 irec.rotation / irec.mirror
+        alt mirror != 0（217 实例）
+            CSA->>CT: rotate_point(off, rot, mirror)  ← 精确 EDIF 映射(镜像在前)
+            CT-->>CSA: 镜像后引脚偏移 (电气硬约束)
+            CSA->>CT: closest_rotation_for_mirror(offsets, rot, mirror)
+            CT-->>CSA: θ* (EDIF 角度) → _dehdl_rotation → _mirror_rline[refdes]
+            CSA->>AR: add_mirror(MirrorEntry(...))  (orient / rline / approx 标注)
+        else mirror == 0（纯旋转，732 实例）
+            CSA->>CT: rotate_point(off, rot_dehdl)  ← Phase XV 已验证行为不变
+        end
+        CSA->>CSA: _unique_pin_coord(25 网格) → pin_coords / net_pin_map
+    end
+
+    rect rgb(255, 248, 230)
+        Note over CSA: Pass 2 发射 + 布线
+        CSA->>CSA: _emit_conn_instance_block: R 行 = _mirror_rline 或 _dehdl_rotation
+        CSA->>CSA: _route_nets → WIRE 端点 = pin_coords（重合不变）
+    end
+
+    Note over User, CSA: T2 IOPORT 核对（--ioport-audit / --aesthetic 开启）
+    CSA->>AUD: audit_page(page_conn, net_pin_map, routed_nets)
+    Note over AUD: 接线核对：<br/>comp_pins 为空 → 豁免(网名连接)<br/>否则 IOPORT coord ∈ WIRE 端点？
+    CSA->>AUD: finalize(conn)  (全工程)
+    Note over AUD: 网名一致性: canonical 分组 (WPS vs wps)<br/>孤立: IOPORT 网名 ∈ 全工程引脚 SIG_NAME？
+    AUD-->>User: ioport_audit_report.txt (三节+统计)
+
+    Note over User, CSA: 收尾
+    CSA->>AR: write(output_root)  → aesthetic_report.txt 含 [MIRROR] 217 条
+    User->>User: Cadence 抽查 13-DDR3 / 21-4GE / 07-SOC_PWR1<br/>(镜像页 + 报告对照复核)

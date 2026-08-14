@@ -1,0 +1,28 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\26暑假\cis2hdl
+configfile: pytest.ini (WARNING: ignoring pytest config in pyproject.toml!)
+collected 268 items
+
+cis2hdl\tests\unit\test_conversion_readiness.py ...                      [  1%]
+cis2hdl\tests\unit\test_cpm_writer.py ..                                 [  1%]
+cis2hdl\tests\unit\test_cross_validator.py ......                        [  4%]
+cis2hdl\tests\unit\test_diagnostic_report.py .....                       [  5%]
+cis2hdl\tests\unit\test_dsn_ole_reader.py s.s                            [  7%]
+cis2hdl\tests\unit\test_dsn_parser.py .ss                                [  8%]
+cis2hdl\tests\unit\test_dsn_structures.py .....................          [ 16%]
+cis2hdl\tests\unit\test_error_diagnosis.py .......ss                     [ 19%]
+cis2hdl\tests\unit\test_file_inventory.py ..........s                    [ 23%]
+cis2hdl\tests\unit\test_ir_models.py ...........                         [ 27%]
+cis2hdl\tests\unit\test_matcher_v2.py .................................. [ 40%]
+........................................................................ [ 67%]
+...........................                                              [ 77%]
+cis2hdl\tests\unit\test_output_compatibility.py .......................  [ 85%]
+cis2hdl\tests\unit\test_pst_parsers.py ............                      [ 90%]
+cis2hdl\tests\unit\test_sch_writer.py ......                             [ 92%]
+cis2hdl\tests\integration\test_full_pipeline.py ss                       [ 93%]
+cis2hdl\tests\integration\test_matcher_pipeline.py .........s.....       [ 98%]
+cis2hdl\tests\integration\test_multi_source_validator.py sss             [100%][safe-delete][SAFE_DELETE_FAIL_CLOSED] {"target": "\\\\?\\C:\\Users\\echo\\AppData\\Local\\Temp\\pytest-of-echo\\garbage-76e286db-79e5-43ab-9105-a0271ac8dc06", "reason": "windows-sandbox-recycle-bin-unavailable"}
+
+
+======================= 255 passed, 13 skipped in 2.02s =======================
