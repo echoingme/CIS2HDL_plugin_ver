@@ -153,6 +153,7 @@ def apply_params(rc: RoutingConfig, params: dict | None) -> RoutingConfig:
     """在 ``rc`` 之上增量合并 params dict（profile 文件用，设计 §5.3 步骤 ④）。
 
     - ``params.routing`` 标量块 → 覆盖顶层标量
+    - 顶层标量 key（mode 等）→ 直接覆盖（兼容宽松输入）
     - ``<子节>: {字段...}`` → ``dataclasses.replace`` 覆盖子节字段
     - 已迁移字段（manual_matches/chip_config/export_unmatched）忽略
     - 未知 key 忽略；返回**新对象**（不修改入参 rc）
@@ -174,6 +175,13 @@ def apply_params(rc: RoutingConfig, params: dict | None) -> RoutingConfig:
             kwargs = _filter_section_dict(key, value)
             if kwargs:
                 setattr(merged, key, replace(sub, **kwargs))
+        elif (
+            hasattr(merged, key)
+            and key not in ROUTING_SUBSECTION_KEYS
+            and key not in MIGRATED_SCALAR_KEYS
+        ):
+            # 顶层标量直接覆盖（宽松输入兼容）
+            setattr(merged, key, value)
         # 其余（含 MIGRATED_SCALAR_KEYS / 未知）忽略
     return merged
 
