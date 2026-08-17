@@ -73,6 +73,29 @@ class WriterBase(ABC):
 
         return default
 
+    @staticmethod
+    def _resolve_prop(props: dict[str, str], key: str) -> str:
+        """Look up a property value case-insensitively (unified impl).
+
+        Merged from the former ``CSAWriter._resolve_prop`` and
+        ``SCHWriterCSA._resolve_property`` duplicate implementations
+        (S7 cleanup, BACKLOG #24).
+
+        Args:
+            props: Property dictionary (e.g. ``inst.properties``).
+            key: Property name (e.g. ``"SN_NUM"``, ``"PACKAGE_TYPE"``).
+
+        Returns:
+            Property value or empty string if not found.
+        """
+        if key in props:
+            return props[key]
+        key_lower: str = key.lower()
+        for k, v in props.items():
+            if k.lower() == key_lower:
+                return v
+        return ""
+
 
 class WriterRegistry:
     """Registry of format writers accessed by FORMAT_NAME.

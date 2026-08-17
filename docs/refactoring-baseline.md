@@ -137,3 +137,17 @@
 | 重复实现 | grep | `_resolve_body_name` ×3、`_resolve_prop/_resolve_property` ×2 | 合并单一实现，进 backlog |
 | TODO/FIXME | grep | 0 条 | 无需处理 |
 | 测试等价性 | pytest | 919 passed / 7 skipped / 9 failed | 9 failed + 1 skip 均为 SOP 排除目录所致，非复制缺陷（详见 §1） |
+
+---
+
+## 7. S7 清理后对比（2026-08-17）
+
+S7 按 REFACTORING_BACKLOG.md 24 项全部落地后复扫：
+
+| 扫描项 | S0 基线 | S7 清理后 | 说明 |
+|---|---|---|---|
+| 高置信死代码（≥90%） | 21 条 | **0 条** | vulture 2.16 `--min-confidence 90` 无输出 |
+| 备份文件 .bak | 4 个 | **0 个** | 源码包内（源仓库 cis2hdl/cis2hdl 有字节一致副本） |
+| `_resolve_body_name` 定义 | 3 份 | **1 份**（base.py 核心）+ 1 份 CSA 专用扩展 | sch_writer 纯透传重写删除 |
+| `_resolve_prop`/`_resolve_property` 定义 | 2 份 | **1 份**（base.py，统一命名 `_resolve_prop`） | sch_writer 调用点改 `_resolve_prop` |
+| 全量测试 | 1238 passed / 17 skipped / 0 failed | **1238 passed / 17 skipped / 0 failed** | FR9 无回归 |

@@ -821,7 +821,7 @@ class CSAWriter(WriterBase):
             return hdl_id.rsplit("/", 1)[-1].upper()
 
         # 2. Fallback: delegate to base class (library_id / refdes prefix)
-        base_name: str = WriterBase._resolve_body_name(inst)
+        base_name: str = super()._resolve_body_name(inst)
 
         return base_name.upper()
 
@@ -1476,24 +1476,9 @@ class CSAWriter(WriterBase):
                 return pn
         return ""
 
-    @staticmethod
-    def _resolve_prop(props: dict[str, str], key: str) -> str:
-        """Look up a property value case-insensitively.
-
-        Args:
-            props: Property dictionary.
-            key: Property name.
-
-        Returns:
-            Property value or empty string.
-        """
-        if key in props:
-            return props[key]
-        key_lower: str = key.lower()
-        for k, v in props.items():
-            if k.lower() == key_lower:
-                return v
-        return ""
+    # NOTE(S7): `_resolve_prop` 已合并进基类 `WriterBase._resolve_prop`
+    # （static method，行为等价）。调用点 `self._resolve_prop(...)` 走继承。
+    # 见 BACKLOG #24。
 
     @staticmethod
     def _is_power_net(net_name: str) -> bool:
