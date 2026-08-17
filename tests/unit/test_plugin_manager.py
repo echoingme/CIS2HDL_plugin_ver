@@ -29,7 +29,7 @@ class TestDiscover:
         pm = PluginManager()
         specs = pm.list_plugins()
         names = {(s.stage, s.name) for s in specs}
-        # S1 白名单同名（input 5 / beautify 6 / output 2 / test 3）
+        # S1 白名单同名（input 5 / beautify 6 / output 11 / test 3）
         assert ("input", "edif") in names
         assert ("input", "dsn") in names
         assert ("input", "cross_ref") in names
@@ -41,8 +41,11 @@ class TestDiscover:
         assert ("beautify", "wire_simplify") in names
         assert ("beautify", "three_stage_stub") in names
         assert ("beautify", "text_layout") in names
-        assert ("output", "default_writer") in names
-        assert ("output", "reports") in names
+        # S6 细粒度输出插件（7 文件 + 4 报告）
+        for name in ("csa", "con", "xcon", "csv", "cpc", "cpm", "cds_lib"):
+            assert ("output", name) in names, name
+        for name in ("aesthetic", "ioport", "mapping", "error"):
+            assert ("output", name) in names, name
         assert ("test", "unit") in names
         assert ("test", "e2e") in names
         assert ("test", "qa_package") in names
@@ -84,12 +87,29 @@ class TestBuild:
         assert "wire_simplify" not in enabled
         assert "text_layout" not in enabled
 
-    def test_output_coarse_always_registered(self, default_cfg: PipelineConfig):
-        """S2 粗粒度：output default_writer/reports 恒注册（默认 profile 必需）。"""
+    def test_output_fine_grained_default_registered(self, default_cfg: PipelineConfig):
+        """S6 细粒度：默认 profile 注册 7 文件 + 4 报告插件（= legacy 全文件）。"""
         pm = build_plugin_manager(default_cfg)
         enabled = [s.name for s in pm._enabled]
-        assert "default_writer" in enabled
-        assert "reports" in enabled
+        assert {"csa", "con", "xcon", "csv", "cpc", "cpm", "cds_lib"} <= set(enabled)
+        assert {"aesthetic", "ioport", "mapping", "error"} <= set(enabled)
+
+    def test_output_independent_enable_disable(self):
+        """S6 独立启停：output.files/reports 精确控制注册（禁 csv 不注册）。"""
+        cfg = PipelineConfig()
+        cfg.output.files = ["csa", "con"]
+        cfg.output.reports = ["mapping"]
+        pm = build_plugin_manager(cfg)
+        enabled = [s.name for s in pm._enabled]
+        assert "csa" in enabled and "con" in enabled
+        assert "csv" not in enabled and "xcon" not in enabled
+        assert "cpm" not in enabled and "cds_lib" not in enabled
+        assert "mapping" in enabled
+        assert "error" not in enabled and "aesthetic" not in enabled
+        assert "ioport" not in enabled
+        # 注册层面同样（未启用插件不实例化不注册）
+        assert pm.get_plugin("csv") is None
+        assert pm.get_plugin("mapping") is not None
 
     def test_disabled_plugin_not_registered(self):
         """把 gnd_cluster 从 beautify 组合移除 → 不注册。"""
@@ -130,9 +150,8 @@ class TestDegrade:
         assert pm.get_plugin("gnd_cluster") is not None
 
     def test_missing_cls_spec_not_instantiated(self, default_cfg: PipelineConfig):
-        """cls=None 的白名单 spec（output/test）不实例化不注册。"""
+        """cls=None 的白名单 spec（test）不实例化不注册。"""
         pm = build_plugin_manager(default_cfg)
-        assert pm.get_plugin("default_writer") is None  # T03 才有 cls
         assert pm.get_plugin("unit") is None
 
 
