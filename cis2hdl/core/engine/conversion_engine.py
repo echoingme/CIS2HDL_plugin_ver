@@ -1553,9 +1553,44 @@ class ConversionEngine:
         report: ConversionReport,
         pc: Optional[ProgressCallback],
     ) -> Optional[DesignIR]:
-        """S2 legacy fallback：原 convert() Stage 2 内联解析+增强块。
+        """S2/S3 legacy fallback：原 convert() Stage 2 内联解析+增强块。
 
-        纯代码搬移（原 L1604-2043），不改逻辑。返回 DesignIR；失败 None。
+        S3 重构：拆分为子步骤方法（_resolve_parse_path / _log_parse_statistics /
+        _load_cross_ref_csv / _load_pst_files / _rebuild_from_catalog），
+        行为与 S2 逐字节等价（FR9）。input 插件复用同一批子步骤，保证
+        plugin 模式接管路径与 legacy 全链路等价。
+        """
+        # ── Phase XI P0-D2: prefer EDIF over DSN as component source ──
+        parse_path = self._resolve_parse_path(input_path)
+
+        design = self._stage_parse(parse_path, report, pc)
+        if design is None:
+            return None
+
+        # ── Page parse statistics ───────────────────────────────────
+        self._log_parse_statistics(design)
+
+        # ── Stage 2.5: Build ComponentCatalog from CrossRef CSV ──────
+        cross_ref_map, catalog = self._load_cross_ref_csv(design, input_path)
+
+        # ── v0.8.0: Stage 2.3 — Parse PST netlist files ────────────
+        self._load_pst_files(design, input_path)
+
+        # ── v0.5.0: Build DesignIR instances from ComponentCatalog ──
+        self._rebuild_from_catalog(design, report)
+
+        # S2：暴露 cross_ref_map/catalog 给 convert() 的 match 钩子/薄包装
+        # （原为 parse 块局部变量，提取后需经 self 传递）。
+        self._last_cross_ref_map = cross_ref_map
+        self._last_catalog = catalog
+        return design
+
+    def _resolve_parse_path(self, input_path: Path) -> Path:
+        """S3：P0-D2 解析路径决策（原 _legacy_load_input L1560-1583 纯搬移）。
+
+        ``.dsn`` 且 DSN 元件源禁用（默认）→ 优先同名的 ``.EDF/.edf``
+        兄弟文件；无兄弟文件 → 原样返回（DSN fallback，ParserRegistry 按
+        扩展名选解析器）。
         """
         # ── Phase XI P0-D2: prefer EDIF over DSN as component source ──
         # When the user input is a .dsn and a same-name .EDF/.edf sibling
@@ -1582,10 +1617,10 @@ class ConversionEngine:
                     f"DSN 元件源已禁用，改用 EDIF 解析: {_preferred_edf.name}",
                 )
 
-        design = self._stage_parse(parse_path, report, pc)
-        if design is None:
-            return None
+        return parse_path
 
+    def _log_parse_statistics(self, design: "DesignIR") -> None:
+        """S3：页解析统计（原 _legacy_load_input L1589-1601 纯搬移）。"""
         # ── Page parse statistics ───────────────────────────────────
         for p in design.pages:
             inst_count = len(p.instances)
@@ -1600,6 +1635,18 @@ class ConversionEngine:
                     f"Page {p.page_id}: {garbled}/{inst_count} 实例 refdes 异常",
                 )
 
+
+    def _load_cross_ref_csv(
+        self,
+        design: "DesignIR",
+        input_path: Path,
+    ) -> tuple[dict, Optional["ComponentCatalog"]]:
+        """S3：CrossRef CSV → ComponentCatalog + 坐标注入（原 L1603-1671 纯搬移）。
+
+        返回 ``(cross_ref_map, catalog)``；无 CSV → ``({}, None)``。
+        ``design.metadata["component_catalog"]`` 与 ``self._last_cross_ref_map``
+        副作用与原实现一致。
+        """
         # ── Stage 2.5: Build ComponentCatalog from CrossRef CSV ──────
         # CrossRef CSV is now the **primary data source** for component
         # identity (refdes, value, coordinates, page assignment).
@@ -1670,11 +1717,25 @@ class ConversionEngine:
         else:
             logger.debug("No Cross Reference CSV found alongside %s", input_path)
 
-        # ── v0.8.0: Stage 2.3 — Parse PST netlist files ────────────
-        # pstchip/pstxprt/pstxnet provide exact primitive specs
-        # (JEDEC_TYPE, VALUE, pins) and complete net connectivity,
-        # enabling precise component matching and pin injection.
-        pst_data: dict[str, Any] = {}
+        return cross_ref_map, catalog
+
+    def _load_pst_files(
+        self,
+        design: "DesignIR",
+        input_path: Path,
+        keys: Optional[list[str]] = None,
+        log_summary: bool = True,
+    ) -> None:
+        """S3：PST 网表文件加载（原 L1673-1724 纯搬移 + 增量支持）。
+
+        - ``keys``：None=全部（pstchip/pstxprt/pstxnet）；否则只加载指定
+          key（input 插件增量调用，合并进既有 ``pst_data``）。
+        - ``log_summary``：是否输出 ConversionLogger 汇总事件。插件增量
+          调用传 False（由引擎 post-chain ``_log_pst_summary`` 统一输出
+          一次，保证 plugin/legacy 事件流一致，FR9 字节等价）。
+        """
+        _wanted = set(("pstchip", "pstxprt", "pstxnet")) if keys is None else set(keys)
+        pst_data: dict[str, Any] = dict(design.metadata.get("pst_data") or {})
         _pst_dir = input_path.parent
         _pst_files = [
             ("pstchip.dat", "pstchip"),
@@ -1682,6 +1743,8 @@ class ConversionEngine:
             ("pstxnet.dat", "pstxnet"),
         ]
         for _fname, _pkey in _pst_files:
+            if _pkey not in _wanted:
+                continue
             _pst_path = _pst_dir / _fname
             if not _pst_path.exists():
                 continue
@@ -1716,13 +1779,44 @@ class ConversionEngine:
                 )
         if pst_data:
             design.metadata["pst_data"] = pst_data
+            if log_summary:
+                ConversionLogger.log_info(
+                    "PST",
+                    f"网表数据已加载: {', '.join(pst_data.keys())}",
+                )
+        else:
+            logger.debug("No PST netlist files found alongside %s", input_path)
+
+    def _log_pst_summary(self, design: "DesignIR", input_path: Path) -> None:
+        """S3：PST 汇总事件（legacy 单条，pstchip/pstxprt/pstxnet 固定序）。
+
+        plugin 模式 post-chain 调用一次；与 legacy ``_load_pst_files`` 的
+        ConversionLogger 事件逐字节一致（FR9）。
+        """
+        pst_data = design.metadata.get("pst_data") or {}
+        if pst_data:
+            _keys = [k for k in ("pstchip", "pstxprt", "pstxnet") if k in pst_data]
             ConversionLogger.log_info(
                 "PST",
-                f"网表数据已加载: {', '.join(pst_data.keys())}",
+                f"网表数据已加载: {', '.join(_keys)}",
             )
         else:
             logger.debug("No PST netlist files found alongside %s", input_path)
 
+    def _rebuild_from_catalog(
+        self,
+        design: "DesignIR",
+        report: ConversionReport,
+    ) -> None:
+        """S3：catalog 驱动实例重建（原 _legacy_load_input L1726-1999 纯搬移）。
+
+        读取 ``design.metadata["component_catalog"]``；无 catalog → no-op。
+        含 power 符号保留/恢复、EDIF 占位实例替换、PST JEDEC 注入、
+        cache 失效、report 统计与 readiness 更新。
+        """
+        catalog = design.metadata.get("component_catalog")
+        if catalog is None:
+            return
         # ── v0.5.0: Build DesignIR instances from ComponentCatalog ──
         # When DSN parsing produces 0 instances (RTL format where
         # PlacedInstance db_id=0 for all entries), create instances
@@ -1997,11 +2091,27 @@ class ConversionEngine:
                     readiness.matchability_score,
                     readiness.symbol_score,
                 )
-        # S2：暴露 cross_ref_map/catalog 给 convert() 的 match 钩子/薄包装
-        # （原为 parse 块局部变量，提取后需经 self 传递）。
-        self._last_cross_ref_map = cross_ref_map
-        self._last_catalog = catalog
-        return design
+
+
+    def _finalize_plugin_input(
+        self,
+        design: "DesignIR",
+        report: ConversionReport,
+        input_path: Path,
+    ) -> None:
+        """S3：plugin 模式 load_input post-chain 收尾（等价 legacy 尾段）。
+
+        plugin 接管后（edif/dsn 解析 + cross_ref/pst 增量插件全部执行完），
+        引擎统一执行：
+        1. PST 汇总事件（legacy 单条，固定序）
+        2. catalog 重建（若 catalog 存在）
+        3. ``_last_cross_ref_map`` / ``_last_catalog`` 副作用暴露
+           （convert() 的 match 钩子/低置信度日志依赖，S2 约定）
+        """
+        self._log_pst_summary(design, input_path)
+        self._rebuild_from_catalog(design, report)
+        self._last_catalog = design.metadata.get("component_catalog")
+        self._last_cross_ref_map = getattr(self, "_last_cross_ref_map", None) or {}
 
 
     def _legacy_reports(
@@ -2212,14 +2322,24 @@ class ConversionEngine:
 
         # ── Stage 2: Parse（S2 钩子：plugin 模式 load_input 可接管） ──
         # legacy/未接管 → _legacy_load_input（原内联块，字节等价）
+        # S3：plugin 接管（edif/dsn 真实现）后由 _finalize_plugin_input
+        # 统一做 PST 汇总 + catalog 重建 + _last_* 副作用，保证与 legacy
+        # 全链路等价（FR9）。
         handled, _res = self._host.call(
             ctx, "load_input",
             fallback=lambda: self._legacy_load_input(input_path, report, pc),
         )
         if handled and ctx.ir is not None:
             design = ctx.ir
-        else:
+            self._finalize_plugin_input(design, report, input_path)
+        elif not handled:
             design = _res
+        else:
+            # handled=True 但无插件产出 ctx.ir（异常插件）→ 回退 legacy
+            logger.warning(
+                "load_input handled=True 但 ctx.ir 为空 — 回退 legacy 全链",
+            )
+            design = self._legacy_load_input(input_path, report, pc)
         if design is None:
             return report
 
