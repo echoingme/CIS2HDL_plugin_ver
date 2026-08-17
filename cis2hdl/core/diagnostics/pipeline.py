@@ -200,7 +200,7 @@ class DiagnosticPipeline:
         )
         return diagnostic_report
 
-    def run_stage(self, stage_name: str, *args: Any, **kwargs: Any) -> Any:
+    def run_stage(self, stage_name: str, *args: Any) -> Any:
         """Run a single diagnostic stage by name.
 
         Args:
@@ -208,7 +208,6 @@ class DiagnosticPipeline:
                 "file_inventory", "file_validation", "dependency_resolution",
                 "recovery_evaluation", "readiness", "quality", "error_diagnosis"
             *args: Stage-specific arguments.
-            **kwargs: Stage-specific keyword arguments.
 
         Returns:
             Stage-specific result.

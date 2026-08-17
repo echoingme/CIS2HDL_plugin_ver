@@ -21,7 +21,6 @@ from __future__ import annotations
 
 import logging
 import re as _re
-import xml.etree.ElementTree as _ET
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Optional

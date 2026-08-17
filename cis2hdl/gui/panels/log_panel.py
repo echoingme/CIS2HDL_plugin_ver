@@ -5,8 +5,7 @@ from __future__ import annotations
 import logging
 from datetime import datetime
 
-from PySide6.QtCore import Qt, Signal, QPropertyAnimation, QEasingCurve
-from PySide6.QtGui import QTextCursor
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
     QPlainTextEdit,
     QVBoxLayout,

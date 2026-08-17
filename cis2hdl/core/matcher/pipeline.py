@@ -27,7 +27,7 @@ from cis2hdl.core.matcher.fallback import FallbackMatcher
 from cis2hdl.core.matcher.feature import FeatureExtractMatcher
 from cis2hdl.core.matcher.fuzzy import FuzzyNameMatcher
 from cis2hdl.core.matcher.value_matcher import ValueMatcher
-from cis2hdl.core.matcher.prefix_filter import extract_prefix, is_passive_prefix
+from cis2hdl.core.matcher.prefix_filter import extract_prefix
 from cis2hdl.core.matcher.match_config import MatchConfig
 from cis2hdl.core.matcher.scoring import PrefixAffinityCalculator
 from cis2hdl.core.matcher.type_hypothesis import (

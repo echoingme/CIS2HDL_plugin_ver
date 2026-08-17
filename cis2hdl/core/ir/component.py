@@ -29,7 +29,7 @@ class PinDef(BaseModel):
     is_power: bool = False  # Auto-set from type; use model_post_init
     position: Optional[tuple[float, float]] = None
 
-    def model_post_init(self, __context: object) -> None:
+    def model_post_init(self, _context: object) -> None:
         """Auto-detect is_power from POWER/GROUND types."""
         if self.type in (ElectricalType.POWER, ElectricalType.GROUND):
             object.__setattr__(self, "is_power", True)
@@ -72,7 +72,7 @@ class ComponentDef(BaseModel):
     #: Arbitrary extra data — used to store ptf_rows, cross_ref info, etc.
     extra_data: dict = Field(default_factory=dict)
 
-    def model_post_init(self, __context: object) -> None:
+    def model_post_init(self, _context: object) -> None:
         if not self.pin_count and self.pins:
             object.__setattr__(self, "pin_count", len(self.pins))
 

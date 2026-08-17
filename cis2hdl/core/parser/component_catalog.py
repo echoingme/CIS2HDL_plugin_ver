@@ -99,12 +99,11 @@ def _extract_refdes_prefix(refdes: str) -> str:
     return m.group(1).upper() if m else ""
 
 
-def _derive_footprint_hint(refdes: str, library_path: str = "", value: str = "") -> str:
+def _derive_footprint_hint(refdes: str, value: str = "") -> str:
     """Derive a footprint / component-type hint from refdes prefix.
 
     Args:
         refdes: Reference designator.
-        library_path: OLB library path (unused currently, reserved for future).
         value: Component value (unused currently, reserved for future).
 
     Returns:
@@ -188,7 +187,7 @@ class CatalogEntry:
             refdes=entry.refdes,
             value=entry.value,
             footprint_hint=_derive_footprint_hint(
-                entry.refdes, entry.library, entry.value
+                entry.refdes, entry.value
             ),
             loc_x=entry.x_mils,
             loc_y=entry.y_mils,
@@ -259,7 +258,7 @@ class ComponentCatalog:
                 refdes=refdes,
                 value=xref_entry.value,
                 footprint_hint=_derive_footprint_hint(
-                    refdes, xref_entry.library, xref_entry.value
+                    refdes, xref_entry.value
                 ),
                 loc_x=xref_entry.x_mils,
                 loc_y=xref_entry.y_mils,

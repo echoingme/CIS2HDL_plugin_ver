@@ -239,7 +239,7 @@ class ErrorDiagnosticPanel(QWidget):
 
         self._tree.expandAll()
 
-    def _on_item_selected(self, current: QTreeWidgetItem, previous: QTreeWidgetItem | None) -> None:
+    def _on_item_selected(self, current: QTreeWidgetItem, _previous: QTreeWidgetItem | None) -> None:
         """Display suggestion text when an error item is selected."""
         if current is None:
             self._suggestion_label.clear()
