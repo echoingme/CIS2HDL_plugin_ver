@@ -10,6 +10,7 @@ htmlcov/
 
 # ── 转换输出（可再生成） ─────────────────────────────────
 HG5015_tests/output_*/
+HG5015_tests/_phaseXXVI_pipelines/
 HG5015_tests/temp/
 output/
 # 注：仅忽略仓库根目录 temp/（转换输出）；tests/fixtures/hdl_lib/temp/ 是 Cadence

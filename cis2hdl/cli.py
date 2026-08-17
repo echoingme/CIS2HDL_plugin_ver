@@ -36,7 +36,6 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
-from typing import Any
 
 import yaml
 
@@ -337,7 +336,8 @@ def _profile_delete(pm: ProfileManager, argv: list[str]) -> int:
 def _profile_export(pm: ProfileManager, argv: list[str]) -> int:
     p = argparse.ArgumentParser(prog="cis2hdl profile export")
     p.add_argument("name")
-    p.add_argument("-o", "--output", metavar="OUT", help="导出路径（缺省 profiles/export_<name>_<ts>.yaml）")
+    p.add_argument("-o", "--output", metavar="OUT",
+                   help="导出路径（缺省 profiles/export_<name>_<ts>.yaml）")
     args = p.parse_args(argv)
     try:
         out = pm.export(args.name, Path(args.output) if args.output else None)

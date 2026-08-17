@@ -40,7 +40,6 @@ from cis2hdl.cli import (
 from cis2hdl.core.pipeline_config import PipelineConfig
 from cis2hdl.core.profile_manager import ProfileManager
 
-
 # ── S10：旧参数移除 → 迁移报错（全量 20 个） ─────────────────────────────
 
 

@@ -25,14 +25,12 @@ output_phaseXXV_compare，故本轮递增为 output_phaseXXVI_compare）。
 from __future__ import annotations
 
 import copy
-import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 import yaml
-
 from make_compare_v9 import (
     _count_gnd,
     _count_ioport,
@@ -190,10 +188,13 @@ def _write_metrics(out: Path, metrics) -> None:
         "",
         "| 项 | Phase XXIII（output_phaseXXV_compare） | S10（本包） |",
         "|----|----------------------|------------------------|",
-        "| 驱动方式 | make_compare_v9.py + 旧 CLI flags（--gnd-distribute 等） | make_compare_s10.py + pipeline.yaml 变体 |",
-        "| 版本名 | v9_default / v9_gnd_distribute / v9_wire_simplify / v9_net_name | s10_default / s10_gnd_distribute / s10_wire_simplify / s10_net_name |",
+        "| 驱动方式 | make_compare_v9.py + 旧 CLI flags（--gnd-distribute 等） | "
+        "make_compare_s10.py + pipeline.yaml 变体 |",
+        "| 版本名 | v9_default / v9_gnd_distribute / v9_wire_simplify / v9_net_name | "
+        "s10_default / s10_gnd_distribute / s10_wire_simplify / s10_net_name |",
         "| 引擎模式 | 默认（legacy） | 默认（legacy）——FR9 字节等价基座不变 |",
-        "| 功能开关 | 仅 v9_gnd_distribute 开启 gnd_distribute_density | 同左（经 pipeline.yaml 字段） |",
+        "| 功能开关 | 仅 v9_gnd_distribute 开启 gnd_distribute_density | "
+        "同左（经 pipeline.yaml 字段） |",
         "",
         "> 注：SPCOCN 报错归零为**代码级验证**（语法/结构/坐标断言）；最终确认需用户",
         "> Cadence 16.6 打开复测。violations 为 [WIRE_THROUGH_BODY] 真违规口径",
@@ -235,16 +236,19 @@ def _write_readme(out: Path, metrics) -> None:
         "└── metrics_summary.md     # 各版本量化指标 + S10 差异说明",
         "```",
         "",
-        "每个 s* 目录是**完整可打开的 Cadence 工程**（worklib/5015/sch_1/ + cds.lib + hdl_lib + temp_lib）。",
+        "每个 s* 目录是**完整可打开的 Cadence 工程**（worklib/5015/sch_1/ + "
+        "cds.lib + hdl_lib + temp_lib）。",
         "变体 pipeline.yaml 存于 `HG5015_tests/_phaseXXVI_pipelines/`（可复现）。",
         "",
         "---",
         "",
         "## 二、在 Cadence 16.6 打开工程（3 步）",
         "",
-        "1. 把 `output_phaseXXVI_compare` **整个文件夹**拷贝到 Cadence 电脑（保持目录结构不变）",
+        "1. 把 `output_phaseXXVI_compare` **整个文件夹**拷贝到 Cadence 电脑"
+        "（保持目录结构不变）",
         "2. 打开 Design Entry HDL：File → Open Design → 选择 `s10_default/5015.cpm`",
-        "3. **⚠️ 重要：手动添加 temp_lib 库**（Phase XVII 遗留：Project Setup 需手动引用 temp_lib）：",
+        "3. **⚠️ 重要：手动添加 temp_lib 库**（Phase XVII 遗留：Project Setup "
+        "需手动引用 temp_lib）：",
         "   - Project Manager → **Project → Project Setup**",
         "   - **Libraries** 标签页 → **Add** → 选择 `s10_default/temp_lib` 目录",
         "   - 确认 Libraries 列表包含：`5015_lib`、`hdl_lib`、`temp_lib`",
@@ -265,7 +269,8 @@ def _write_readme(out: Path, metrics) -> None:
         "| 版本 | pipeline.yaml 字段 | 旧 CLI（S10 前） |",
         "|------|-------------------|------------------|",
         "| s10_default | 无覆盖（default profile） | 无 |",
-        "| s10_gnd_distribute | `beautify.params.gnd_distribution.enabled: true` + `.distribute_density: true` | --gnd-distribute |",
+        "| s10_gnd_distribute | `beautify.params.gnd_distribution.enabled: true` "
+        "+ `.distribute_density: true` | --gnd-distribute |",
         "| s10_wire_simplify | `beautify.params.wire_simplify.enabled: true` | --wire-simplify |",
         "| s10_net_name | `beautify.params.ioport.use_net_name: true` | --use-net-name |",
         "",
