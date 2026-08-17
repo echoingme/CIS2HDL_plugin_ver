@@ -30,7 +30,12 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 _PIPELINE_YAML = _PROJECT_ROOT / "pipeline.yaml"
 _INPUT = _PROJECT_ROOT / "tests" / "fixtures" / "RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.DSN"
 
-_TS_RE = re.compile(rb"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|\d{2}:\d{2}:\d{2}")
+# 秒级 + 分钟级（HTML 报告用分钟精度）时间戳均归一化——防分钟翻转 flake。
+_TS_RE = re.compile(
+    rb"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
+    rb"|\d{4}-\d{2}-\d{2} \d{2}:\d{2}"
+    rb"|\d{2}:\d{2}:\d{2}"
+)
 
 
 @pytest.fixture(autouse=True)
