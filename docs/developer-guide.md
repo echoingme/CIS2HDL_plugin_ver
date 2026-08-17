@@ -165,3 +165,53 @@ python -m pytest tests/unit/test_profile_manager.py        # 39
 python -m pytest tests/unit/test_cli_legacy_mapping.py     # 50
 python -m pytest tests/e2e/test_default_profile_equivalence.py  # 5（slow）
 ```
+
+---
+
+# S2 插件基座（2026-08-17）
+
+> 阶段目标：pluggy 插件基座落地（hookspecs + PluginManager + ctx + 引擎钩子化），
+> 默认 profile 行为与 legacy 完全等价（字节级 diff 验证）。
+> 设计：`docs/S2-plugin-base-design.md`（980 行）｜接口：`docs/plugin-api.md`
+
+## 2.1 新增模块
+
+| 模块 | 职责 |
+|------|------|
+| `cis2hdl/plugins/hookspecs.py` | PipelineHooks 7 hook 契约（load_input/match_components/apply_manual_overrides/beautify/write_output/write_report/run_verification） |
+| `cis2hdl/plugins/context.py` | ConversionContext dataclass + 只读守卫（writable/快照/校验） |
+| `cis2hdl/plugins/spec.py` | PluginSpec（name/stage/description/cls/param_section/params/writes_keys/builtin） |
+| `cis2hdl/plugins/manager.py` | PluginManager 生命周期（发现/过滤/实例化/逆序注册/降级/清理）+ build_plugin_manager |
+| `cis2hdl/plugins/discover.py` | scan_builtin_plugins（pkgutil 目录扫描）+ load_entrypoint_plugins |
+| `cis2hdl/plugins/params.py` | resolve_params（从 PipelineConfig 构造插件构造参数） |
+| `cis2hdl/plugins/ordering.py` | register_ordered（逆序注册 → LIFO 反转保 yaml 顺序）+ assert_order |
+| `cis2hdl/plugins/_stubs.py` | 内置插件 stub 工厂（input/beautify 占位返回 False 回退 legacy） |
+| `cis2hdl/plugins/input/` | EDIF/DSN/CrossRef/pstxnet/pstchip 占位插件（S2） |
+| `cis2hdl/plugins/match/` | matcher_pipeline/manual_overrides 薄包装（真委托，S2） |
+| `cis2hdl/plugins/beautify/` | overlap/gnd/parallel/stub/simplify/text_layout 顺序占位（S2，S5 迁入逻辑） |
+| `cis2hdl/plugins/output/` | default_writer/reports 薄包装（真委托，S2） |
+| `cis2hdl/core/engine/plugin_host.py` | PluginHost 统一钩子调用器（handled/fallback 语义） |
+| `scripts/s2_extract_legacy.py` | legacy 内联块提取工具（_legacy_load_input/_legacy_reports） |
+
+## 2.2 引擎钩子化（双模式）
+
+`ConversionEngine` 5 处钩子调用点（legacy `_pm=None` 时零 pluggy 开销）：
+
+| 钩子 | 调用点 | fallback |
+|------|--------|---------|
+| `load_input` | convert() Stage2 | `_legacy_load_input`（原内联解析块） |
+| `match_components` | convert() Stage4 | `_stage_match` + `_append_power_symbol_matches` |
+| `apply_manual_overrides` | 引脚注入后 | `_apply_phase14_matching` |
+| `beautify` | Stage6 前 | `None`（S5 迁入逻辑） |
+| `write_output` | Stage6 | `_stage_generate` |
+| `write_report` | 报告段 | `_legacy_reports` |
+
+API：`set_pipeline(cfg)` / `convert_with_cfg(cfg, input, out_dir, **kw)`。
+
+## 2.3 验证
+
+```bash
+pytest tests/unit/test_{plugin_manager,hookspecs,context,plugin_order,params}.py -q   # 52
+pytest tests/integration/test_engine_hooks.py -q                                      # 7
+pytest tests/e2e/test_plugin_mode_equivalence.py -q                                   # 2（字节级等价）
+```
