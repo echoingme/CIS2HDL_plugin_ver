@@ -178,6 +178,64 @@ PLUGIN = PluginSpec(name="exact", stage="match", cls=ExactMatchPlugin,
 `fallback`（参数化阶段插件，任一单独启用即运行完整匹配阶段）、
 `manual_overrides`（FR3 手动干预，默认不启用）。
 
+### 4.1c 美化阶段插件（S5，FR4）
+
+美化插件链（`beautify` 钩子）实现"**配置编排**"语义：插件**不重写美化逻辑**
+（writer 模块保持原实现），而是在 generate 之前把 yaml `beautify.params`
+（RoutingConfig，S1 K1 复用）**完整应用**到全局 `config.routing` ——
+CSAWriter 读取该对象，内置美化逻辑（overlap_resolver / gnd_cluster_planner
+/ wire_simplifier / wire_layout / text_layout）按配置开关在正确阶段执行
+（顺序由 writer 内部保证）。
+
+```python
+# cis2hdl/plugins/beautify/overlap_resolve.py（结构示意；其余 5 个同构）
+from cis2hdl.plugins.hookspecs import hookimpl
+from cis2hdl.plugins.context import ConversionContext
+from cis2hdl.plugins.spec import PluginSpec
+
+class OverlapResolvePlugin:
+    """防重叠（D2 检测 + R5 避让；overlap_resolver 编排）。"""
+
+    def __init__(self, engine=None, check=False, resolve=True,
+                 avoid_margin=50, **kw):
+        self.engine = engine                # PluginManager 注入
+        self.enabled = bool(resolve)        # enabled 门 = overlap.resolve
+        self.order_trace: list[str] = []
+
+    @hookimpl
+    def beautify(self, ctx: ConversionContext) -> bool | None:
+        self.order_trace.append("overlap_resolve")
+        if not self.enabled or self.engine is None:
+            return False                    # disabled → 不应用
+        self.engine.apply_beautify_params(ctx)  # 完整 params → 全局 config.routing
+        ctx.routed_nets = {"applied_plugins": ["overlap_resolve"]}
+        return True
+
+PLUGIN = PluginSpec(name="overlap_resolve", stage="beautify",
+                    cls=OverlapResolvePlugin, module=__name__,
+                    param_section="overlap",
+                    param_fields=("check", "resolve", "avoid_margin"),
+                    writes_keys=("routed_nets",), builtin=True)
+```
+
+六个 beautify 插件及 enabled 门（来自 params）：
+
+| 插件 | param_section | enabled 门 | 默认 |
+|------|---------------|-----------|:---:|
+| `overlap_resolve` | `overlap` | `overlap.resolve` | ✅ |
+| `gnd_cluster` | `gnd_distribution` | `gnd_distribution.enabled` | ➖ |
+| `parallel_short` | `gnd_distribution` | `gnd_distribution.parallel_short` | ✅ |
+| `three_stage_stub` | `""`（顶层） | `routing.three_stage_stub` | ✅ |
+| `wire_simplify` | `wire_simplify` | `wire_simplify.enabled` | ➖ |
+| `text_layout` | `text_layout` | `text_layout.enabled` | ➖ |
+
+**为什么是"完整 params 应用"？** legacy（S1 CLI）把 `beautify.params` 全量
+写回全局 `cfg.routing`（`cfg_obj.routing = cfg.to_routing_config()`）；writer
+美化开关分布在多个子节（如 `wire_simplify.parallel_short`、
+`placement.max_passive_move`、`routing.mode`）。完整应用对任意配置都与
+legacy 逐字段一致（构造性 FR9 保证），默认 profile 时应用 == RoutingConfig
+默认 → no-op。链内任意启用插件应用一次（幂等）；全禁用/空链 → 不应用。
+
 ### 4.2 注册到插件目录
 
 - 内置插件：文件放 `cis2hdl/plugins/<stage>/<name>.py`，模块名 = 插件名；
@@ -273,4 +331,8 @@ pytest tests/e2e/test_s3_input_equivalence.py -q
 # S4 匹配插件化（29 passed + 6 passed）
 pytest tests/unit/test_s4_match_plugins.py -q
 pytest tests/e2e/test_s4_match_equivalence.py -q
+
+# S5 美化插件化（30 passed + 4 passed）
+pytest tests/unit/test_s5_beautify_plugins.py -q
+pytest tests/e2e/test_s5_beautify_equivalence.py -q
 ```

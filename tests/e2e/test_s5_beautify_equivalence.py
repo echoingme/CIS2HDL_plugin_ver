@@ -141,10 +141,23 @@ def _assert_equivalent(legacy_dir: Path, plugin_dir: Path) -> None:
 
 @pytest.fixture(scope="module")
 def legacy_output(tmp_path_factory) -> Path:
+    """默认 profile legacy 基线（routing.yaml；目录名 'lg' 长度 = 插件 'pl'）。"""
     _require_input()
     out = tmp_path_factory.mktemp("lg")
     _convert_legacy(out)
     return out
+
+
+def _plugin_dir(tmp_path_factory, case: str) -> Path:
+    """插件输出目录。注意：report.html 内嵌输出路径（1008 处），文件大小随
+    目录名长度变化 → mapping.csv 的大小列会随之变化。为保证与 legacy 目录
+    字节等价，目录名长度必须与 legacy 一致：
+      - default 用例：legacy='lg'（2 字符）→ 插件='pl'（2 字符）
+      - 其它用例：legacy='lg_<case>' → 插件='pl_<case>'（同长）
+    """
+    if case == "default":
+        return tmp_path_factory.mktemp("pl")
+    return tmp_path_factory.mktemp(f"pl_{case}")
 
 
 #: S5 美化组合：(用例名, PipelineConfig 构造器, legacy 转换器)。
@@ -201,6 +214,6 @@ class TestS5BeautifyPluginEquivalence:
         else:
             legacy_dir = tmp_path_factory.mktemp(f"lg_{case}")
             _convert_legacy_with(legacy_dir, pc)
-        plugin_dir = tmp_path_factory.mktemp(f"pl_{case}")
+        plugin_dir = _plugin_dir(tmp_path_factory, case)
         _convert_plugin(plugin_dir, pc)
         _assert_equivalent(legacy_dir, plugin_dir)
