@@ -157,9 +157,39 @@ pip install -e ".[dev]"
 # GUI 模式
 python -m cis2hdl.gui.app
 
-# CLI 模式（已实现）
+# CLI 模式（插件化配置，S10 起）
 python -m cis2hdl convert project.dsn --output ./hdl_output/ --hdl-lib ./company_lib/
 ```
+
+---
+
+## S10 CLI 用法（插件化配置，2026-08-17）
+
+> S10 起旧 CLI 行为参数（--routing/--aesthetic/--wire-simplify/--gnd-distribute/
+> --use-net-name 等 20 个）已移除——传入报错并提示迁移至 pipeline.yaml 字段。
+> 仅保留路径类参数 `--output/--hdl-lib/--extra-hdl-lib` 与 `--profile/--pipeline`。
+
+```bash
+# 转换：读 ./pipeline.yaml（默认配置，与旧基线字节等价）
+python -m cis2hdl convert in.dsn
+
+# 路径类参数 + profile
+python -m cis2hdl convert in.dsn --output out/ --hdl-lib tests/fixtures/hdl_lib
+python -m cis2hdl convert in.dsn --profile max-beauty
+
+# 显式配置文件 / profile 管理
+python -m cis2hdl convert in.dsn --pipeline my.yaml
+python -m cis2hdl profile list | show <name> | create <name> | delete <name>
+
+# 验证套件（FR6，S8）
+python -m cis2hdl verify [--suite unit|e2e|qa_package]
+
+# GUI 工程工作台（S9）
+python -m cis2hdl gui
+```
+
+详细迁移对照表：`docs/archive/temp files/phase24-cli-yaml-migration.md`；
+完整架构与 S10 说明：`docs/developer-guide.md` §10。
 
 ---
 
