@@ -266,14 +266,11 @@ class PipelineController:
     def apply_plugin_param(self, name: str, path: str, value: Any) -> None:
         """把表单改动写回当前配置（双通道：表单 → cfg → yaml 预览）。"""
         spec = self._find_spec(name)
-        declared = {
-            f"beautify.{spec.param_section}.{f}" if spec.param_section else f"beautify.routing.{f}"
-            for f in (spec.param_fields or ())
-        }
+        from .yaml_bridge import apply_param_path, plugin_param_paths
+
+        declared = set(plugin_param_paths(spec, PipelineConfig()).keys())
         if path not in declared:
             raise ControllerError(f"参数 {path!r} 不在插件 {name!r} 的声明字段内")
-        from .yaml_bridge import apply_param_path
-
         apply_param_path(self._cfg, path, value)
 
     # ── 转换执行（§3.1 ⑩） ────────────────────────────────────────────────
