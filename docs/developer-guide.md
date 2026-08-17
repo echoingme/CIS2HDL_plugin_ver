@@ -1,5 +1,107 @@
 # CIS2HDL 开发者指南
 
+> 面向 CIS2HDL 插件化改造（S0–S8.5）的开发者文档。
+> 本文件随阶段演进持续更新；当前覆盖 **S1–S8.5**（S9 GUI 实现 / S10 交付见 ROADMAP）。
+> 版本：Phase XXIV（2026-08-17）｜测试基线：**1264 passed / 17 skipped / 0 failed**
+
+---
+
+## 0. 文档导航
+
+| 章节 | 内容 |
+|------|------|
+| §0 | 本文档导航 + 架构总览 + 插件总表 |
+| §S1 | 配置层：pipeline.yaml / PipelineConfig / ProfileManager / CLI |
+| §S2 | 插件基座：hookspecs / PluginManager / ConversionContext / 引擎钩子化 |
+| §S3 | 输入插件化：edif / dsn / cross_ref / pstxnet / pstchip |
+| §S4 | 匹配插件化：matcher_pipeline / exact / fuzzy / passive / fallback / manual_overrides |
+| §S5 | 美化插件化：overlap_resolve / gnd_cluster / parallel_short / three_stage_stub / wire_simplify / text_layout |
+| §S6 | 输出插件化：csa / con / xcon / csv / cpc / cpm / cds_lib + 4 报告 |
+| §S7 | 清理落地：REFACTORING_BACKLOG 24 项 |
+| §S8 | 测试插件化：unit / e2e / qa_package + verify CLI |
+| 附录 | plugin-api.md（插件开发接口）· gui-design.md（GUI 设计）· S1/S2 设计文档 |
+
+## 0.1 架构总览
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                Config 层（pipeline.yaml + --profile）          │
+│  profile: default | fast | max-beauty | match-only | debug    │
+│  plugins: {input, match, beautify, output, test} 五段组合      │
+└──────────────┬───────────────────────────────────────────────┘
+               │ 加载并校验（ProfileManager 合并内置/自定义）
+┌──────────────▼───────────────────────────────────────────────┐
+│              PluginManager（pluggy）                          │
+│  ① 扫描内置插件（cis2hdl/plugins/<stage>/*.py）               │
+│  ② 按 cfg 过滤启用（enabled_by_cfg）                          │
+│  ③ 实例化（resolve_params 从 yaml 注入参数）                  │
+│  ④ 校验（hookspec 签名校验 + check_pending）                  │
+│  ⑤ 排序（外部先注册、内置逆 yaml 序 → LIFO 反转保顺序）        │
+└──────────────┬───────────────────────────────────────────────┘
+               │ 触发各阶段钩子（PluginHost 统一 handled/fallback）
+┌──────────────▼───────────────────────────────────────────────┐
+│          Pipeline 主线（ConversionEngine，双模式）            │
+│  legacy 模式（_pm=None）== plugin 模式（set_pipeline）         │
+│  字节级等价（FR9，e2e 验证）                                  │
+│  Stage1 diagnose → Stage2 load_input → Stage3 scan            │
+│  Stage4 match_components → apply_manual_overrides             │
+│  Stage5 validate → beautify → write_output → write_report     │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**双模式引擎**：`ConversionEngine()` 默认 legacy（`_pm=None`，零 pluggy 开销）；
+`set_pipeline(cfg)` / `convert_with_cfg(cfg, input, out, **kw)` 激活 plugin 模式。
+两模式输出**逐字节等价**（test_plugin_mode_equivalence.py / test_s3/s4/s5/s6 e2e 守护）。
+
+## 0.2 插件总表（31 个）
+
+### input（5，FR1）
+| 插件 | 说明 | 默认 |
+|------|------|:---:|
+| edif | EDIF 解析编排（P0-D2 EDIF 优先 + cross_ref/pst 增量委托） | ✅ |
+| dsn | DSN 二进制解析（可选） | — |
+| cross_ref | CrossRef CSV → ComponentCatalog + 坐标注入 | — |
+| pstxnet | pstxnet 网络注入（pin→net） | ✅ |
+| pstchip | pstchip 引脚名恢复 | ✅ |
+
+### match（6，FR2/FR3）
+| 插件 | 说明 | 默认 |
+|------|------|:---:|
+| matcher_pipeline | 匹配编排基座 | — |
+| exact | exact 匹配（链首时编排完整匹配管线） | ✅ |
+| fuzzy | fuzzy 匹配（独立启停） | ✅ |
+| passive | passive 匹配（独立启停） | ✅ |
+| fallback | fallback 匹配（独立启停） | ✅ |
+| manual_overrides | 手动干预（chip_config + power_ic，FR3） | ✅ |
+
+### beautify（6，FR4）
+| 插件 | enabled 门 | 默认 |
+|------|-----------|:---:|
+| overlap_resolve | overlap.resolve | ✅ |
+| gnd_cluster | gnd_distribution.enabled | — |
+| parallel_short | gnd_distribution.parallel_short | ✅ |
+| three_stage_stub | routing.three_stage_stub | ✅ |
+| wire_simplify | wire_simplify.enabled | — |
+| text_layout | text_layout.enabled | — |
+
+### output（11，FR5）
+| 插件 | 类型 | 默认 |
+|------|------|:---:|
+| csa | 文件（worklib/sch_1/pageN.csa + temp_lib） | ✅ |
+| con / xcon / csv / cpc / cpm / cds_lib | 文件 | ✅ |
+| aesthetic / ioport / mapping / error | 报告 | ✅ |
+
+### test（3，FR6）
+| 插件 | 内容 | 默认 |
+|------|------|:---:|
+| unit | pytest tests/unit（1169 用例） | ✅ |
+| e2e | pytest tests/e2e + tests/integration（109 用例） | ✅ |
+| qa_package | verify_phaseXXI_package.py + 结构检查兜底 | ✅ |
+
+---
+
+# CIS2HDL 开发者指南
+
 > 面向 CIS2HDL 插件化改造（S0–S8）的开发者文档。
 > 本文件随阶段演进持续更新；当前覆盖 **S1–S8**。
 
