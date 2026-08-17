@@ -276,17 +276,24 @@ class MatchSection:
     plugins: list[str] = field(default_factory=lambda: ["exact", "fuzzy", "passive", "fallback"])
     """FR2 匹配插件链（S4 驱动）。"""
     weights: dict[str, float] = field(default_factory=lambda: {
-        "part_name": 0.5, "footprint": 0.3, "value": 0.2, "jedec_type": 0.1,
+        "footprint": 0.30, "value": 0.15, "jedec": 0.20, "pin_count": 0.20,
+        "part_name": 0.15,
     })
-    """匹配权重（NFR5 去硬编码；S4 接入 matcher）。"""
-    prefix_scope: dict[str, list[str]] = field(default_factory=lambda: {
-        "R": ["0603", "0402", "0805"],
-        "C": ["0603", "0402", "0805"],
-        "U": ["sot223", "qfp", "bga"],
-        "J": ["connector"],
-        "IC": ["any"],
-    })
-    """各 prefix 搜索范围（S4 接入）。"""
+    """匹配权重（NFR5 去硬编码；S4 接入 matcher）。
+
+    S4 对齐：默认值 = ``ActiveMatcher.WITHIN_TYPE_WEIGHTS`` 真实默认值
+    （S1 占位权重 part_name 0.5/... 与真实 matcher 不一致，直接应用会破坏
+    FR9 默认等价，故 S4 修正）。旧 key ``jedec_type`` 作为 ``jedec`` 别名
+    兼容。测试断言两者相等（``test_s4_match_plugins``）。
+    """
+    prefix_scope: dict[str, list[str]] = field(default_factory=dict)
+    """各 prefix 搜索范围（S4 接入）。
+
+    S4 对齐：默认空 dict = 不限制候选范围（FR9 默认等价；S1 占位示例
+    R:[0603,...] 等若直接应用会收窄候选库、破坏默认等价，故改为空）。
+    用户显式配置后生效（FR2 不同配置产出不同匹配结果）；语义见
+    ``cis2hdl/plugins/match/_prefix_scope.py``。
+    """
     thresholds: dict[str, float] = field(default_factory=lambda: {
         "exact": 0.95, "fuzzy": 0.75, "feature": 0.60, "fallback": 0.50,
     })

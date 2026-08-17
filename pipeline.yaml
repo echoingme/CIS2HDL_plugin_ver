@@ -26,16 +26,20 @@ input:
 match:
   plugins: [exact, fuzzy, passive, fallback]   # FR2 匹配插件链（S4 驱动）
   weights:                 # 匹配权重（NFR5 去硬编码；S4 接入 matcher）
-    part_name: 0.5
-    footprint: 0.3
-    value: 0.2
-    jedec_type: 0.1
+                           # S4 对齐：默认 = ActiveMatcher.WITHIN_TYPE_WEIGHTS
+                           # （S1 占位权重与真实 matcher 不一致，直接应用会
+                           #  破坏 FR9 默认等价，故 S4 修正）
+    footprint: 0.30
+    value: 0.15
+    jedec: 0.20
+    pin_count: 0.20
+    part_name: 0.15
   prefix_scope:            # 各 prefix 搜索范围（S4 接入）
-    R:  [0603, 0402, 0805]
-    C:  [0603, 0402, 0805]
-    U:  [sot223, qfp, bga]
-    J:  [connector]
-    IC: [any]
+                           # S4 对齐：默认空 = 不限制候选范围（FR9 默认等价；
+                           #  S1 占位示例若直接应用会收窄候选库）。显式配置后
+                           #  生效（FR2）：{prefix: [关键字, ...]}，并集语义
+                           #  见 developer-guide S4 章节
+    {}
   thresholds:              # = ComponentMatchingConfig 四阈值（S4 接入）
     exact: 0.95
     fuzzy: 0.75
