@@ -469,3 +469,46 @@ pytest -q                                                         # 全量回归
 
 铁律（FR9）：默认 profile 的 plugin 模式输出与 legacy 逐文件字节级 diff 为空；
 S2/S3/S4 等价性 e2e 必须继续全绿。
+
+---
+
+# S6 输出插件化（2026-08-17）
+
+> 阶段目标：输出阶段细粒度插件化——7 文件插件 + 4 报告插件，output.files/
+> output.reports 控制独立启停；默认 profile 全开 == legacy 全文件（字节等价 FR9）。
+> 设计：方案 v2 §3.6 output 段｜基座：S2-plugin-base-design.md §3.5
+
+## 6.1 输出插件清单
+
+| 插件 | 类型 | writer 模块 | 控制字段 |
+|------|------|------------|---------|
+| csa | 文件 | csa_writer（worklib/5015/sch_1/pageN.csa + temp_lib mock 库） | output.files |
+| con | 文件 | con_writer（5015.con） | output.files |
+| xcon | 文件 | xcon_writer | output.files |
+| csv | 文件 | csv_writer（pageN.csv） | output.files |
+| cpc | 文件 | cpc_writer | output.files |
+| cpm | 文件 | cpm_writer（5015.cpm） | output.files |
+| cds_lib | 文件 | cdslib_writer（cds.lib/hdldirect.dat） | output.files |
+| aesthetic | 报告 | aesthetic_report（aesthetic_report.txt） | output.reports |
+| ioport | 报告 | ioport_audit（ioport_audit_report.txt） | output.reports |
+| mapping | 报告 | mapping_csv_writer（*_mapping.csv + *_top3.txt） | output.reports |
+| error | 报告 | error_logger（*_errors.log/.txt） | output.reports |
+
+## 6.2 引擎聚合与等价性
+
+- `write_output` hook：细粒度插件各写对应文件，返回 list[Path]；全部
+  False/None → fallback `_stage_generate`（legacy 全文件）。
+- `write_report` hook：4 报告插件；fallback `_legacy_reports`。
+- **FR9 补丁**：legacy generate() 的 GEN 事件（连通性模型统计）在插件
+  路径也输出（事件流字节等价）；`ctx.matches` 在 match 未接管时统一回写
+  （mapping 报告读取一致）。
+- **部分组合语义**：禁用插件对应文件不写；`hdl_lib/` 库拷贝与
+  `pin_audit_report.txt` 不受输出插件控制（恒写）；errors.log 的警告计数
+  反映实际执行插件（部分组合下与 legacy 全量天然不同，属预期）。
+
+## 6.3 验证
+
+```bash
+pytest tests/unit/test_s6_output_plugins.py -q            # 43
+pytest tests/e2e/test_s6_output_equivalence.py -q         # 3（默认+2 部分组合）
+```
