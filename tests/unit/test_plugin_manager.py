@@ -149,10 +149,35 @@ class TestDegrade:
         assert pm.get_plugin("overlap_resolve") is not None
         assert pm.get_plugin("gnd_cluster") is not None
 
-    def test_missing_cls_spec_not_instantiated(self, default_cfg: PipelineConfig):
-        """cls=None 的白名单 spec（test）不实例化不注册。"""
+    def test_missing_cls_spec_not_instantiated(self, monkeypatch, default_cfg: PipelineConfig):
+        """cls=None 的 spec 不实例化不注册（机制）；S8 起 test 插件真实现。
+
+        S8 变化：test 白名单占位（cls=None）退役，unit/e2e/qa_package 全部
+        真实现并注册；本测试改用 monkeypatch 注入占位 spec 验证机制仍生效。
+        """
         pm = build_plugin_manager(default_cfg)
-        assert pm.get_plugin("unit") is None
+        for name in ("unit", "e2e", "qa_package"):
+            assert pm.get_plugin(name) is not None
+
+        # 机制：cls=None 的 spec 即使启用也不实例化不注册。
+        from cis2hdl.plugins import manager as manager_mod
+        from cis2hdl.plugins.spec import PluginSpec
+
+        placeholder = PluginSpec(
+            name="placeholder_test", stage="test", description="占位",
+            cls=None, module="cis2hdl.plugins.test",
+        )
+        real_specs, errors = manager_mod.discover_all()
+        patched = [s for s in real_specs if s.name != "unit"] + [placeholder]
+        monkeypatch.setattr(
+            manager_mod, "discover_all",
+            lambda *a, **k: (patched, errors),
+        )
+        pm2 = build_plugin_manager(default_cfg)
+        assert pm2.get_plugin("placeholder_test") is None
+        assert "placeholder_test" not in pm2._registered_names
+        # 其它真实现插件仍正常注册
+        assert pm2.get_plugin("e2e") is not None
 
 
 class TestCleanup:

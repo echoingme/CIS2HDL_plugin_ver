@@ -1,35 +1,16 @@
 """test 阶段插件包（FR6）。
 
-S2：仅白名单 spec（``cls=None``，不注册 hookimpl）；S8 接入
-run_verification。``_SPECS`` 汇总（供 discover 读取）。
+S2：仅白名单 spec（``cls=None``，不注册 hookimpl）；S8 真实现——
+``unit.py`` / ``e2e.py`` / ``qa_package.py`` 三个独立模块各声明 ``PLUGIN``
+（cls=真实现类），由 discover 逐模块扫描；本包 ``_SPECS`` 保持空（白名单
+占位已退役，避免与模块 PLUGIN 去重冲突）。
 """
 
 from __future__ import annotations
 
 from ..spec import PluginSpec
 
-_SPECS: list[PluginSpec] = [
-    PluginSpec(
-        name="unit",
-        stage="test",
-        description="单元测试套件（S8 接入）",
-        cls=None,
-        module="cis2hdl.plugins.test",
-    ),
-    PluginSpec(
-        name="e2e",
-        stage="test",
-        description="端到端测试套件（S8 接入）",
-        cls=None,
-        module="cis2hdl.plugins.test",
-    ),
-    PluginSpec(
-        name="qa_package",
-        stage="test",
-        description="QA 交付包测试套件（S8 接入）",
-        cls=None,
-        module="cis2hdl.plugins.test",
-    ),
-]
+#: 白名单占位已退役（S8 真实现入独立模块）；保留空列表以兼容读取约定。
+_SPECS: list[PluginSpec] = []
 
 __all__ = ["_SPECS"]
