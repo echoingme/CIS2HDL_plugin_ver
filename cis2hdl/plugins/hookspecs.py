@@ -110,8 +110,18 @@ class PipelineHooks:
         执行顺序（= yaml reports 顺序）聚合路径追加 report.output_files。
         """
 
-    # ── FR6 测试（不在 convert() 内调用；S8 接入）─────────────────────
+    # ── FR6 测试（不在 convert() 内调用；S8 独立入口 cis2hdl verify）──────
 
     @hookspec(firstresult=False)
     def run_verification(self, ctx: "ConversionContext") -> list[str] | None:
-        """执行一类验证/测试（unit/e2e/qa-package）。S2 仅定义。"""
+        """执行一类验证/测试（unit/e2e/qa_package）。S8 真实现。
+
+        S8 语义（独立入口，``cis2hdl verify`` 触发；convert() 内不调用）：
+        - 3 个 test 插件（``cis2hdl/plugins/test/{unit,e2e,qa_package}.py``）
+          按 ``cfg.test.suites`` 选择注册（Manager 按名过滤）。
+        - 插件是**运行器**：pytest 子进程运行 tests/unit/（unit）、
+          tests/e2e/+tests/integration/（e2e）、scripts/verify_phaseXXI_
+          package.py（qa_package），返回 ``list[str]`` 结果行。
+        - 返回行前缀约定：[PASS]/[FAIL]/[ERROR]/[SKIP]/[INFO]；
+          VerificationRunner 依据 [FAIL]/[ERROR] 判整体失败。
+        """

@@ -88,6 +88,8 @@ class TestSuitePlugin:
     套件（如 qa_package）覆盖 ``_run_checks(ctx)``。
     """
 
+    __test__ = False  # 名称以 Test 开头，显式阻止 pytest 收集为测试类
+
     name: str = ""
     description: str = ""
     timeout: int = DEFAULT_TIMEOUT
