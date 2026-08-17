@@ -1,7 +1,7 @@
 # CIS2HDL 插件接口文档（Plugin API）
 
-> 版本：S4（2026-08-17）｜依据：`docs/S2-plugin-base-design.md` + S3 输入插件化 + S4 匹配插件化｜框架：pluggy 1.6.0
-> 铁律：**默认 profile 行为与 legacy 完全等价**（FR9，字节级 diff 验证，含全数据源 HG5015）
+> 版本：S8（2026-08-17）｜依据：`docs/S2-plugin-base-design.md` + S3 输入插件化 + S4 匹配插件化 + S5 美化插件化 + S6 输出插件化 + S8 测试插件化｜框架：pluggy 1.6.0
+> 铁律：**默认 profile 行为与 legacy 完全等价**（FR9，字节级 diff 验证，含全数据源 HG5015）；**run_verification 不在 convert() 内调用**（S8 独立入口 `cis2hdl verify`）
 
 ---
 
@@ -335,6 +335,13 @@ pytest tests/e2e/test_s4_match_equivalence.py -q
 # S5 美化插件化（30 passed + 4 passed）
 pytest tests/unit/test_s5_beautify_plugins.py -q
 pytest tests/e2e/test_s5_beautify_equivalence.py -q
+
+# S8 测试插件化（26 passed）
+pytest tests/unit/test_s8_test_plugins.py -q
+
+# S8 一键验证（FR6，独立入口）
+python -m cis2hdl verify --suite unit          # 实跑 unit 套件
+python -m cis2hdl verify --suite qa_package    # QA 结构检查
 ```
 
 ## 10. 输出插件（S6）
@@ -348,3 +355,24 @@ pytest tests/e2e/test_s5_beautify_equivalence.py -q
 - 部分组合：禁用插件对应文件不写；`hdl_lib/` 库拷贝恒写（不受插件控制）。
 - 例：`output.files: [csa, con]` + `output.reports: [mapping]` → 只写
   csa/con + mapping.csv/top3.txt + 共享 infra。
+
+## 11. 测试插件（S8，FR6）
+
+| 插件 | hook | 运行内容 | 控制 |
+|------|------|---------|------|
+| unit | `run_verification` | pytest `tests/unit/` | `test.suites` |
+| e2e | `run_verification` | pytest `tests/e2e/ tests/integration/` | `test.suites` |
+| qa_package | `run_verification` | `scripts/verify_phaseXXI_package.py <交付目录>` 或等价结构检查 | `test.suites` |
+
+- **返回值**：`list[str]`（验证结果/报告行）；**不在 convert() 内调用**
+  （S8 独立入口 `python -m cis2hdl verify [--suite ...]` 触发）。
+- **插件是运行器**：不重写测试；按 `test.suites` 选择执行 pytest/检查脚本。
+- **套件启停**：Manager 按 `spec.name ∈ cfg.test.suites` 过滤注册（未启用
+  不注册）；插件运行时再查 `ctx.cfg.test.suites`（双保险）。
+- **结果行前缀**：`[PASS]`/`[FAIL]`/`[ERROR]`/`[SKIP]`/`[INFO]`；
+  VerificationRunner 依据 `[FAIL]`/`[ERROR]` 判整体失败（退出码 1）。
+- 例：`test.suites: [unit, e2e, qa_package]`（默认全开）→ `cis2hdl verify`
+  依次运行 3 个套件；`--suite unit` 只跑单元。
+- qa_package 交付目录优先序：`ctx.output_dir` → 构造参数 `delivery_dir` →
+  项目根常见目录（`output_verify_final`/`output`）；无交付目录 → 等价
+  结构检查（`[SKIP]`+`[INFO]`，不判失败）。

@@ -1,7 +1,7 @@
 # CIS2HDL 开发者指南
 
 > 面向 CIS2HDL 插件化改造（S0–S8）的开发者文档。
-> 本文件随阶段演进持续更新；当前覆盖 **S1–S7**。
+> 本文件随阶段演进持续更新；当前覆盖 **S1–S8**。
 
 ---
 
@@ -570,3 +570,75 @@ pytest -q                                    # 1238 passed / 17 skipped / 0 fail
 铁律（FR9）：默认 profile 行为不变——清理前后全量测试数一致
 （1238 passed / 17 skipped / 0 failed），重复实现合并经现有测试验证
 字节级等价。
+
+# S8 测试插件化（FR6，2026-08-17）
+
+> 阶段目标：把验证/测试体系插件化——3 个 test 插件真实现（unit/e2e/
+> qa_package），`test.suites` 控制选择，`cis2hdl verify` 一键运行。
+> 设计：方案 v2 §3.3 run_verification hook / §3.6 test 段 / FR6 测试插件化
+> 基座：S2-plugin-base-design.md §3.5（PluginManager 按名过滤注册）
+
+## 8.1 新增模块
+
+| 文件 | 职责 |
+|------|------|
+| `cis2hdl/plugins/test/_base.py` | TestSuitePlugin 基类：套件启停 + pytest 子进程运行器 + 摘要解析/格式化 + NFR3 独立降级 |
+| `cis2hdl/plugins/test/unit.py` | unit 插件（pytest tests/unit/） |
+| `cis2hdl/plugins/test/e2e.py` | e2e 插件（pytest tests/e2e/ tests/integration/） |
+| `cis2hdl/plugins/test/qa_package.py` | qa_package 插件（verify_phaseXXI_package.py 或等价结构检查） |
+| `cis2hdl/verify.py` | VerificationRunner / VerificationReport / list_test_suites |
+| `tests/unit/test_s8_test_plugins.py` | S8 单测 26 个 |
+
+## 8.2 套件语义（S8 决策）
+
+| 套件 | 运行内容 | 用例数 | 说明 |
+|------|---------|--------|------|
+| `unit` | `pytest tests/unit/` | 1169 | 单元测试（快速确定性；无 e2e/slow 标记） |
+| `e2e` | `pytest tests/e2e/ tests/integration/` | 82+27=109 | 端到端 + 集成（全链路转换/字节等价/多模块交互） |
+| `qa_package` | `scripts/verify_phaseXXI_package.py <交付目录>` 或等价结构检查 | — | QA 交付包检查 |
+
+决策记录：
+- **integration 归 e2e**：集成测试验证多模块交互/真实管线（标记
+  `integration`），与 e2e 同属"全链路验证"；unit 保持纯单元。
+- **qa_package 交付目录优先序**：`ctx.output_dir` → 构造参数
+  `delivery_dir` → 项目根常见目录（`output_verify_final`/`output`）。
+  无交付目录 → 等价结构检查（pipeline.yaml/tests 目录/检查脚本齐全），
+  返回 `[SKIP]`+`[INFO]` 不判失败；显式指定但缺失 → `[FAIL]`。
+
+## 8.3 ctx 契约与铁律
+
+- `run_verification(ctx) -> list[str] | None`：返回验证结果/报告行；
+  **不在 convert() 内调用**（S8 独立入口触发）。
+- 插件是**运行器**：不重写测试，只按 suites 选择并调用 pytest/检查脚本。
+- 套件启停双保险：PluginManager 按 `spec.name ∈ cfg.test.suites` 过滤注册
+  （未启用不注册）+ 插件运行时再查 `ctx.cfg.test.suites`（防御性）。
+- 返回行前缀约定：`[PASS]`/`[FAIL]`/`[ERROR]`/`[SKIP]`/`[INFO]`；
+  VerificationRunner 依据 `[FAIL]`/`[ERROR]` 判整体失败（退出码 1）。
+- NFR3：单套件异常 → warning + `[ERROR]` 行，不阻断其它套件。
+
+## 8.4 CLI 用法
+
+```bash
+python -m cis2hdl verify                          # 跑 test.suites 全部（默认全开）
+python -m cis2hdl verify --suite unit             # 只跑单元
+python -m cis2hdl verify --suite e2e              # 只跑端到端+集成
+python -m cis2hdl verify --suite qa_package       # 只跑 QA 交付包检查
+python -m cis2hdl verify --suite unit --suite e2e # 多个套件
+python -m cis2hdl verify --pipeline <path> --profile <name>
+```
+
+退出码：0 通过；1 存在 `[FAIL]`/`[ERROR]` 或未知套件/配置错误；2 profile 错误。
+
+## 8.5 验证
+
+```bash
+pytest tests/unit/test_s8_test_plugins.py -q      # 26
+python -m cis2hdl verify --suite unit             # 实跑 1169 passed, 3 skipped
+python -m cis2hdl verify --suite qa_package       # 结构检查 SKIP+INFO（rc=0）
+pytest -q                                         # 全量回归（1264 passed / 17 skipped / 0 failed）
+```
+
+铁律（FR9）：convert() 主流程不触发 run_verification——全量回归通过且
+行为不变；test 插件注册只增加 run_verification 链，不改变既有 6 hook
+执行语义。
+
