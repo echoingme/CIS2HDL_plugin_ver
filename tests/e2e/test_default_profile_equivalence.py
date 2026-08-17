@@ -12,12 +12,13 @@
 覆盖：
   1. 默认 profile 全量字节等价
   2. routing.mode ∈ {p0, detour} 等价（新/旧两路径同时改 mode）
-  3. 旧参数组合（--routing detour --wire-simplify）经新 CLI 映射后与旧路径等价
+  3. 特性组合等价（detour + wire_simplify）：S10 起用户经 pipeline.yaml
+     配置对应字段（--routing/--wire-simplify 已移除），新旧路径仍字节等价
+  4. --profile default 经 ProfileManager 解析后与旧路径等价
 """
 
 from __future__ import annotations
 
-import argparse
 import copy
 import re
 from pathlib import Path
@@ -26,7 +27,6 @@ import pytest
 
 pytestmark = [pytest.mark.e2e, pytest.mark.slow]
 
-from cis2hdl.cli import _apply_legacy_args
 from cis2hdl.core.config import Config
 from cis2hdl.core.engine.conversion_engine import ConversionEngine
 from cis2hdl.core.pipeline_config import PipelineConfig
@@ -94,28 +94,21 @@ def _convert_old(out_dir: Path, *, mode: str | None = None, wire_simplify: bool 
     )
 
 
-def _convert_new(out_dir: Path, *, mode: str | None = None, legacy: dict | None = None) -> None:
-    """新路径：pipeline.yaml（+ profile/旧参数映射）→ to_routing_config。"""
+def _convert_new(out_dir: Path, *, mode: str | None = None,
+                 wire_simplify: bool = False) -> None:
+    """新路径：pipeline.yaml（+ 直接配置覆盖，等价用户改 yaml）→ to_routing_config。
+
+    S10 起旧行为参数（--routing/--wire-simplify/...）已移除，用户改由
+    pipeline.yaml 字段配置——这里直接覆盖 PipelineConfig 字段即等价
+    "用户按迁移表改 yaml"的语义。
+    """
     cfg = Config.get()
     cfg.reset()
     pc = PipelineConfig.from_yaml(_PIPELINE_YAML)
     if mode is not None:
         pc.beautify.params.mode = mode
-    if legacy:
-        ns = argparse.Namespace(
-            input=None, pipeline=None, profile=None,
-            output=None, hdl_lib=None, extra_hdl_lib=[], benchmark=False,
-            max_workers=None, routing=None, nonuniform_tracks=False,
-            net_order=None, wire_simplify=False, manual_matches=None,
-            chip_config=None, export_unmatched=None, text_layout=False,
-            power_ic=False, aesthetic=False, gnd_distribute=False,
-            rotate_passives=False, ioport_edge=False, ioport_audit=False,
-            use_net_name=False, no_mirror_normalize=False, no_report=False,
-            cross_page_opt=False,
-        )
-        for key, value in legacy.items():
-            setattr(ns, key, value)
-        _apply_legacy_args(pc, ns, set())
+    if wire_simplify:
+        pc.beautify.params.wire_simplify.enabled = True
     cfg.routing = pc.to_routing_config()
     cfg.app.max_workers = pc.engine.max_workers
     cfg.app.benchmark = pc.engine.benchmark
@@ -166,13 +159,14 @@ class TestDefaultProfileEquivalence:
         _convert_new(new_dir, mode=mode)
         _assert_equivalent(old_dir, new_dir)
 
-    def test_legacy_flag_combination_equivalence(self, tmp_path: Path) -> None:
-        """旧参数组合（--routing detour --wire-simplify）经新 CLI 映射后等价。"""
+    def test_config_equivalence_detour_wire_simplify(self, tmp_path: Path) -> None:
+        """特性组合等价（detour + wire_simplify）：S10 起用户经 pipeline.yaml
+        配置（--routing/--wire-simplify 已移除），新旧路径输出仍字节等价。"""
         _require_input()
-        old_dir = tmp_path / "old_legacy"
-        new_dir = tmp_path / "new_legacy"
+        old_dir = tmp_path / "old_cfg"
+        new_dir = tmp_path / "new_cfg"
         _convert_old(old_dir, mode="detour", wire_simplify=True)
-        _convert_new(new_dir, legacy={"routing": "detour", "wire_simplify": True})
+        _convert_new(new_dir, mode="detour", wire_simplify=True)
         _assert_equivalent(old_dir, new_dir)
 
     def test_profile_default_equivalence(self, tmp_path: Path) -> None:

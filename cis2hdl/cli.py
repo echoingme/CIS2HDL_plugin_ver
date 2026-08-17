@@ -1,22 +1,24 @@
-"""CIS2HDL 新 CLI（S1 配置层，§6）。
+"""CIS2HDL 新 CLI（S1 配置层，§6；S10 兼容窗口结束）。
 
-设计依据：``docs/S1-config-design.md`` §6（架构师高见远交付）。
+设计依据：``docs/S1-config-design.md`` §6（架构师高见远交付）+ S10 交付。
 
 结构::
 
     cis2hdl                              # 无参数 → GUI（保留）
     cis2hdl gui                          # GUI（保留）
-    cis2hdl convert <input> [options]    # 读 pipeline.yaml + --profile + 旧参数映射
+    cis2hdl convert <input> [options]    # 读 pipeline.yaml + --profile + 路径类参数
     cis2hdl profile list|show|create|delete|export|import
     cis2hdl verify [--suite NAME ...]    # S8 运行 test.suites 验证套件（FR6）
     cis2hdl --version                    # 版本
 
-convert 解析流程（§6.2）:
+convert 解析流程（§6.2；S10 起）:
   1. 定位 pipeline.yaml：--pipeline <path> → ./pipeline.yaml → <pkg>/config/pipeline.yaml
      → 都不存在则用 PipelineConfig()（纯默认）
   2. cfg = PipelineConfig.from_yaml(path)
   3. 若 --profile <name> 给出：cfg = ProfileManager.get(name)
-  4. 旧 CLI 参数逐个映射覆盖 cfg（§6.3）+ deprecation 警告（每参数一次）
+  4. 路径类 CLI 参数（--output/--hdl-lib/--extra-hdl-lib）覆盖 cfg（S10 保留）；
+     其余旧行为参数（--routing/--aesthetic/... 共 20 个）已在 S10 移除——
+     传入时报错并提示迁移至 pipeline.yaml 字段 / --profile
   5. rc = cfg.to_routing_config()；写回全局 Config 单例 routing + app
   6. ConversionEngine.convert(...)（引擎零改动）
 
@@ -53,14 +55,12 @@ from .core.profile_manager import (
 __all__ = ["main", "gui_main", "convert_main", "profile_main", "verify_main"]
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 旧 CLI 参数 → yaml 字段迁移对照表（§6.3 全量 23 个；S10 前保留）
+# S10 移除的旧 CLI 参数 → pipeline.yaml 字段迁移提示（兼容窗口结束）
 # ─────────────────────────────────────────────────────────────────────────────
 
-#: {flag: yaml 路径提示}——deprecation 警告文案用。
-_LEGACY_DEPRECATION_TARGETS: dict[str, str] = {
-    "--output": "engine.output_dir",
-    "--hdl-lib": "input.hdl_lib",
-    "--extra-hdl-lib": "input.extra_hdl_libs",
+#: {flag: yaml 字段提示}——旧参数报错文案用（S10 起仅报错，不再映射）。
+#: 权威对照表：docs/archive/temp files/phase24-cli-yaml-migration.md（归档参考）。
+_REMOVED_FLAGS_TARGETS: dict[str, str] = {
     "--benchmark": "engine.benchmark",
     "--max-workers": "engine.max_workers",
     "--routing": "beautify.params.routing.mode",
@@ -83,20 +83,7 @@ _LEGACY_DEPRECATION_TARGETS: dict[str, str] = {
     "--cross-page-opt": "beautify.params.routing.cross_page_opt",
 }
 
-_MIGRATION_REF = "docs/S1-config-design.md §6.3 迁移表"
-
-
-def _deprecation_warn(flag: str, warned: set[str]) -> None:
-    """打印 deprecation 警告到 stderr（每个参数仅一次，set 去重）。"""
-    if flag in warned:
-        return
-    warned.add(flag)
-    target = _LEGACY_DEPRECATION_TARGETS.get(flag, flag)
-    print(
-        f"[deprecation] {flag} 已废弃，将在 S10 移除；"
-        f"请改用 pipeline.yaml: {target}（见 {_MIGRATION_REF}）",
-        file=sys.stderr,
-    )
+_MIGRATION_REF = "docs/archive/temp files/phase24-cli-yaml-migration.md"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -167,31 +154,13 @@ def _build_convert_parser() -> argparse.ArgumentParser:
     p.add_argument("--pipeline", metavar="PATH", help="显式 pipeline.yaml 路径")
     p.add_argument("--profile", metavar="NAME", help="使用内置/自定义 profile")
 
-    # ── 旧参数（S10 前保留，映射 + deprecation 警告） ──
-    p.add_argument("--output", metavar="DIR", help="输出目录")
-    p.add_argument("--hdl-lib", metavar="DIR", help="主 HDL 元件库路径")
+    # ── 保留的路径类参数（S10 起仅这些行为参数 + --profile/--pipeline）──
+    # 其余旧行为参数（--routing/--aesthetic/... 共 20 个）已在 S10 移除，
+    # 传入时由 convert_main 报错并提示迁移（见 _REMOVED_FLAGS_TARGETS）。
+    p.add_argument("--output", metavar="DIR", help="输出目录（engine.output_dir）")
+    p.add_argument("--hdl-lib", metavar="DIR", help="主 HDL 元件库路径（input.hdl_lib）")
     p.add_argument("--extra-hdl-lib", metavar="DIR", action="append", default=[],
-                   help="附加 HDL 库（可多次）")
-    p.add_argument("--benchmark", action="store_true", help="性能基准报告")
-    p.add_argument("--max-workers", metavar="N", type=int, help="并行度")
-    p.add_argument("--routing", metavar="MODE", help="p0|detour|edif_reuse")
-    p.add_argument("--nonuniform-tracks", action="store_true", help="非均匀轨道")
-    p.add_argument("--net-order", metavar="ORDER", help="short_first|long_first")
-    p.add_argument("--wire-simplify", action="store_true", help="电线化简")
-    p.add_argument("--manual-matches", metavar="FILE", help="手动匹配（别名）")
-    p.add_argument("--chip-config", metavar="FILE", help="chip_config.yaml（v2.0 主入口）")
-    p.add_argument("--export-unmatched", metavar="OUT", help="未匹配导出路径")
-    p.add_argument("--text-layout", action="store_true", help="文本/标签去冲突")
-    p.add_argument("--power-ic", action="store_true", help="电源芯片匹配")
-    p.add_argument("--aesthetic", action="store_true", help="极致美化（复合置位）")
-    p.add_argument("--gnd-distribute", action="store_true", help="GND 符号分布")
-    p.add_argument("--rotate-passives", action="store_true", help="被动元件方向随连线")
-    p.add_argument("--ioport-edge", action="store_true", help="跨页 IOPORT 边缘分布")
-    p.add_argument("--ioport-audit", action="store_true", help="IOPORT 一致性核对")
-    p.add_argument("--use-net-name", action="store_true", help="跨页网用网络名表达")
-    p.add_argument("--no-mirror-normalize", action="store_true", help="关闭镜像归一化")
-    p.add_argument("--no-report", action="store_true", help="关闭默认诊断报告")
-    p.add_argument("--cross-page-opt", action="store_true", help="跨页网视觉优化")
+                   help="附加 HDL 库（input.extra_hdl_libs，可多次）")
     return p
 
 
@@ -212,114 +181,38 @@ def _locate_pipeline(explicit: str | None) -> Path | None:
     return None
 
 
-def _apply_legacy_args(cfg: PipelineConfig, args: argparse.Namespace, warned: set[str]) -> None:
-    """旧 CLI 参数逐个映射覆盖 cfg（§6.3 全量 23 个）+ deprecation 警告。
+def _apply_path_args(cfg: PipelineConfig, args: argparse.Namespace) -> None:
+    """保留的路径类 CLI 参数 → cfg 覆盖（S10 起仅路径类，无 deprecation）。
 
-    显式旧参数优先级高于 yaml/profile（与现有"CLI 覆盖 yaml"语义一致）。
-    ``--aesthetic`` 复合展开与旧 __main__.py 逐行一致（保 FR9 严格等价）。
+    优先级与旧 CLI 一致：显式路径参数 > yaml/profile（CLI 覆盖 yaml 语义）。
     """
     if args.output is not None:
-        _deprecation_warn("--output", warned)
         cfg.engine.output_dir = str(args.output)
     if args.hdl_lib is not None:
-        _deprecation_warn("--hdl-lib", warned)
         cfg.input.hdl_lib = str(args.hdl_lib)
     if args.extra_hdl_lib:
-        _deprecation_warn("--extra-hdl-lib", warned)
         cfg.input.extra_hdl_libs = [str(x) for x in args.extra_hdl_lib]
-    if args.benchmark:
-        _deprecation_warn("--benchmark", warned)
-        cfg.engine.benchmark = True
-    if args.max_workers is not None:
-        _deprecation_warn("--max-workers", warned)
-        cfg.engine.max_workers = int(args.max_workers)
-
-    if args.routing is not None:
-        _deprecation_warn("--routing", warned)
-        if args.routing in ("p0", "detour", "edif_reuse"):
-            cfg.beautify.params.mode = args.routing
-        else:
-            print(
-                f"Warning: unknown --routing {args.routing!r} "
-                "(p0|detour|edif_reuse) — using p0",
-            )
-    if args.nonuniform_tracks:
-        _deprecation_warn("--nonuniform-tracks", warned)
-        cfg.beautify.params.nonuniform_tracks = True
-    if args.net_order is not None:
-        _deprecation_warn("--net-order", warned)
-        if args.net_order in ("short_first", "long_first"):
-            cfg.beautify.params.net_order = args.net_order
-        else:
-            print(
-                f"Warning: unknown --net-order {args.net_order!r} "
-                "(short_first|long_first) — using long_first",
-            )
-    if args.wire_simplify:
-        _deprecation_warn("--wire-simplify", warned)
-        cfg.beautify.params.wire_simplify.enabled = True
-
-    if args.manual_matches is not None:
-        _deprecation_warn("--manual-matches", warned)
-        cfg.match.manual_overrides.file = str(args.manual_matches)
-    if args.chip_config is not None:
-        _deprecation_warn("--chip-config", warned)
-        # v2.0 主入口：同时给出时 chip_config 覆盖 manual_matches
-        cfg.match.manual_overrides.file = str(args.chip_config)
-    if args.export_unmatched is not None:
-        _deprecation_warn("--export-unmatched", warned)
-        cfg.match.manual_overrides.export_unmatched = str(args.export_unmatched)
-
-    if args.text_layout:
-        _deprecation_warn("--text-layout", warned)
-        cfg.beautify.params.text_layout.enabled = True
-    if args.power_ic:
-        _deprecation_warn("--power-ic", warned)
-        cfg.beautify.params.power_ic.enabled = True
-    if args.aesthetic:
-        _deprecation_warn("--aesthetic", warned)
-        # §6.3 --aesthetic 复合展开（8 字段；与旧 __main__.py 逐行一致）
-        cfg.beautify.params.aesthetic.enabled = True
-        cfg.beautify.params.text_layout.enabled = True
-        cfg.beautify.params.overlap.check = True
-        cfg.beautify.params.power_ic.enabled = True
-        # 仅当用户未显式 --routing 且 mode==p0 时置 detour（保严格等价）
-        if args.routing is None and cfg.beautify.params.mode == "p0":
-            cfg.beautify.params.mode = "detour"
-        cfg.beautify.params.ioport.edge_layout = True
-        cfg.beautify.params.gnd_distribution.enabled = True
-        cfg.beautify.params.ioport.audit = True
-    if args.gnd_distribute:
-        _deprecation_warn("--gnd-distribute", warned)
-        cfg.beautify.params.gnd_distribution.enabled = True
-        cfg.beautify.params.gnd_distribution.distribute_density = True
-    if args.rotate_passives:
-        _deprecation_warn("--rotate-passives", warned)
-        cfg.beautify.params.placement.rotate_passives = True
-    if args.ioport_edge:
-        _deprecation_warn("--ioport-edge", warned)
-        cfg.beautify.params.ioport.edge_layout = True
-    if args.ioport_audit:
-        _deprecation_warn("--ioport-audit", warned)
-        cfg.beautify.params.ioport.audit = True
-    if args.use_net_name:
-        _deprecation_warn("--use-net-name", warned)
-        cfg.beautify.params.ioport.use_net_name = True
-    if args.no_mirror_normalize:
-        _deprecation_warn("--no-mirror-normalize", warned)
-        cfg.beautify.params.mirror.normalize = False
-    if args.no_report:
-        _deprecation_warn("--no-report", warned)
-        cfg.beautify.params.report.always_write = False
-    if args.cross_page_opt:
-        _deprecation_warn("--cross-page-opt", warned)
-        cfg.beautify.params.cross_page_opt = True
 
 
 def convert_main(argv: list[str]) -> int:
-    """convert 分支：新解析流程（§6.2）。"""
+    """convert 分支：新解析流程（§6.2；S10 起旧参数报错）。"""
     parser = _build_convert_parser()
-    args = parser.parse_args(argv)
+    args, unknown = parser.parse_known_args(argv)
+
+    # S10 兼容窗口结束：识别已移除的旧行为参数 → 报错并提示迁移。
+    # 用 parse_known_args 拦截（旧参数未注册，直接 parse_args 只会报
+    # "unrecognized arguments"，无法给出迁移指引）。
+    for flag in unknown:
+        key = flag.split("=", 1)[0]
+        if key in _REMOVED_FLAGS_TARGETS:
+            parser.error(
+                f"{key} 已移除（S10 兼容窗口结束）：该功能已迁移至 "
+                f"pipeline.yaml 的 {_REMOVED_FLAGS_TARGETS[key]}，"
+                f"请用 --profile 或修改 pipeline.yaml 配置"
+                f"（迁移对照表见 {_MIGRATION_REF}）"
+            )
+    if unknown:
+        parser.error(f"unrecognized arguments: {' '.join(unknown)}")
 
     if not args.input:
         parser.error("convert 需要输入文件")
@@ -342,8 +235,7 @@ def convert_main(argv: list[str]) -> int:
             print(f"Error: {exc}")
             return 2
 
-    warned: set[str] = set()
-    _apply_legacy_args(cfg, args, warned)
+    _apply_path_args(cfg, args)
 
     cfg_obj = Config.get()
     cfg_obj.routing = cfg.to_routing_config()

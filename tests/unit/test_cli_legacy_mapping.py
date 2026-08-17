@@ -1,10 +1,18 @@
-"""S1 T04 — CLI 改造与旧参数迁移单元测试。
+"""S10 T — CLI 旧参数移除与迁移提示单元测试（兼容窗口结束）。
 
-Covers（docs/S1-config-design.md T04）：
-  * 23 个旧 CLI 参数逐个映射到正确 yaml 字段
-  * --aesthetic 复合展开断言（与旧 __main__.py 行为逐一对比）
-  * deprecation 警告只打印一次（set 去重）
-  * --profile 与旧参数叠加时旧参数优先
+S10 起（docs/developer-guide.md S10 章节）：
+  * 20 个旧行为参数（--routing/--aesthetic/--wire-simplify/... 全量见
+    ``_REMOVED_FLAGS_TARGETS``）已从 convert 移除——传入即报错
+    （SystemExit(2)），文案包含 pipeline.yaml 迁移目标与迁移对照表。
+  * 路径类参数保留：``--output / --hdl-lib / --extra-hdl-lib``（无 deprecation，
+    直接覆盖 cfg，CLI 覆盖 yaml 语义与旧 CLI 一致）。
+  * ``--profile / --pipeline`` 保留。
+  * profile 子命令 + main 分发 + convert_main 退出码行为不变。
+
+覆盖：
+  * 20 个移除参数逐个 → 报错 + 迁移提示（含 ``--flag=value`` 形式）
+  * 真未知参数 → "unrecognized arguments"（argparse 标准）
+  * 保留路径类参数仍可解析并覆盖 cfg
   * profile 子命令成功/失败路径 + 退出码 0/1/2/3
   * convert_main 缺文件/缺 pipeline 路径的退出码
 """
@@ -18,8 +26,9 @@ import pytest
 import yaml
 
 from cis2hdl.cli import (
-    _apply_legacy_args,
-    _deprecation_warn,
+    _REMOVED_FLAGS_TARGETS,
+    _apply_path_args,
+    _build_convert_parser,
     _profile_create,
     _profile_delete,
     _profile_export,
@@ -32,207 +41,106 @@ from cis2hdl.core.pipeline_config import PipelineConfig
 from cis2hdl.core.profile_manager import ProfileManager
 
 
-def _ns(**overrides: object) -> argparse.Namespace:
-    """构造全默认的 convert 参数 Namespace（只覆盖被测试字段）。"""
-    base = argparse.Namespace(
-        input=None, pipeline=None, profile=None,
-        output=None, hdl_lib=None, extra_hdl_lib=[], benchmark=False,
-        max_workers=None, routing=None, nonuniform_tracks=False,
-        net_order=None, wire_simplify=False, manual_matches=None,
-        chip_config=None, export_unmatched=None, text_layout=False,
-        power_ic=False, aesthetic=False, gnd_distribute=False,
-        rotate_passives=False, ioport_edge=False, ioport_audit=False,
-        use_net_name=False, no_mirror_normalize=False, no_report=False,
-        cross_page_opt=False,
-    )
+# ── S10：旧参数移除 → 迁移报错（全量 20 个） ─────────────────────────────
+
+
+class TestRemovedFlags:
+    @pytest.mark.parametrize("flag", sorted(_REMOVED_FLAGS_TARGETS))
+    def test_removed_flag_errors_with_migration_hint(
+        self, flag: str, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        """每个移除参数：convert_main 报 SystemExit(2) + 迁移提示。
+
+        输入文件故意不存在——移除参数检查先于文件存在性检查，报错文案
+        必须包含该参数已移除与 pipeline.yaml 迁移目标。
+        """
+        with pytest.raises(SystemExit) as exc:
+            convert_main(["no_such_file.dsn", flag])
+        assert exc.value.code == 2
+        err = capsys.readouterr().err
+        assert f"{flag} 已移除" in err
+        assert "pipeline.yaml" in err
+        assert "S10" in err
+
+    @pytest.mark.parametrize("flag", sorted(_REMOVED_FLAGS_TARGETS))
+    def test_removed_flag_equals_form_errors(
+        self, flag: str, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        """``--flag=value`` 形式同样报迁移错误（split('=') 识别）。"""
+        with pytest.raises(SystemExit) as exc:
+            convert_main(["in.dsn", f"{flag}=x"])
+        assert exc.value.code == 2
+        assert f"{flag} 已移除" in capsys.readouterr().err
+
+    def test_removed_flag_value_token_also_rejected(
+        self, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        """取值型参数（--routing detour）的值 token 不再被吞。"""
+        with pytest.raises(SystemExit) as exc:
+            convert_main(["in.dsn", "--routing", "detour"])
+        assert exc.value.code == 2
+        assert "--routing 已移除" in capsys.readouterr().err
+
+    def test_unknown_flag_is_standard_error(
+        self, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        """真未知参数：argparse 标准 unrecognized arguments。"""
+        with pytest.raises(SystemExit) as exc:
+            convert_main(["in.dsn", "--no-such-flag"])
+        assert exc.value.code == 2
+        assert "unrecognized arguments" in capsys.readouterr().err
+
+
+# ── S10：保留路径类参数 ──────────────────────────────────────────────────
+
+
+def _path_ns(**overrides: object) -> argparse.Namespace:
+    base = argparse.Namespace(output=None, hdl_lib=None, extra_hdl_lib=[])
     for key, value in overrides.items():
         setattr(base, key, value)
     return base
 
 
-def _apply(**overrides: object) -> tuple[PipelineConfig, set[str]]:
-    """应用旧参数映射到全新 PipelineConfig，返回 (cfg, warned)。"""
-    cfg = PipelineConfig()
-    warned: set[str] = set()
-    _apply_legacy_args(cfg, _ns(**overrides), warned)
-    return cfg, warned
-
-
-# ── 23 个旧参数映射（§6.3 全量） ───────────────────────────────────────
-
-
-class TestLegacyMapping:
-    def test_output_maps_to_engine(self):
-        cfg, _ = _apply(output="out_dir")
+class TestKeptPathArgs:
+    def test_output_overrides_engine(self) -> None:
+        cfg = PipelineConfig()
+        _apply_path_args(cfg, _path_ns(output="out_dir"))
         assert cfg.engine.output_dir == "out_dir"
 
-    def test_hdl_lib_maps_to_input(self):
-        cfg, _ = _apply(hdl_lib="lib")
+    def test_hdl_lib_overrides_input(self) -> None:
+        cfg = PipelineConfig()
+        _apply_path_args(cfg, _path_ns(hdl_lib="lib"))
         assert cfg.input.hdl_lib == "lib"
 
-    def test_extra_hdl_lib_append(self):
-        cfg, _ = _apply(extra_hdl_lib=["a", "b"])
+    def test_extra_hdl_lib_append(self) -> None:
+        cfg = PipelineConfig()
+        _apply_path_args(cfg, _path_ns(extra_hdl_lib=["a", "b"]))
         assert cfg.input.extra_hdl_libs == ["a", "b"]
 
-    def test_benchmark(self):
-        cfg, _ = _apply(benchmark=True)
-        assert cfg.engine.benchmark is True
-
-    def test_max_workers(self):
-        cfg, _ = _apply(max_workers=8)
-        assert cfg.engine.max_workers == 8
-
-    def test_routing(self):
-        cfg, _ = _apply(routing="detour")
-        assert cfg.beautify.params.mode == "detour"
-
-    def test_nonuniform_tracks(self):
-        cfg, _ = _apply(nonuniform_tracks=True)
-        assert cfg.beautify.params.nonuniform_tracks is True
-
-    def test_net_order(self):
-        cfg, _ = _apply(net_order="short_first")
-        assert cfg.beautify.params.net_order == "short_first"
-
-    def test_wire_simplify(self):
-        cfg, _ = _apply(wire_simplify=True)
-        assert cfg.beautify.params.wire_simplify.enabled is True
-
-    def test_manual_matches(self):
-        cfg, _ = _apply(manual_matches="manual.yaml")
-        assert cfg.match.manual_overrides.file == "manual.yaml"
-
-    def test_chip_config_overrides_manual_matches(self):
-        cfg, _ = _apply(manual_matches="manual.yaml", chip_config="chip.yaml")
-        assert cfg.match.manual_overrides.file == "chip.yaml"
-
-    def test_export_unmatched(self):
-        cfg, _ = _apply(export_unmatched="unmatched.yaml")
-        assert cfg.match.manual_overrides.export_unmatched == "unmatched.yaml"
-
-    def test_text_layout(self):
-        cfg, _ = _apply(text_layout=True)
-        assert cfg.beautify.params.text_layout.enabled is True
-
-    def test_power_ic(self):
-        cfg, _ = _apply(power_ic=True)
-        assert cfg.beautify.params.power_ic.enabled is True
-
-    def test_aesthetic_expansion(self):
-        """--aesthetic 复合展开：8 字段逐一断言（与旧 __main__.py 行为一致）。"""
-        cfg, warned = _apply(aesthetic=True)
-        params = cfg.beautify.params
-        assert params.aesthetic.enabled is True
-        assert params.text_layout.enabled is True
-        assert params.overlap.check is True
-        assert params.power_ic.enabled is True
-        assert params.mode == "detour"          # 未显式 --routing 且 mode==p0 → detour
-        assert params.ioport.edge_layout is True
-        assert params.gnd_distribution.enabled is True
-        assert params.ioport.audit is True
-        assert "--aesthetic" in warned
-
-    def test_aesthetic_keeps_explicit_routing(self):
-        """显式 --routing p0 时 --aesthetic 不改 mode（保等价）。"""
-        cfg, _ = _apply(aesthetic=True, routing="p0")
-        assert cfg.beautify.params.mode == "p0"
-
-    def test_aesthetic_keeps_non_p0_routing(self):
-        cfg, _ = _apply(aesthetic=True, routing="edif_reuse")
-        assert cfg.beautify.params.mode == "edif_reuse"
-
-    def test_gnd_distribute(self):
-        cfg, _ = _apply(gnd_distribute=True)
-        assert cfg.beautify.params.gnd_distribution.enabled is True
-        assert cfg.beautify.params.gnd_distribution.distribute_density is True
-
-    def test_rotate_passives(self):
-        cfg, _ = _apply(rotate_passives=True)
-        assert cfg.beautify.params.placement.rotate_passives is True
-
-    def test_ioport_edge(self):
-        cfg, _ = _apply(ioport_edge=True)
-        assert cfg.beautify.params.ioport.edge_layout is True
-
-    def test_ioport_audit(self):
-        cfg, _ = _apply(ioport_audit=True)
-        assert cfg.beautify.params.ioport.audit is True
-
-    def test_use_net_name(self):
-        cfg, _ = _apply(use_net_name=True)
-        assert cfg.beautify.params.ioport.use_net_name is True
-
-    def test_no_mirror_normalize(self):
-        cfg, _ = _apply(no_mirror_normalize=True)
-        assert cfg.beautify.params.mirror.normalize is False
-
-    def test_no_report(self):
-        cfg, _ = _apply(no_report=True)
-        assert cfg.beautify.params.report.always_write is False
-
-    def test_cross_page_opt(self):
-        cfg, _ = _apply(cross_page_opt=True)
-        assert cfg.beautify.params.cross_page_opt is True
-
-    def test_invalid_routing_warns_and_defaults(self, capsys: pytest.CaptureFixture[str]):
-        cfg, _ = _apply(routing="bogus")
-        assert cfg.beautify.params.mode == "p0"
-        out = capsys.readouterr().out
-        assert "Warning: unknown --routing" in out
-
-    def test_invalid_net_order_warns_and_defaults(self, capsys: pytest.CaptureFixture[str]):
-        cfg, _ = _apply(net_order="bogus")
-        assert cfg.beautify.params.net_order == "long_first"
-        assert "Warning: unknown --net-order" in capsys.readouterr().out
-
-
-# ── deprecation 警告 ────────────────────────────────────────────────────
-
-
-class TestDeprecationWarning:
-    def test_warning_once_per_flag(self, capsys: pytest.CaptureFixture[str]):
+    def test_none_path_args_leave_defaults(self) -> None:
         cfg = PipelineConfig()
-        warned: set[str] = set()
-        # 两次 --routing 只警告一次
-        _apply_legacy_args(cfg, _ns(routing="detour"), warned)
-        _apply_legacy_args(cfg, _ns(routing="p0"), warned)
-        err = capsys.readouterr().err
-        assert err.count("[deprecation] --routing") == 1
+        _apply_path_args(cfg, _path_ns())
+        assert cfg.engine.output_dir == "output"
+        assert cfg.input.hdl_lib == ""
+        assert cfg.input.extra_hdl_libs == []
 
-    def test_warning_format(self, capsys: pytest.CaptureFixture[str]):
-        _deprecation_warn("--routing", set())
-        err = capsys.readouterr().err
-        assert err.startswith("[deprecation] --routing 已废弃，将在 S10 移除")
-        assert "beautify.params.routing.mode" in err
-        assert "docs/S1-config-design.md §6.3" in err
+    def test_parser_accepts_path_args(self) -> None:
+        """保留路径参数仍可被 convert 解析器接受（无 unknown）。"""
+        parser = _build_convert_parser()
+        args, unknown = parser.parse_known_args(
+            ["in.dsn", "--output", "o", "--hdl-lib", "h",
+             "--extra-hdl-lib", "x", "--extra-hdl-lib", "y"]
+        )
+        assert unknown == []
+        assert args.output == "o"
+        assert args.hdl_lib == "h"
+        assert args.extra_hdl_lib == ["x", "y"]
 
-    def test_no_warning_without_legacy(self, capsys: pytest.CaptureFixture[str]):
-        _apply()
-        err = capsys.readouterr().err
-        assert err == ""
-
-
-# ── --profile 与旧参数叠加 ──────────────────────────────────────────────
-
-
-class TestProfileOverlay:
-    def test_legacy_overrides_profile(self):
-        """fast profile 的 report.always_write=False 被 --no-report 语义覆盖？否——
-        旧参数覆盖 profile 对应字段：--output 覆盖 profile 无关字段；
-        --wire-simplify 叠加到 max-beauty 之上。"""
-        pm = ProfileManager()  # 仓库内置
-        cfg = pm.get("max-beauty")
-        assert cfg.beautify.params.mode == "detour"
-        warned: set[str] = set()
-        _apply_legacy_args(cfg, _ns(wire_simplify=True, routing="p0"), warned)
-        assert cfg.beautify.params.wire_simplify.enabled is True  # 旧参数叠加
-        assert cfg.beautify.params.mode == "p0"                   # 旧参数覆盖 profile
-
-    def test_legacy_output_overrides_profile_engine(self):
+    def test_path_args_overlay_profile(self) -> None:
+        """保留路径参数叠加 profile：--output 覆盖 profile 的 engine.output_dir。"""
         pm = ProfileManager()
         cfg = pm.get("fast")
-        warned: set[str] = set()
-        _apply_legacy_args(cfg, _ns(output="custom_out"), warned)
+        _apply_path_args(cfg, _path_ns(output="custom_out"))
         assert cfg.engine.output_dir == "custom_out"
 
 
