@@ -744,3 +744,89 @@ pytest -q                                         # 全量回归（1264 passed /
 行为不变；test 插件注册只增加 run_verification 链，不改变既有 6 hook
 执行语义。
 
+
+# S9 GUI 工程工作台（FR10 / 用户决策 4，2026-08-17）
+
+设计依据：``docs/gui-design.md``（权威完整版）。落地"插件组合器"——
+yaml 权威 + GUI 编辑/执行入口（双通道）；全部后端访问经
+``PipelineController`` 薄层（**不改后端签名**，铁律）。
+
+## 9.1 新增模块（与旧 GUI v1 共存）
+
+```
+cis2hdl/gui/
+├── controller.py          # PipelineController（§3.1 全 12 接口 + 扩展，无 PySide6）
+├── schema.py              # 参数 schema 推断（PluginSpec+默认值 → 控件类型，无 PySide6）
+├── yaml_bridge.py         # yaml 双通道（FormState↔cfg↔文本；原子写；diff；无 PySide6）
+└── v2/                    # PySide6 UI（仅 PySide6 存在时导入）
+    ├── app.py             # run_gui()（无 PySide6 → RuntimeError 友好降级）
+    ├── main_window.py     # MainWindow 4 区组装（侧边栏/配置编辑器/执行区/结果面板）
+    ├── widgets.py         # ProfileBar/ProfileList/StageTabs/PluginCard/ParamForm
+    ├── yaml_editor.py     # YamlEditor（双通道）
+    ├── runner.py          # ConversionRunner（QThread + 6 阶段进度 + 日志 + 耗时）
+    ├── report_view.py     # ReportView/ManualMatchPanel/SchematicPreview
+    └── qss.py             # QSS（复用 gui/colors.py Token）
+```
+
+旧 GUI（v1：main_window/panels/dialogs/widgets）**保留不动**，S10 决定去留。
+
+## 9.2 PipelineController（薄层，12 接口）
+
+| §3.1 接口 | 后端委托 |
+|-----------|---------|
+| list_profiles / load_profile / save_profile / delete_profile | ProfileManager.list/get/create/delete |
+| export_profile / import_profile | ProfileManager.export/import_file |
+| check_duplicate | ProfileManager.diff（返回 DuplicateInfo：ok/duplicate/same_combo_diff_params/conflict_name） |
+| list_plugins / get_plugin_schema | PluginManager.list_plugins + schema.build_plugin_schema |
+| run_conversion | ConversionEngine.convert_with_cfg（进度回调 stage/pct/msg） |
+| get_report / get_unmatched / set_manual_match | 报告文件读取 + ConversionReport.match_results + chip_config.yaml（v2.0 schema） |
+
+扩展（GUI 组装所需）：``set_input_path/set_output_dir/current_config/
+set_current_config/save_pipeline(原子写)/run_verify/toggle_mock_prefix/
+profile_infos``。
+
+## 9.3 yaml 双通道（§4）
+
+- **表单 → yaml**：勾选/拖拽插件 → ``plugins.<stage>``；参数表单 →
+  ``params.<plugin>.<key>``（dotted path：``beautify.overlap.resolve`` 等）；
+  实时更新 yaml 预览（用户手动编辑 yaml 时不清空）。
+- **yaml → 表单**："应用 yaml → 表单"按钮：``yaml_text_to_cfg`` 校验合法后
+  刷新表单；非法 → 红框提示不刷新。
+- **保存**：``save_pipeline_atomic``（临时文件 + os.replace）；yaml 与表单
+  不同步时弹窗确认以哪侧为准。
+- **查重反馈**：保存/新建时 ``check_duplicate`` → duplicate 拒绝 /
+  same_combo_diff_params 展示差异明细（仍可保存）。
+
+## 9.4 手动干预（FR3）
+
+ManualMatchPanel：未匹配列表（MANUAL 策略或置信度 < 0.85）→ 输入 HDL 器件
+→ ``set_manual_match`` 写 ``output/chip_config_gui.yaml``（v2.0 schema，
+后端 ``ManualMatchesConfig.write_yaml``）+ ``cfg.match.manual_overrides.file``
+接线；强制 mock 前缀 J/T/U/IC 开关 → ``cfg.match.mock.prefixes``。
+
+## 9.5 启动与降级
+
+```bash
+python -m cis2hdl gui        # 启动工程工作台（v2）
+python -m cis2hdl            # 无参数同样启动 GUI
+```
+
+无 PySide6 时：**优雅降级**（友好提示 + 退出码 1，无 traceback）——
+``cis2hdl.gui.v2.app`` 可 import（HAS_PYSIDE6=False），仅 ``run_gui()``
+抛 RuntimeError；CLI ``gui_main`` 捕获后打印安装提示。
+
+## 9.6 验证
+
+```bash
+pytest tests/unit/test_s9_gui_controller.py    # 26
+pytest tests/unit/test_s9_gui_yaml_bridge.py   # 16
+pytest tests/unit/test_s9_gui_schema.py        # 7
+pytest tests/unit/test_s9_gui_cli.py           # 5（含 python -m cis2hdl gui 降级）
+pytest -q                                      # 全量回归（1264+ 不回归）
+```
+
+已知标注（合理默认）：
+- 排序交互用「执行顺序 QListWidget 拖拽 + 卡片 ↑/↓」双通道（设计"拖拽排序"
+  的语义等价实现）。
+- ParamForm dict 参数用 QTreeWidget 折叠编辑（叶子值可编辑）。
+- SchematicPreview 为 S10 占位（现有 schematic_view 增强）。

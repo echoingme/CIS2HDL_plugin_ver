@@ -376,3 +376,26 @@ python -m cis2hdl verify --suite qa_package    # QA 结构检查
 - qa_package 交付目录优先序：`ctx.output_dir` → 构造参数 `delivery_dir` →
   项目根常见目录（`output_verify_final`/`output`）；无交付目录 → 等价
   结构检查（`[SKIP]`+`[INFO]`，不判失败）。
+
+## 12. GUI 相关接口（S9，FR10）
+
+GUI 工程工作台（`python -m cis2hdl gui`）经 `PipelineController` 薄层访问
+插件系统，**不新增插件 hook**；复用既有 `PluginSpec` 元数据驱动表单：
+
+| PluginSpec 字段 | GUI 用途（gui/v2） |
+|----------------|-------------------|
+| `name` / `stage` / `description` | PluginCard 展示 + `plugins.<stage>` 启停 |
+| `param_section` | 参数源子节：beautify → `beautify.params.<section>`（空 = 顶层 scalar） |
+| `param_fields` | 表单字段：`get_plugin_schema(name)` 推断控件类型（bool→QCheckBox / int→QSpinBox / float→QDoubleSpinBox / str→QLineEdit / enum→QComboBox / list→QListWidget / dict→QTreeWidget） |
+
+- **类型推断**基于字段默认值（`isinstance`）+ 已知枚举表（`mode`/
+  `net_order`/`un_name_policy`/`mock_text_cmd`，见 `gui/schema.py`）。
+- **表单读写**：`controller.current_plugin_params(name)` → dotted path 值；
+  `controller.apply_plugin_param(name, path, value)` 写回 cfg（dotted path
+  如 `beautify.overlap.resolve` / `match.weights.footprint`）。
+- **手动干预（FR3）**：`set_manual_match(refdes, hdl, force_mock)` 写
+  `chip_config_gui.yaml`（v2.0 schema，`ManualMatchesConfig.write_yaml`）
+  并接线 `match.manual_overrides.file`；`match.mock.prefixes` 承载强制
+  mock 前缀（J/T/U/IC）。
+- **yaml 双通道**：`gui/yaml_bridge.py`（FormState ↔ cfg ↔ 文本；
+  原子写 `save_pipeline_atomic`；冲突检测 `is_text_in_sync`）——yaml 权威。
