@@ -3,8 +3,8 @@
 # 设计依据：docs/S1-config-design.md（§4）；上游 docs/archive/temp files/
 #           phase23-plugin-architecture.md §3.6/§3.7
 # 铁律：default profile 与当前基线（Phase XXIII, 929 passed）行为完全等价
-# 加载顺序：pipeline.yaml（权威）→ --profile 覆盖 → 旧 CLI 参数覆盖
-#           （S10 前保留，含 deprecation 警告）
+# 加载顺序：pipeline.yaml（权威）→ --profile 覆盖 → 路径类 CLI 参数覆盖
+#           （--output/--hdl-lib/--extra-hdl-lib；S10 起旧行为参数已移除）
 # =============================================================================
 schema_version: 1          # 配置结构版本（导入校验用；低版本缺失字段用默认值）
 

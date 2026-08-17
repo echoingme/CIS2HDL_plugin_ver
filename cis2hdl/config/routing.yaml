@@ -1,5 +1,9 @@
 # cis2hdl/config/routing.yaml — Phase XIV/XV 布线/美观化配置（D5 + Phase XV）
 #
+# ⚠️ S10 起：legacy 兼容，仅内部使用（引擎 legacy 模式读取）。
+#    用户配置请使用 pipeline.yaml / --profile（旧 CLI 行为参数已移除）。
+#    本文件保留仅因 ConversionEngine legacy 模式（FR9 等价基座）仍读取。
+#
 # 设计原则（STANDARDS Part I）：
 #   * 所有新功能独立模块 + 配置开关，默认关闭，可回退；
 #   * 同一目标只保留一个实现；wire_layout 保持单一职责（几何合成）。
