@@ -8,6 +8,7 @@
     cis2hdl gui                          # GUI（保留）
     cis2hdl convert <input> [options]    # 读 pipeline.yaml + --profile + 旧参数映射
     cis2hdl profile list|show|create|delete|export|import
+    cis2hdl verify [--suite NAME ...]    # S8 运行 test.suites 验证套件（FR6）
     cis2hdl --version                    # 版本
 
 convert 解析流程（§6.2）:
@@ -18,6 +19,12 @@ convert 解析流程（§6.2）:
   4. 旧 CLI 参数逐个映射覆盖 cfg（§6.3）+ deprecation 警告（每参数一次）
   5. rc = cfg.to_routing_config()；写回全局 Config 单例 routing + app
   6. ConversionEngine.convert(...)（引擎零改动）
+
+verify 流程（S8 §）:
+  1. 定位 pipeline.yaml（同 convert）；cfg = PipelineConfig.from_yaml(path)
+  2. 可选 --profile 覆盖；可选 --suite 过滤（默认 cfg.test.suites 全部）
+  3. VerificationRunner(cfg).run(suites) → 打印报告行
+  4. 退出码 0=通过；1=存在 [FAIL]/[ERROR] 或未知套件/配置错误
 
 退出码：0 成功；1 转换/运行错误；2 profile 查重/校验失败；3 内置只读/禁止操作。
 """
@@ -43,7 +50,7 @@ from .core.profile_manager import (
     ProfileReadOnlyError,
 )
 
-__all__ = ["main", "convert_main", "profile_main"]
+__all__ = ["main", "convert_main", "profile_main", "verify_main"]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 旧 CLI 参数 → yaml 字段迁移对照表（§6.3 全量 23 个；S10 前保留）
@@ -98,7 +105,7 @@ def _deprecation_warn(flag: str, warned: set[str]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Main entry point。无参数 → GUI；'convert'/'profile' → 新 CLI 分支。"""
+    """Main entry point。无参数 → GUI；'convert'/'profile'/'verify' → 新 CLI 分支。"""
     args = list(sys.argv[1:] if argv is None else argv)
     if not args:
         _run_gui()
@@ -114,6 +121,8 @@ def main(argv: list[str] | None = None) -> int:
         return convert_main(args[1:])
     if cmd == "profile":
         return profile_main(args[1:])
+    if cmd == "verify":
+        return verify_main(args[1:])
     _print_usage()
     return 1
 
@@ -131,6 +140,7 @@ def _print_usage() -> None:
     print("  cis2hdl gui                    Launch GUI")
     print("  cis2hdl convert <input> [options]")
     print("  cis2hdl profile list|show|create|delete|export|import")
+    print("  cis2hdl verify [--suite unit|e2e|qa_package] [--pipeline PATH] [--profile NAME]")
     print("  cis2hdl --version")
 
 
@@ -489,3 +499,53 @@ def _print_profile_usage() -> None:
     print("  cis2hdl profile delete <name>")
     print("  cis2hdl profile export <name> [-o <out.yaml>]")
     print("  cis2hdl profile import <path> [--rename <NAME>]")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# verify 子命令（S8/FR6：测试插件化独立入口）
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def verify_main(argv: list[str]) -> int:
+    """verify 子命令：运行 test.suites 指定的验证套件（S8/FR6）。
+
+    流程：定位 pipeline.yaml（同 convert）→ PipelineConfig → 可选
+    --profile 覆盖 → VerificationRunner.run(suites) → 打印报告行。
+    退出码：0 通过；1 存在 [FAIL]/[ERROR] 结果 / 未知套件 / 配置错误。
+    """
+    p = argparse.ArgumentParser(prog="cis2hdl verify")
+    p.add_argument("--suite", action="append", metavar="NAME",
+                   help="仅运行指定套件（unit|e2e|qa_package，可多次；缺省 test.suites 全部）")
+    p.add_argument("--pipeline", metavar="PATH", help="显式 pipeline.yaml 路径")
+    p.add_argument("--profile", metavar="NAME", help="使用内置/自定义 profile")
+    args = p.parse_args(argv)
+
+    try:
+        pipeline_path = _locate_pipeline(args.pipeline)
+    except FileNotFoundError as exc:
+        print(f"Error: {exc}")
+        return 1
+    cfg = PipelineConfig.from_yaml(pipeline_path) if pipeline_path else PipelineConfig()
+
+    if args.profile:
+        try:
+            cfg = ProfileManager().get(args.profile)
+        except ProfileError as exc:
+            print(f"Error: {exc}")
+            return 2
+
+    try:
+        from .verify import VerificationRunner
+
+        report = VerificationRunner(cfg).run(suites=args.suite)
+    except Exception as exc:  # noqa: BLE001 — CLI 顶层捕获
+        print(f"Error: verify 失败: {exc}")
+        return 1
+
+    for line in report.lines:
+        print(line)
+    if report.failed:
+        print("verify 失败（存在 FAIL/ERROR 结果）")
+        return 1
+    print("verify 通过")
+    return 0

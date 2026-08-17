@@ -67,7 +67,8 @@ def registration_order(
         # 该 stage 未在 cfg 顺序中但被启用的内置插件 → 追加（兜底）
         ordered.extend(by_name.values())
 
-    # output/test 无独立 hook（S2 不注册）；其 spec 按发现序末尾追加
+    # output/test 无独立有序 hook（S6/S8 各插件注册后按发现序执行，
+    # 结果聚合与执行顺序无关）；其 spec 按发现序末尾追加
     for s in enabled_specs:
         if s.stage in ("output", "test"):
             ordered.append(s)
