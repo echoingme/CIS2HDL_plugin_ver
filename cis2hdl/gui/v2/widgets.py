@@ -37,7 +37,6 @@ from PySide6.QtWidgets import (
 
 from ...core.profile_manager import DuplicateProfileError, ProfileError
 from ..colors import Colors, FontSize, Spacing
-from .qss import STYLE_V2
 
 __all__ = [
     "ParamForm",
@@ -220,7 +219,8 @@ class ParamForm(QWidget):
         if ftype == "int":
             spin = QSpinBox()
             spin.setRange(-1000000, 1000000)
-            spin.setValue(int(current) if isinstance(current, (int, float)) and not isinstance(current, bool) else 0)
+            numeric = isinstance(current, (int, float)) and not isinstance(current, bool)
+            spin.setValue(int(current) if numeric else 0)
             spin.valueChanged.connect(lambda v, p=path: self._emit(p, int(v)))
             self._widgets[path] = spin
             return self._row(str(field.get("label", key)), spin)
@@ -229,7 +229,8 @@ class ParamForm(QWidget):
             spin = QDoubleSpinBox()
             spin.setRange(-1000000.0, 1000000.0)
             spin.setDecimals(4)
-            spin.setValue(float(current) if isinstance(current, (int, float)) and not isinstance(current, bool) else 0.0)
+            numeric = isinstance(current, (int, float)) and not isinstance(current, bool)
+            spin.setValue(float(current) if numeric else 0.0)
             spin.valueChanged.connect(lambda v, p=path: self._emit(p, float(v)))
             self._widgets[path] = spin
             return self._row(str(field.get("label", key)), spin)
@@ -406,7 +407,8 @@ class PluginCard(QFrame):
         """启停态视觉：禁用卡片置灰 + 参数隐藏。"""
         if self._collapse_btn is not None:
             self._collapse_btn.setChecked(enabled)
-        self._params_container.setVisible(enabled and (self._collapse_btn is None or self._collapse_btn.isChecked()))
+        collapsed = self._collapse_btn is not None and self._collapse_btn.isChecked()
+        self._params_container.setVisible(enabled and (self._collapse_btn is None or collapsed))
         base = "background-color: %s; border: 1px solid %s; border-radius: 8px;" % (
             Colors.BG_RAISED if enabled else Colors.BG_OVERLAY,
             Colors.BORDER_SUBTLE if enabled else Colors.BORDER_DEFAULT,
@@ -551,7 +553,9 @@ class ProfileBar(QWidget):
         if infos.get(base, {}).get("builtin"):
             self.show_feedback("内置 profile 不可重命名", error=True)
             return
-        name, ok = _prompt_name(self, "重命名 Profile", "新名称：", self._controller.list_profiles())
+        name, ok = _prompt_name(
+            self, "重命名 Profile", "新名称：", self._controller.list_profiles()
+        )
         if not ok or not name or name == base:
             return
         try:
@@ -590,7 +594,7 @@ class ProfileBar(QWidget):
         except ProfileError as exc:
             self.show_feedback(f"✗ 导入失败：{exc}", error=True)
             return
-        except FileExistsError as exc:
+        except FileExistsError:
             rename, ok = _prompt_name(self, "名称冲突", "新名称（重命名导入）：",
                                       self._controller.list_profiles())
             if not ok or not rename:

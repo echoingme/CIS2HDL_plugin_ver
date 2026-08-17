@@ -8,8 +8,8 @@ from __future__ import annotations
 
 from ..colors import (
     Colors,
-    FontSize,
     Fonts,
+    FontSize,
     Layout,
     Radius,
     Spacing,

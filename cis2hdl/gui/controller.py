@@ -17,18 +17,16 @@ VerificationRunner —— **不修改后端任何签名**（铁律）。
 
 from __future__ import annotations
 
-import dataclasses
+import contextlib
 import logging
-from dataclasses import dataclass, field
+from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable
-
-import yaml
+from typing import Any
 
 from ..core.engine.conversion_engine import ConversionEngine, ConversionReport
 from ..core.pipeline_config import PipelineConfig
 from ..core.profile_manager import (
-    DuplicateProfileError,
     ProfileDiff,
     ProfileError,
     ProfileManager,
@@ -36,10 +34,6 @@ from ..core.profile_manager import (
 from ..plugins.manager import PluginManager
 from ..plugins.spec import PluginSpec
 from .schema import build_plugin_schema
-from .yaml_bridge import (
-    STAGES,
-    form_state_from_cfg,
-)
 
 logger = logging.getLogger(__name__)
 
@@ -433,10 +427,8 @@ class PipelineController:
                 cfg = PipelineConfig()
         else:
             cfg = PipelineConfig()
-        try:
-            cfg = self._pm.get(cfg.profile)
-        except ProfileError:
-            pass  # profile 缺失 → 保留 yaml/默认配置
+        with contextlib.suppress(ProfileError):
+            cfg = self._pm.get(cfg.profile)  # profile 缺失 → 保留 yaml/默认配置
         return cfg
 
     def _find_spec(self, name: str) -> PluginSpec:
@@ -489,8 +481,8 @@ class PipelineController:
             )
         if kind == "ioport":
             return (
-                f"[ioport 报告摘要]\n"
-                f"（ioport_audit_report.txt 由 csa 插件在转换时写出）"
+                "[ioport 报告摘要]\n"
+                "（ioport_audit_report.txt 由 csa 插件在转换时写出）"
             )
         if kind == "mapping":
             lines = [f"[mapping 报告摘要] 匹配 {len(r.match_results)} 项"]

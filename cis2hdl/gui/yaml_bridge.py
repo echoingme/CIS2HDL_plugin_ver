@@ -284,12 +284,13 @@ def _apply_match_path(cfg: PipelineConfig, parts: list[str], value: Any) -> None
             cfg.match.thresholds[parts[2]] = value
         elif parts[1] == "prefix_scope":
             cfg.match.prefix_scope[parts[2]] = value
-        elif parts[1] == "mock":
-            if hasattr(cfg.match.mock, parts[2]):
-                setattr(cfg.match.mock, parts[2], value)
-        elif parts[1] == "manual_overrides":
-            if hasattr(cfg.match.manual_overrides, parts[2]):
-                setattr(cfg.match.manual_overrides, parts[2], value)
+        elif parts[1] == "mock" and hasattr(cfg.match.mock, parts[2]):
+            setattr(cfg.match.mock, parts[2], value)
+        elif (
+            parts[1] == "manual_overrides"
+            and hasattr(cfg.match.manual_overrides, parts[2])
+        ):
+            setattr(cfg.match.manual_overrides, parts[2], value)
 
 
 def _to_dataclass(target: Any, value: Any) -> Any:

@@ -18,7 +18,6 @@ from PySide6.QtWidgets import (
     QLabel,
     QLineEdit,
     QPlainTextEdit,
-    QPushButton,
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
