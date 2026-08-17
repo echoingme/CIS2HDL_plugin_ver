@@ -377,3 +377,95 @@ pytest -q                                                         # 全量回归
 
 铁律（FR9）：默认 profile 的 plugin 模式输出与 legacy 逐文件字节级 diff 为空；
 S2/S3 等价性 e2e 必须继续全绿。
+
+# S5 美化插件化（FR4，2026-08-17）
+
+> 阶段目标：把布线美化逻辑插件化——6 个 beautify 插件真实现
+> （overlap_resolve / gnd_cluster / parallel_short / three_stage_stub /
+> wire_simplify / text_layout），**不重写美化逻辑**（writer 模块保持原实现），
+> 默认 profile 行为与 legacy **完全等价**（FR9 字节级 diff 验证，含
+> HG5015 全数据源）。
+
+## 5.1 六个 beautify 插件
+
+| 插件 | 对应 writer 模块（内置逻辑） | enabled 门（beautify.params） | 默认 |
+|------|------------------------------|-------------------------------|:---:|
+| `overlap_resolve` | overlap_resolver.py（`OverlapResolver.resolve_passives` 防重叠） | `overlap.resolve` | ✅ |
+| `gnd_cluster` | gnd_cluster_planner.py（`ensure_gnd_symbols`/`place_gnd_symbol`） | `gnd_distribution.enabled` | ➖ |
+| `parallel_short` | wire_simplifier.py（`plan_parallel_short`）+ gnd_cluster_planner.py（`route_cluster_parallel`） | `gnd_distribution.parallel_short` | ✅ |
+| `three_stage_stub` | wire_layout.py（布线器三段式 stub，`routing.three_stage_stub`） | 顶层 `three_stage_stub` | ✅ |
+| `wire_simplify` | wire_simplifier.py（`simplify_wires` 电线化简） | `wire_simplify.enabled` | ➖ |
+| `text_layout` | text_layout.py（`TextLayoutOptimizer` 标签方向/去冲突） | `text_layout.enabled` | ➖ |
+
+组合由 `pipeline.yaml → beautify.plugins` 控制；默认 `[overlap_resolve,
+gnd_cluster, parallel_short]`。
+
+## 5.2 美化链语义（FR9 默认等价 + FR2 独立启停 + 顺序保障）
+
+```
+beautify 钩子链（yaml 顺序 = 执行顺序，PluginManager 逆序注册保证）：
+  overlap_resolve → gnd_cluster → parallel_short（默认）→ …
+    │
+    ├─ 每插件：检查自身 enabled 门（来自 params）
+    │    ① enabled=True → engine.apply_beautify_params(ctx)
+    │       = 把完整 beautify.params（RoutingConfig）应用到全局 config.routing
+    │       （等价 S1 CLI cfg_obj.routing = cfg.to_routing_config()），
+    │       写 ctx.routed_nets 摘要，返回 True
+    │    ② enabled=False → 不应用、写 skipped 摘要，返回 False
+    │
+    └─ writer（CSAWriter）在 generate 阶段读取 config.routing，
+       内置美化逻辑按配置开关在**正确阶段**执行（顺序由 writer 内部保证）：
+         overlap → pin 几何前；gnd/parallel → 布线前；
+         wire_simplify → 布线后；text_layout → 末尾
+```
+
+**为什么是"完整 params 应用"而非"仅本插件 param_fields"？**
+
+- legacy（S1 CLI）把 `beautify.params` **全量**写回全局
+  `cfg.routing`（`cfg_obj.routing = cfg.to_routing_config()`）；writer 的
+  美化开关分布在多个子节（如非 GND 并联门 `wire_simplify.parallel_short`、
+  `placement.max_passive_move`、`routing.three_stage_stub`……）。
+- 若只应用单插件声明的 `param_fields`，默认链无法覆盖这些字段 → 默认等价
+  依赖"RoutingConfig 默认值 == pipeline.yaml 默认值"这一脆假设；且
+  max-beauty 的 `routing.mode=detour` 无任何插件覆盖 → 会丢失。
+- **完整 params 应用**对任意配置都与 legacy 逐字段一致（构造性 FR9 保证）；
+  默认 profile 时应用 == RoutingConfig 默认 → no-op，天然等价。
+
+**独立启停语义**（对齐 S4）：链内**任意启用插件**应用完整 params（幂等）；
+全部禁用/空链 → 不应用（全局 config 保持调用方预置/默认，与 legacy 默认
+params 等价）。插件名表达**美化功能序位**，enabled 门表达功能开关。
+
+## 5.3 配置来源（NFR5 全进 yaml）
+
+| pipeline.yaml beautify.params | 消费点（writer 内部） | S5 语义 |
+|-------------------------------|----------------------|---------|
+| `overlap.resolve/avoid_margin` | `OverlapResolver.resolve_passives` | 默认 True；关 → 不避让 |
+| `gnd_distribution.enabled/cluster_radius` | `gnd_cluster_planner.ensure_gnd_symbols` | 默认 False；开 → GND 聚类 |
+| `gnd_distribution.parallel_short(_dist)` | `plan_parallel_short`/`route_cluster_parallel` | 默认 True |
+| `wire_simplify.enabled` | `simplify_wires` | 默认 False；CLI --wire-simplify 开 |
+| `text_layout.enabled` | `TextLayoutOptimizer` | 默认 False；CLI --text-layout 开 |
+| `routing.three_stage_stub` | `wire_layout` 三段式 stub | 默认 True |
+| `routing.mode=detour`（max-beauty） | 布线器工厂 | 完整 params 应用保证生效 |
+
+## 5.4 ctx 契约
+
+- 插件写 `ctx.routed_nets`（dict 摘要：`applied_plugins` / `skipped_plugins`
+  / `enabled`；PluginSpec.writes_keys 声明 `("routed_nets",)`）。
+- 全局 `config.routing` 修改属引擎级副作用（`engine.apply_beautify_params`；
+  非 ctx 字段赋值，只读守卫不拦截）。
+- 插件 `order_trace`（S2 契约）记录自己被调用的时刻（顺序观测）。
+
+## 5.5 验证
+
+```bash
+pytest tests/unit/test_s5_beautify_plugins.py -q                  # 30（规格/独立启停/顺序/enabled 门/参数生效/max-beauty/cleanup）
+pytest tests/unit/test_plugin_order.py -q                         # 8（S2 保绿：顺序 + S5 返回语义更新）
+pytest tests/e2e/test_s5_beautify_equivalence.py -q               # 4（HG5015 字节级等价：默认 + max-beauty + text_layout + wire_simplify）
+pytest tests/e2e/test_s4_match_equivalence.py -q                  # 6（S4 保绿）
+pytest tests/e2e/test_s3_input_equivalence.py -q                  # 2（S3 保绿）
+pytest tests/e2e/test_plugin_mode_equivalence.py -q               # 2（S2 保绿）
+pytest -q                                                         # 全量回归（≥1157 passed / 0 failed）
+```
+
+铁律（FR9）：默认 profile 的 plugin 模式输出与 legacy 逐文件字节级 diff 为空；
+S2/S3/S4 等价性 e2e 必须继续全绿。

@@ -59,3 +59,12 @@
 | S4-3 | `match.prefix_scope` 默认值修正 | S1 占位示例（R:[0603,...]）若直接应用会收窄候选库、破坏默认等价；S4 改为空 dict（默认不限制，显式配置生效） | 🟢 |
 | S4-4 | `match.mock` 无新消费点 | mock.prefixes/auto_icon 由后端 temp_lib.mock_all 消费（S1 已承载）；S4 仅随 match 段承载，未新增插件消费 | ⚪ |
 | S4-5 | 匹配插件"链首编排"语义 | exact/fuzzy/passive/fallback 单独启用时均委托完整 legacy 管线（内部含全部策略）；插件名表达优先级序位而非策略过滤——S4 设计假设，已文档化 | 🟢 |
+
+## S5 美化插件化遗留/设计假设（2026-08-17）
+
+| # | 项 | 说明 | 状态 |
+|---|-----|------|:---:|
+| S5-1 | 美化插件"完整 params 应用"语义 | 链内任意启用插件应用完整 `beautify.params` 到全局 `config.routing`（等价 S1 CLI 全量写回）；插件 enabled 门表达功能开关、插件名表达序位——S5 设计假设（对齐 S4 链首编排语义），已文档化 | 🟢 |
+| S5-2 | `ctx.routed_nets` 为摘要 dict | 与方案草案"routed_nets 承载布线结果"不同——真实布线结果在 writer 内部（页级局部），ctx 只承载可观测摘要（applied/skipped plugins）；S5 设计偏差，已文档化 | 🟢 |
+| S5-3 | 三个默认美化功能（overlap/parallel/three_stage_stub）默认开 | 由 RoutingConfig 默认值承载（resolve/parallel_short/three_stage_stub 默认 True），插件链移除不关闭默认功能（对齐 S4 链语义）；如需关闭显式设 params | 🟢 |
+| S5-4 | `make_beautify_stub` 移除 | S2 占位 stub 工厂已被真实现替换；`_stubs.py` 保留空壳（历史 import 兼容），不注册 hookimpl | 🟢 |
