@@ -168,6 +168,22 @@ class PluginManager:
     def get_name(self, plugin: Any) -> str | None:
         return self._pm.get_name(plugin)
 
+    def writes_keys_for(self, hook_name: str) -> set[str]:
+        """某 hook 链上所有启用插件声明可写 ctx 字段的并集（只读守卫用）。"""
+        stage_for_hook = {
+            "load_input": "input",
+            "match_components": "match",
+            "apply_manual_overrides": "match",
+            "beautify": "beautify",
+            "write_output": "output",
+            "write_report": "output",
+            "run_verification": "test",
+        }
+        stage = stage_for_hook.get(hook_name)
+        if stage is None:
+            return set()
+        return {key for s in self._enabled if s.stage == stage for key in s.writes_keys}
+
     # ── 卸载 / 清理 ───────────────────────────────────────────────────
 
     def cleanup(self) -> None:
