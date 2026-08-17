@@ -1,8 +1,10 @@
-"""内置插件 stub 工厂（S2 占位；S3/S5 替换为真实现）。
+"""内置插件 stub 工厂（S3 起仅 beautify 占位；S5 替换为真实现）。
 
 设计依据：``docs/S2-plugin-base-design.md`` §4.3 示例（GndClusterPlugin）。
 
-- input stub：``load_input`` 返回 False（未处理 → 引擎 legacy 内联解析块）。
+- input：S2 占位 stub 已由 S3 真实现替换（edif/dsn/cross_ref/pstxnet/pstchip
+  编排调用引擎子步骤，见 ``cis2hdl/plugins/input/*.py``），``make_input_stub``
+  已移除。
 - beautify stub：``beautify`` 记录执行顺序 + enabled 感知，返回 False
   （现有美化逻辑仍在 writer 内部，S5 迁入）。
 
@@ -15,25 +17,6 @@ from typing import Any
 
 from .hookspecs import hookimpl
 from .context import ConversionContext
-
-
-def make_input_stub(name: str) -> type:
-    """构造 input 阶段占位插件类（load_input → False）。"""
-
-    class _InputStub:
-        def __init__(self, **kwargs: Any) -> None:
-            self.name = name
-            self.params = kwargs
-
-        @hookimpl
-        def load_input(self, ctx: ConversionContext) -> bool | None:  # noqa: ARG002
-            return False  # S2 占位：未处理 → legacy fallback
-
-        def cleanup(self) -> None:
-            self.params = {}
-
-    _InputStub.__name__ = f"{name.title().replace('_', '')}Plugin"
-    return _InputStub
 
 
 def make_beautify_stub(name: str) -> type:

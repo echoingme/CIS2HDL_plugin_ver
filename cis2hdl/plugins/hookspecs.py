@@ -41,8 +41,11 @@ class PipelineHooks:
     def load_input(self, ctx: "ConversionContext") -> bool | None:
         """载入并解析一种输入格式/数据源（EDIF/DSN/CrossRef/pstxnet/pstchip）。
 
-        S2 语义：返回 True 表示该插件完成了输入装载；全部返回 False/None
-        时引擎回退 legacy 内联解析块。S3 逐个替换为真实现。
+        S3 语义（真实现）：解析编排器（edif/dsn）返回 True 并写 ctx.ir；
+        增量插件（cross_ref/pstxnet/pstchip）在 ctx.ir 就绪后增强
+        design.metadata；全部返回 False/None → 引擎回退 legacy 内联解析块。
+        插件链执行后引擎 post-chain ``_finalize_plugin_input`` 统一做
+        PST 汇总 + catalog 重建 + 副作用暴露（FR9 字节等价）。
         """
 
     # ── FR2/FR3 元件匹配 ──────────────────────────────────────────────

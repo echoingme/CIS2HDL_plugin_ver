@@ -215,3 +215,81 @@ pytest tests/unit/test_{plugin_manager,hookspecs,context,plugin_order,params}.py
 pytest tests/integration/test_engine_hooks.py -q                                      # 7
 pytest tests/e2e/test_plugin_mode_equivalence.py -q                                   # 2（字节级等价）
 ```
+
+# S3 输入插件化（FR1，2026-08-17）
+
+> 阶段目标：把 conversion_engine.py 的 `_legacy_load_input`（原内联解析块：
+> EDIF 解析 + ComponentCatalog 重建 + PST 加载 + 实例注入）拆分为 **5 个可
+> 独立启用的输入插件**（edif/dsn/cross_ref/pstxnet/pstchip），默认 profile
+> 行为与 legacy **完全等价**（FR9 字节级 diff 验证，含全数据源 HG5015）。
+
+## 3.1 五个输入插件
+
+| 插件 | 默认 | 职责（薄包装编排，不重写解析逻辑） |
+|------|------|------------------------------------|
+| `edif` | ✅ | **默认解析编排器**：P0-D2 EDIF 优先（`.dsn`+禁用 DSN 元件源 → 同名 `.EDF`）+ `_stage_parse`（ParserRegistry 按扩展名选 EDIFParser/DSNParser）+ 页统计；cross_ref/pst 子步骤按"增量插件是否启用"委托或内联 |
+| `dsn` | ➖ | 直接 DSN 解析编排（不走 EDIF 优先；配合 `use_dsn_components`）；其余编排同 edif |
+| `cross_ref` | ➖ | 载入 `<input>.CSV/.csv` → ComponentCatalog + 坐标注入（提高转换质量） |
+| `pstxnet` | ✅ | 载入 `pstxprt.dat`（PstxnetParser，INS→refdes 桥接）+ `pstxnet.dat`（PstxnetNetlistParser，pin→net 数据源） |
+| `pstchip` | ✅ | 载入 `pstchip.dat`（PstchipParser，JEDEC_TYPE/VALUE/pins + 真实引脚名） |
+
+组合由 `pipeline.yaml → input.plugins` 控制；默认 `[edif, pstxnet, pstchip]`。
+
+## 3.2 引擎重构（纯代码搬移，FR9 等价基座）
+
+`_legacy_load_input` 拆分为子步骤方法，行为逐字节不变：
+
+| 方法 | 原位置 | 职责 |
+|------|--------|------|
+| `_resolve_parse_path(input_path)` | P0-D2 块 | `.dsn`+禁用 DSN 元件源 → 同名 `.EDF/.edf` 兄弟文件 |
+| `_log_parse_statistics(design)` | 页统计块 | 页内 refdes 异常统计（ConversionLogger） |
+| `_load_cross_ref_csv(design, input_path)` | Stage 2.5 | CSV → catalog + 坐标注入；返回 `(cross_ref_map, catalog)` |
+| `_load_pst_files(design, input_path, keys=None, log_summary=True)` | Stage 2.3 | pstchip/pstxprt/pstxnet 增量载入（keys 过滤 + 合并进 pst_data） |
+| `_rebuild_from_catalog(design, report)` | v0.5.0 大块 | catalog 驱动实例重建（power 保留/恢复、EDIF 占位替换、PST JEDEC 注入、cache 失效、report 统计、readiness） |
+| `_log_pst_summary(design, input_path)` | PST 汇总 | 单条 PST 汇总事件（固定序 pstchip/pstxprt/pstxnet） |
+| `_finalize_plugin_input(design, report, input_path)` | 新增 | **plugin post-chain 收尾**：PST 汇总 + catalog 重建 + `_last_cross_ref_map`/`_last_catalog` 副作用 |
+
+## 3.3 plugin 模式接管语义
+
+```
+convert() Stage 2:
+  handled, _res = host.call(ctx, "load_input", fallback=_legacy_load_input)
+  if handled and ctx.ir is not None:
+      design = ctx.ir
+      self._finalize_plugin_input(design, report, input_path)   # S3 post-chain
+  elif not handled:
+      design = _res                                            # legacy 全链
+  else:                                                        # 异常插件兜底
+      design = self._legacy_load_input(...)
+```
+
+- `edif`/`dsn`（解析编排器）返回 True（ctx.ir 已写）；`cross_ref`/`pstxnet`/
+  `pstchip`（增量）在 ctx.ir 就绪后执行并返回 True；无解析器时全部返回 False
+  → 引擎回退 legacy 全链（NFR3）。
+- **编排器补偿（FR9 关键）**：edif/dsn 对**未启用**的增量插件做内联补偿——
+  `cross_ref` 未启用 → 内联 `_load_cross_ref_csv`；`pstxnet`/`pstchip` 未启用
+  → 内联对应文件。因此**任意含 edif 的 profile 输出与 legacy 等价**；启用某
+  增量插件则改由该插件执行对应子步骤（谁干活可变，结果不变）。
+- **事件流一致**：PST 汇总 ConversionLogger 事件由 post-chain 统一输出一次
+  （固定序），与 legacy 单条逐字节一致——错误日志文件字节等价的前提。
+
+## 3.4 ctx 契约与副作用
+
+- 插件写 `ctx.ir`（PluginSpec.writes_keys 声明 `("ir",)`）；增量插件原地
+  修改 `design.metadata`（可变对象，守卫不拦截）。
+- 副作用暴露给后续阶段（与 legacy 一致）：
+  - `engine._last_cross_ref_map`：CrossRefParser 结果（match 钩子/CSA 属性）。
+  - `engine._last_catalog`：ComponentCatalog（低置信度日志 value 补全）。
+- `ConversionLogger` 事件顺序 = legacy（SOURCE → PARSE → XREF → PST → INST），
+  保证 `*_errors.log/.txt` 字节等价。
+
+## 3.5 验证
+
+```bash
+pytest tests/unit/test_s3_input_plugins.py -q                     # 24（独立启停 + 组合 + post-chain）
+pytest tests/e2e/test_s3_input_equivalence.py -q                  # 2（HG5015 字节级等价，默认 + 全增量）
+pytest tests/e2e/test_plugin_mode_equivalence.py -q               # 2（RTL8367RB 字节级等价，S2 保绿）
+pytest -q                                                         # 1121 passed / 17 skipped / 0 failed
+```
+
+铁律（FR9）：默认 profile 的 plugin 模式输出与 legacy 逐文件字节级 diff 为空。
