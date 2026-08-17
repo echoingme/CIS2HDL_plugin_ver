@@ -49,3 +49,13 @@
 - 🔵 处理中
 - 🟢 已完成
 - ⚪ 已取消 / 确认无需处理
+
+## S4 匹配插件化遗留/设计假设（2026-08-17）
+
+| # | 项 | 说明 | 状态 |
+|---|-----|------|:---:|
+| S4-1 | `prefix_scope` 并集语义 | S4 实现为"并集关键字收窄候选库副本"（不改 matcher 内部），无法表达逐 prefix 收窄；未来可扩展 `CandidatePoolBuilder._filter_by_type` 为感知 prefix_scope（S4 铁律禁止改 matcher，故未做） | 🟡 |
+| S4-2 | `match.weights` 默认值修正 | S1 占位权重（part_name 0.5/...）与 `ActiveMatcher.WITHIN_TYPE_WEIGHTS` 不一致；S4 对齐为 WITHIN_TYPE_WEIGHTS（否则默认应用破坏 FR9） | 🟢 |
+| S4-3 | `match.prefix_scope` 默认值修正 | S1 占位示例（R:[0603,...]）若直接应用会收窄候选库、破坏默认等价；S4 改为空 dict（默认不限制，显式配置生效） | 🟢 |
+| S4-4 | `match.mock` 无新消费点 | mock.prefixes/auto_icon 由后端 temp_lib.mock_all 消费（S1 已承载）；S4 仅随 match 段承载，未新增插件消费 | ⚪ |
+| S4-5 | 匹配插件"链首编排"语义 | exact/fuzzy/passive/fallback 单独启用时均委托完整 legacy 管线（内部含全部策略）；插件名表达优先级序位而非策略过滤——S4 设计假设，已文档化 | 🟢 |
