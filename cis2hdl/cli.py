@@ -50,7 +50,7 @@ from .core.profile_manager import (
     ProfileReadOnlyError,
 )
 
-__all__ = ["main", "convert_main", "profile_main", "verify_main"]
+__all__ = ["main", "gui_main", "convert_main", "profile_main", "verify_main"]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 旧 CLI 参数 → yaml 字段迁移对照表（§6.3 全量 23 个；S10 前保留）
@@ -108,12 +108,10 @@ def main(argv: list[str] | None = None) -> int:
     """Main entry point。无参数 → GUI；'convert'/'profile'/'verify' → 新 CLI 分支。"""
     args = list(sys.argv[1:] if argv is None else argv)
     if not args:
-        _run_gui()
-        return 0
+        return gui_main([])
     cmd = args[0]
     if cmd == "gui":
-        _run_gui()
-        return 0
+        return gui_main(args[1:])
     if cmd in ("-v", "--version", "version"):
         print(f"CIS2HDL v{__version__}")
         return 0
@@ -127,10 +125,24 @@ def main(argv: list[str] | None = None) -> int:
     return 1
 
 
-def _run_gui() -> None:
-    from cis2hdl.gui.app import run_gui
+def gui_main(argv: list[str] | None = None) -> int:
+    """GUI 子命令（S9）：启动工程工作台（v2）；无 PySide6 时优雅降级。
 
-    run_gui()
+    返回 QApplication.exec 退出码；PySide6 缺失 → 友好提示 + 退出码 1
+    （不抛 traceback）。
+    """
+    del argv  # GUI 不接受额外参数（预留）
+    try:
+        from cis2hdl.gui.v2.app import run_gui
+    except ImportError as exc:
+        print(f"Error: 无法启动 GUI（缺少 PySide6）: {exc}", file=sys.stderr)
+        print("请先安装依赖：pip install PySide6", file=sys.stderr)
+        return 1
+    try:
+        return run_gui()
+    except RuntimeError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
 
 
 def _print_usage() -> None:
