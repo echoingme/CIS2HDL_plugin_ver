@@ -69,6 +69,20 @@ from ..writer.xcon_writer import XconWriter
 logger = logging.getLogger(__name__)
 
 
+#: S6 write_output 插件产出去重后的追加顺序（= legacy generate() 顺序）。
+#: 文件插件执行顺序（yaml: csa 先）与 legacy 写入顺序不同，引擎按本表重排
+#: 后再追加 report.output_files（report.html 逐项渲染，FR9 字节等价）。
+_OUTPUT_GROUP_ORDER: tuple[str, ...] = (
+    "cpm",        # 项目文件组 0：<cell>.cpm
+    "cds_lib",    # 项目文件组 1：cds.lib / hdldirect.dat / origin 库
+    "con",        # P0 组 2：<cell>.con
+    "xcon",       # P0 组 3：<cell>.xcon
+    "csv",        # P0 组 4：pageN.csv
+    "cpc",        # P0 组 5：pageN.cpc
+    "csa",        # P0 组 6：pageN.csa + 占位/模拟图标（CSA 侧效应）
+)
+
+
 # =============================================================================
 #  Progress callback protocol
 # =============================================================================
@@ -332,6 +346,11 @@ class ConversionEngine:
 
         # ── Cached state (populated during pipeline execution) ─────
         self._hdl_db: Optional[ComponentDB] = None
+
+        # ── S6 output 阶段共享状态缓存（按 output_dir 惰性构建一次）──
+        # 值: {output_dir: (OutputManager, DesignConnectivity, infra_paths)}
+        # 由 _output_stage_shared 填充；文件插件在 write_output 链中复用。
+        self._output_shared: dict[Path, tuple[Any, Any, list[Path]]] = {}
 
     # ═══════════════════════════════════════════════════════════════════
     #  Stage 1: Diagnose
@@ -1319,6 +1338,31 @@ class ConversionEngine:
         else:
             self._report_progress(pc, "generate", 0.98, "Generate FAILED")
 
+        # ── Post-generation 统一收尾（质量/readiness/fallback 表/HTML）──
+        self._post_generate_steps(report, design, match_results, output_dir, pc)
+
+    # ── S6 输出阶段共享基础设施 + post-generation（插件模式复用） ──────
+
+    def _post_generate_steps(
+        self,
+        report: ConversionReport,
+        design: "DesignIR",
+        match_results: list,
+        output_dir: Path,
+        pc: Optional[ProgressCallback],
+    ) -> None:
+        """Generate 阶段后处理（legacy ``_stage_generate`` 尾部四步，S6 拆出）。
+
+        插件模式（write_output 链接管文件写入）与 legacy fallback 共用：
+        - 质量估计（ConversionQualityEstimator → report.quality）
+        - v0.7.2 readiness 分数回填（report.diagnostic_report）
+        - Phase XII R8 fallback 表（report.fallback_table）
+        - HTML 报告导出（report_gen → report.output_files 追加 html）
+
+        FR9：本方法**不得**重复执行 —— convert() 仅在 ``write_output``
+        被插件接管时调用一次；legacy fallback（``_stage_generate``）内部
+        已调用一次。
+        """
         # ── Quality Estimation ─────────────────────────────────────
         try:
             quality_report = self._quality_estimator.estimate(
@@ -1367,6 +1411,203 @@ class ConversionEngine:
                 logger.info("HTML report: %s", html_path)
         except Exception as exc:
             logger.warning("HTML report generation failed: %s", exc)
+
+    def _output_stage_shared(
+        self,
+        design: "DesignIR",
+        matches: list,
+        output_dir: Path,
+        report: ConversionReport,
+    ) -> tuple[Any, Any, list[Path]]:
+        """S6 输出阶段共享基础设施（惰性构建一次，按 output_dir 缓存）。
+
+        文件插件（write_output 链）复用：首个启用插件触发构建，其余复用。
+        内容 = legacy ``generate()`` 中**非 7 文件插件部分**（纯代码搬移，
+        不改逻辑）：
+
+        1. OutputManager + 目录结构（setup_directory_structure）
+        2. hdl_lib 拷贝（``self._last_hdl_lib_path`` → output/hdl_lib）
+        3. DesignConnectivity 模型（P0 共享；con/xcon/csv/cpc/csa 消费）
+        4. cell 支撑文件（.dcf / module_order.dat / page.map / master.tag）
+        5. .scr 放置脚本（ScrWriter）
+
+        项目级文件（.cpm / cds.lib / hdldirect.dat / origin）与 P0 页级
+        文件（con/xcon/csv/cpc/csa）由对应文件插件写出——此处**不**重复。
+
+        Returns:
+            (output_mgr, conn, infra_paths)；``infra_paths`` 为支撑文件
+            路径（调用方按 legacy 顺序追加到 report.output_files）。
+        """
+        if output_dir in self._output_shared:
+            return self._output_shared[output_dir]
+
+        from ..writer.output_manager import OutputManager
+        from ..writer.connectivity_model import ConnectivityModelBuilder
+
+        project_name = getattr(design, "project_name", "") or "project"
+        output_mgr = OutputManager(project_name=project_name, output_root=output_dir)
+
+        # ── Setup directory structure ───────────────────────────────
+        try:
+            output_mgr.setup_directory_structure()
+        except Exception as exc:
+            msg = f"Directory setup error: {exc}"
+            report.errors.append(msg)
+            logger.exception("Failed to create output directory structure")
+
+        # ── Copy HDL library into output（与 legacy generate 等价） ──
+        hdl_lib_src = getattr(self, "_last_hdl_lib_path", None)
+        if hdl_lib_src and Path(hdl_lib_src).exists():
+            hdl_dst = output_dir / "hdl_lib"
+            if not hdl_dst.exists():
+                try:
+                    _shutil.copytree(hdl_lib_src, hdl_dst, symlinks=True)
+                    logger.info(
+                        "Copied HDL library: %d files",
+                        sum(1 for _ in hdl_dst.rglob("*")),
+                    )
+                except Exception as exc:
+                    logger.warning("Could not copy hdl_lib: %s", exc)
+        elif not (output_dir / "hdl_lib").exists():
+            report.warnings.append(
+                "No HDL library copied — cds.lib references ./hdl_lib "
+                "which must exist alongside the project."
+            )
+
+        # ── DesignConnectivity 模型（P0 共享；与 legacy 同参） ──────
+        conn = ConnectivityModelBuilder(
+            design,
+            matches=matches,
+            hdl_db=self._hdl_db,
+            hdl_lib_name=cfg.output.hdl_lib_dir or "hdl_lib",
+        ).build()
+
+        # ── cell 支撑文件（.dcf / module_order / page.map / master.tag）──
+        infra_paths: list[Path] = []
+        try:
+            page_count = len(design.pages)
+            infra_paths.extend([
+                output_mgr.write_dcf(output_mgr.cell_name),
+                output_mgr.write_module_order(
+                    output_mgr.library_alias, output_mgr.cell_name,
+                ),
+                output_mgr.write_page_map(
+                    pages=design.pages, num_pages=page_count,
+                ),
+                output_mgr._write_master_tag(page_count),
+            ])
+        except Exception as exc:
+            msg = f"Cell support files error: {exc}"
+            report.errors.append(msg)
+            logger.exception("Cell support files generation failed")
+
+        # ── .scr placement scripts（DEHDL console 交互） ────────────
+        try:
+            from ..writer.scr_writer import ScrWriter
+            scr_match_lookup: dict[str, object] = {}
+            for m in matches:
+                sid = getattr(m, "source_library_id", "")
+                if sid:
+                    scr_match_lookup[sid] = m
+            scr_writer = ScrWriter()
+            scr_files = scr_writer.write_all(
+                pages=design.pages,
+                sch_dir=output_mgr.sch_dir,
+                match_lookup=scr_match_lookup,
+            )
+            infra_paths.extend(scr_files)
+            logger.info("Generated %d .scr file(s)", len(scr_files))
+        except Exception as exc:
+            msg = f".scr writer error: {exc}"
+            report.errors.append(msg)
+            logger.exception(".scr writer failed")
+
+        state = (output_mgr, conn, infra_paths)
+        self._output_shared[output_dir] = state
+        return state
+
+    def _apply_plugin_output_files(
+        self,
+        ctx: ConversionContext,
+        results: list,
+    ) -> list[Path]:
+        """S6：把 write_output 链产出的路径按 legacy ``generate()`` 顺序
+        追加到 ``report.output_files``（FR9 —— report.html 逐项渲染）。
+
+        legacy 顺序：cpm 组 → cds_lib 组 → con → xcon → csv → cpc → csa
+        组 → cell 支撑 + .scr（共享 infra）→ （html 由 _post_generate_steps
+        追加）。插件执行顺序（yaml: csa 先）与 legacy 写入顺序不同，故按
+        ``_OUTPUT_GROUP_ORDER`` 重排后再追加。
+
+        Args:
+            ctx: 插件上下文（读取 output_dir/report 与共享状态）。
+            results: ``pm.hook.write_output`` 返回值列表（执行序；每项为
+                list[Path]|None）。
+
+        Returns:
+            追加后的路径列表（有序）。
+        """
+        names = self._pm.hook_execution_order("write_output") if self._pm else []
+        by_name: dict[str, list[Path]] = {}
+        for name, paths in zip(names, results):
+            if paths:
+                by_name[name] = [p for p in paths if p is not None]
+
+        ordered: list[Path] = []
+        for group in _OUTPUT_GROUP_ORDER:
+            ordered.extend(by_name.get(group, []))
+
+        # 共享 infra（cell 支撑 + .scr）插在 csa 组之后（legacy 位置）。
+        try:
+            _mgr, _conn, infra_paths = self._output_stage_shared(
+                ctx.ir, ctx.matches, ctx.output_dir, ctx.report,
+            )
+            ordered.extend(infra_paths)
+        except Exception as exc:  # noqa: BLE001 — NFR3 降级
+            logger.warning("output 共享阶段重取失败: %s", exc)
+
+        # 去重（legacy generate() 末尾 dict.fromkeys 语义）。
+        seen: set[str] = set()
+        for p in ordered:
+            sp = str(p)
+            if sp in seen:
+                continue
+            seen.add(sp)
+            ctx.report.output_files.append(sp)
+        return ordered
+
+    def _apply_plugin_report_files(
+        self,
+        ctx: ConversionContext,
+        results: list,
+    ) -> list[Path]:
+        """S6：把 write_report 链产出的报告路径追加到 ``report.output_files``。
+
+        执行顺序 = yaml reports 顺序（aesthetic/ioport/mapping/error）。
+        aesthetic/ioport 为 no-op 门（报告由 csa 插件侧效应写出），返回空；
+        mapping 返回 [mapping.csv, top3.txt]、error 返回 [err.html, err.txt]
+        —— 追加顺序与 legacy ``_legacy_reports`` 一致（FR9）。
+
+        Args:
+            ctx: 插件上下文（report 聚合）。
+            results: ``pm.hook.write_report`` 返回值列表（执行序）。
+
+        Returns:
+            追加后的报告路径列表。
+        """
+        appended: list[Path] = []
+        for paths in results:
+            if not paths:
+                continue
+            for p in paths:
+                if p is None:
+                    continue
+                sp = str(p)
+                if sp in ctx.report.output_files:
+                    continue
+                ctx.report.output_files.append(sp)
+                appended.append(p)
+        return appended
 
     # ── Phase XIV D3/D4: manual matches + power IC auto-match ────────
 
@@ -2305,6 +2546,9 @@ class ConversionEngine:
         report.project_name = input_path.stem
         pc = progress_callback
 
+        # ── S6：输出阶段共享状态缓存按次清空（防跨 convert 串扰） ──
+        self._output_shared = {}
+
         # ── Phase XIV D5: load routing.yaml（默认关，可回退） ─────
         if config_file is not None:
             try:
@@ -2663,22 +2907,32 @@ class ConversionEngine:
             else (Path(cfg.hdl_lib.hdl_lib_path)
                   if cfg.hdl_lib.hdl_lib_path else None)
         )
-        # ── Stage 6: Generate（S2 钩子：write_output 可接管） ──────
-        handled, _res = self._host.call(
+        # ── Stage 6: Generate（S2 钩子：write_output 可接管；S6 细粒度） ──
+        # S6：文件插件接管时各插件写各自文件并返回路径；引擎按 legacy
+        # generate() 顺序聚合 output_files 并执行 post-generation
+        #（质量/readiness/fallback 表/HTML —— 与 _stage_generate 尾部等价）。
+        self._last_hdl_lib_path = effective_lib_path
+        handled, _res = self._host.call_output(
             ctx, "write_output",
             fallback=lambda: self._stage_generate(
                 design, match_results, output_dir, report, pc,
                 effective_lib_path,
             ),
         )
+        if handled:
+            self._apply_plugin_output_files(ctx, _res)
+            self._post_generate_steps(report, design, match_results, output_dir, pc)
 
-        # ── Mapping CSV / Top3 / 错误日志（S2 钩子：write_report 可接管） ──
-        self._host.call(
+        # ── Mapping CSV / Top3 / 错误日志（S2 钩子：write_report 可接管；
+        #    S6 细粒度：aesthetic/ioport/mapping/error 报告插件） ──
+        handled_rpt, _res_rpt = self._host.call_output(
             ctx, "write_report",
             fallback=lambda: self._legacy_reports(
                 design, match_results, output_dir, report, input_path,
             ),
         )
+        if handled_rpt:
+            self._apply_plugin_report_files(ctx, _res_rpt)
 
 
         # ── Final aggregation ──────────────────────────────────────

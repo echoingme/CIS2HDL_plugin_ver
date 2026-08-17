@@ -91,16 +91,23 @@ class PipelineHooks:
     def write_output(self, ctx: "ConversionContext") -> list[Path] | None:
         """写一种输出文件（S6 拆分 csa/con/xcon/csv/cpc/cpm/cds_lib）。
 
-        S2 语义：默认 default_writer 薄包装真委托 engine.generate()
-        （一次写全部文件），返回路径列表。
+        S6 语义（细粒度，真实现）：7 个文件插件各写对应文件并返回路径
+        （list[Path]）；``output.files`` 控制启停（Manager 按名过滤）。
+        链上有已注册插件 → 视为接管（PluginHost.call_output），引擎按
+        legacy generate() 顺序聚合路径 + 执行 post-generation
+        （质量/readiness/fallback 表/HTML，FR9 字节等价）。aesthetic/
+        ioport 报告文件由 csa 插件侧效应写出，受 ``output.reports`` 门控。
         """
 
     @hookspec(firstresult=False)
     def write_report(self, ctx: "ConversionContext") -> list[Path] | None:
-        """写一种报告（aesthetic/ioport/mapping/error…）。
+        """写一种报告（aesthetic/ioport/mapping/error）。
 
-        S2 语义：默认 reports 薄包装真委托报告块（mapping csv/top3/
-        错误日志/html），返回路径列表。
+        S6 语义（细粒度，真实现）：mapping（mapping.csv+top3）/ error
+        （错误日志 HTML+TXT）真委托 writer；aesthetic/ioport 为 no-op 门
+        （报告由 csa 插件侧效应写出，``output.reports`` 成员关系控制门控）。
+        链上有已注册插件 → 视为接管（PluginHost.call_output），引擎按
+        执行顺序（= yaml reports 顺序）聚合路径追加 report.output_files。
         """
 
     # ── FR6 测试（不在 convert() 内调用；S8 接入）─────────────────────

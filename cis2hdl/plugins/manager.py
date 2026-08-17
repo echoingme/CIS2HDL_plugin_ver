@@ -79,7 +79,7 @@ class PluginManager:
 
         ① discover() 全部 spec
         ② enabled_by_cfg：spec.name ∈ cfg.<stage>.plugins（output 用
-           files+reports 合并语义 + S2 粗粒度 default_writer/reports 恒注册）
+           files+reports 合并语义，S6 细粒度独立启停）
         ③ instantiate：resolve_params + cls(**params)；失败 → degraded + skip
         ④ register_ordered：外部先、内置逆 yaml 序注册
         ⑤ check_pending() 校验；失败插件 degraded + 继续
@@ -146,15 +146,17 @@ class PluginManager:
                 hit = spec.name in cfg.test.suites
             if hit:
                 enabled.append(spec)
-        # S2 粗粒度：output default_writer/reports 恒注册（默认 profile 必需；
-        # S6 再按 files/reports 精确过滤）
-        for name in ("default_writer", "reports"):
-            if not any(s.stage == "output" and s.name == name for s in enabled):
-                for spec in self._specs:
-                    if spec.stage == "output" and spec.name == name:
-                        enabled.append(spec)
-                        break
         return enabled
+
+    def hook_execution_order(self, hook_name: str) -> list[str]:
+        """某 hook 链的**执行顺序**（插件名；S6 输出清单聚合用）。
+
+        pluggy 默认 LIFO：执行序 = 注册序的逆序（``get_hookimpls()`` 返回
+        注册序，取逆即执行序）。
+        """
+        hookcaller = getattr(self._pm.hook, hook_name)
+        impls = hookcaller.get_hookimpls()
+        return [self.get_name(i.plugin) for i in reversed(impls)]
 
     # ── 执行 / 查询 ───────────────────────────────────────────────────
 

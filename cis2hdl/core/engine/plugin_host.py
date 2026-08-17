@@ -56,3 +56,32 @@ class PluginHost:
         if handled:
             return True, results
         return False, fallback()
+
+    def call_output(
+        self,
+        ctx: Any,
+        hook_name: str,
+        fallback: Callable[[], Any],
+    ) -> tuple[bool, Any]:
+        """输出钩子专用调用（S6）：**链上有已注册插件 → 视为接管**。
+
+        与 :meth:`call` 的区别：output 插件的返回值是 ``list[Path]``（写出
+        路径），可能为空列表（如 aesthetic/ioport no-op 门）——"启用即接管"
+        语义下**空返回也算 handled**（fallback 不执行），只有链上**无任何
+        插件**（``results == []``）或 hook 抛异常时才回退 legacy。
+
+        - legacy 模式（``self.engine._pm is None``）→ ``(False, fallback())``。
+        - plugin 模式 → ``results`` 非空列表（含全空元素）→ ``(True, results)``；
+          hook 异常 → warning + fallback（NFR3 降级）。
+        """
+        pm = self.engine._pm
+        if pm is None:
+            return False, fallback()  # legacy 模式
+        try:
+            results = getattr(pm.hook, hook_name)(ctx=ctx)
+        except Exception as exc:  # noqa: BLE001 — NFR3 降级
+            logger.warning("hook %s failed: %s — fallback to legacy", hook_name, exc)
+            return False, fallback()
+        if results:
+            return True, results  # 链上有插件（可能全返回 []/None）→ 接管
+        return False, fallback()
