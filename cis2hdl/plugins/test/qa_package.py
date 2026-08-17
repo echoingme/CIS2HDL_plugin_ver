@@ -20,7 +20,6 @@ import re
 import sys
 import time
 from pathlib import Path
-from typing import Any
 
 from ..context import ConversionContext
 from ..spec import PluginSpec
