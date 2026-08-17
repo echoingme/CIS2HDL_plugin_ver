@@ -293,3 +293,87 @@ pytest -q                                                         # 1121 passed 
 ```
 
 铁律（FR9）：默认 profile 的 plugin 模式输出与 legacy 逐文件字节级 diff 为空。
+
+# S4 匹配插件化（FR2/FR3，2026-08-17）
+
+> 阶段目标：把 conversion_engine.py 的 `_stage_match` + `_append_power_symbol_matches`
+> + `_apply_phase14_matching` 插件化——**6 个 match 插件**（matcher_pipeline /
+> exact / fuzzy / passive / fallback / manual_overrides），权重/prefix 范围/
+> 阈值全进 yaml（NFR5），默认 profile 行为与 legacy **完全等价**（FR9 字节级
+> diff 验证，含全数据源 HG5015）。
+
+## 4.1 六个 match 插件
+
+| 插件 | 默认 | 职责（薄包装编排，不重写匹配逻辑） |
+|------|------|------------------------------------|
+| `matcher_pipeline` | ➖ | **显式编排**：委托 `engine.run_match_stage`（= `_stage_match` + `_append_power_symbol_matches`），与 legacy 等价 |
+| `exact` | ✅ | 优先级 1；链首启用时 = 阶段编排器（委托完整 legacy 匹配管线，内部含 exact→fuzzy→passive→fallback 多级策略） |
+| `fuzzy` | ✅ | 优先级 2；同上（链首启用时编排） |
+| `passive` | ✅ | 优先级 3；同上 |
+| `fallback` | ✅ | 优先级 4；同上 |
+| `manual_overrides` | ➖ | 手动干预（FR3）：委托 `engine._apply_phase14_matching`（D4 power_ic + D3 chip_config/manual_matches + export_unmatched）；默认 profile 不启用（未接管时引擎回退 legacy，行为一致） |
+
+组合由 `pipeline.yaml → match.plugins` 控制；默认 `[exact, fuzzy, passive, fallback]`。
+
+## 4.2 匹配链语义（FR9 默认等价 + FR2 独立启停）
+
+```
+match_components 钩子链（yaml 顺序 = 优先级顺序，PluginManager 逆序注册保证）：
+  exact → fuzzy → passive → fallback（默认）
+    │
+    ├─ 链首启用插件 = 阶段编排器：
+    │    ① apply_match_params（thresholds → Config.matching；weights →
+    │       ActiveMatcher.WITHIN_TYPE_WEIGHTS 临时覆盖，finally 恢复）
+    │    ② apply_prefix_scope（仅显式配置时收窄候选库副本；默认空 = 原样）
+    │    ③ engine.run_match_stage(ctx.ir, hdl_db, ...) → ctx.matches
+    │    ④ 返回 True（已接管）
+    │
+    └─ 后续插件见 ctx.matches 已就绪 → 跳过（返回 False，不重复匹配）
+```
+
+- **默认 profile**：exact（链首）编排 → 与 legacy 逐字节等价（FR9）。
+- **任一匹配插件单独启用**（如 `[fuzzy]`）也足以运行完整匹配阶段——插件名
+  表达**优先级序位**，链内首个启用者执行（FR2 独立启停）。
+- **空匹配链**（`[]`）：match_components 无人处理 → 引擎回退 legacy
+  `_stage_match` + `_append_power_symbol_matches`（NFR3，行为一致）。
+- **manual_overrides**：独立 hook（`apply_manual_overrides`），默认不启用 →
+  回退 legacy `_apply_phase14_matching`（行为一致）；启用后写
+  `ctx.manual_overrides` 摘要 dict 并原地更新 `ctx.matches`。
+
+## 4.3 配置迁移（NFR5 全进 yaml）
+
+| pipeline.yaml match 段 | 消费点 | S4 语义 |
+|------------------------|--------|---------|
+| `weights` | `ActiveMatcher.WITHIN_TYPE_WEIGHTS` | 默认 = WITHIN_TYPE_WEIGHTS（S4 对齐修正）；显式修改 → 不同打分 |
+| `prefix_scope` | `_prefix_scope.apply_prefix_scope` | 默认空 = 不限制（FR9）；显式配置 → 并集关键字收窄候选库副本 |
+| `thresholds` | `Config.matching`（ComponentMatchingConfig） | 默认 = 四阈值（S1 断言）；显式修改 → 不同匹配结果 |
+| `mock.prefixes/auto_icon` | 后端 temp_lib.mock_all（S1 已承载） | S4 仅承载（不新增消费点） |
+| `manual_overrides.file/export_unmatched` | `_apply_phase14_matching` | 插件启用时同步到全局 Config（chip_config/manual_matches/export_unmatched） |
+
+**S4 修正（相对 S1 占位）**：S1 的 `match.weights`（part_name 0.5/...）与
+`prefix_scope`（R:[0603,...]）是设计文档占位示例，若直接应用会**收窄/改变
+默认匹配行为**（破坏 FR9）。S4 把 `weights` 默认对齐
+`ActiveMatcher.WITHIN_TYPE_WEIGHTS`（footprint/value/jedec/pin_count/part_name）、
+`prefix_scope` 默认改为空 dict——默认应用后行为不变，显式配置后才生效。
+
+## 4.4 ctx 契约
+
+- `match_components` 插件写 `ctx.matches`（`list[MatchResult]`；
+  PluginSpec.writes_keys 声明 `("matches",)`）。
+- `manual_overrides` 插件写 `ctx.manual_overrides`（dict 摘要：
+  applied/chip_config/manual_matches/export_unmatched/power_ic_enabled），
+  并**原地更新** `ctx.matches`（列表项覆盖，只读守卫不拦截可变对象内部修改）。
+- 配置应用（thresholds/weights）在 `try/finally` 中恢复，异常也不残留全局状态。
+
+## 4.5 验证
+
+```bash
+pytest tests/unit/test_s4_match_plugins.py -q                     # 29（插件规格/独立启停/配置生效/manual_overrides/编排等价）
+pytest tests/e2e/test_s4_match_equivalence.py -q                  # 6（HG5015 字节级等价：单插件 ×4 + matcher_pipeline + 空回退）
+pytest tests/e2e/test_s3_input_equivalence.py -q                  # 2（S3 保绿）
+pytest tests/e2e/test_plugin_mode_equivalence.py -q               # 2（S2 保绿）
+pytest -q                                                         # 全量回归（≥1121 passed / 0 failed）
+```
+
+铁律（FR9）：默认 profile 的 plugin 模式输出与 legacy 逐文件字节级 diff 为空；
+S2/S3 等价性 e2e 必须继续全绿。

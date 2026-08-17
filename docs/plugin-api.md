@@ -1,6 +1,6 @@
 # CIS2HDL 插件接口文档（Plugin API）
 
-> 版本：S3（2026-08-17）｜依据：`docs/S2-plugin-base-design.md` + S3 输入插件化｜框架：pluggy 1.6.0
+> 版本：S4（2026-08-17）｜依据：`docs/S2-plugin-base-design.md` + S3 输入插件化 + S4 匹配插件化｜框架：pluggy 1.6.0
 > 铁律：**默认 profile 行为与 legacy 完全等价**（FR9，字节级 diff 验证，含全数据源 HG5015）
 
 ---
@@ -136,6 +136,55 @@ S3 编排语义（FR9 关键）：
 - 外部插件：pyproject.toml entry points group `cis2hdl.plugins`，
   格式 `name = module.path:PLUGIN`。
 
+### 4.1b 匹配阶段插件（S4，FR2/FR3）
+
+匹配插件链（`match_components` / `apply_manual_overrides` 钩子）实现
+"链首编排 + 其余跳过"语义（FR9 默认等价 + FR2 独立启停）：
+
+```python
+# cis2hdl/plugins/match/exact.py（结构示意；fuzzy/passive/fallback 同构）
+from cis2hdl.plugins.hookspecs import hookimpl
+from cis2hdl.plugins.context import ConversionContext
+from cis2hdl.plugins.spec import PluginSpec
+
+class ExactMatchPlugin:
+    """exact（优先级 1）：链首启用时 = 阶段编排器（委托 legacy 管线）。"""
+
+    def __init__(self, engine=None, weights=None, prefix_scope=None,
+                 thresholds=None, **kw):
+        self.engine = engine                # PluginManager 注入
+        self.weights = weights              # yaml match.weights
+        self.prefix_scope = prefix_scope    # yaml match.prefix_scope
+        self.thresholds = thresholds        # yaml match.thresholds
+
+    @hookimpl
+    def match_components(self, ctx: ConversionContext) -> bool | None:
+        if ctx is None or ctx.matches:
+            return False                    # 链中先前插件已接管 → 跳过
+        if ctx.ir is None or ctx.hdl_db is None or self.engine is None:
+            return False                    # 前置未就绪 → 回退 legacy
+        # ① 应用 yaml 参数（thresholds/weights，finally 恢复）
+        # ② 按需收窄候选库副本（prefix_scope，默认空 = 原样）
+        # ③ engine.run_match_stage(...) → ctx.matches（= legacy 等价）
+        return True
+
+PLUGIN = PluginSpec(name="exact", stage="match", cls=ExactMatchPlugin,
+                    module=__name__,
+                    param_fields=("weights", "prefix_scope", "thresholds"),
+                    writes_keys=("matches",), builtin=True)
+```
+
+六个 match 插件：`matcher_pipeline`（显式编排）、`exact`/`fuzzy`/`passive`/
+`fallback`（参数化阶段插件，任一单独启用即运行完整匹配阶段）、
+`manual_overrides`（FR3 手动干预，默认不启用）。
+
+### 4.2 注册到插件目录
+
+- 内置插件：文件放 `cis2hdl/plugins/<stage>/<name>.py`，模块名 = 插件名；
+  `__init__.py` 汇总 `_SPECS`（`PluginSpec` 列表，含 cls/param_section 等）。
+- 外部插件：pyproject.toml entry points group `cis2hdl.plugins`，
+  格式 `name = module.path:PLUGIN`。
+
 ### 4.3 在 pipeline.yaml 启用
 
 ```yaml
@@ -216,4 +265,12 @@ pytest tests/integration/test_engine_hooks.py -q
 
 # 核心验收：plugin vs legacy 字节级等价（2 passed）
 pytest tests/e2e/test_plugin_mode_equivalence.py -q
+
+# S3 输入插件化（24 passed + 2 passed）
+pytest tests/unit/test_s3_input_plugins.py -q
+pytest tests/e2e/test_s3_input_equivalence.py -q
+
+# S4 匹配插件化（29 passed + 6 passed）
+pytest tests/unit/test_s4_match_plugins.py -q
+pytest tests/e2e/test_s4_match_equivalence.py -q
 ```
