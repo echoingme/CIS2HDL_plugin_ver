@@ -164,6 +164,20 @@ class TestMatchPluginSpecs:
         handled, _ = engine._host.call(ctx, "match_components", fallback=lambda: None)
         assert handled is False
 
+    def test_match_only_profile_keeps_match_chain(self) -> None:
+        """match-only profile（S1 §5.6 只做匹配导出）：match 链保持默认。"""
+        from cis2hdl.core.profile_manager import ProfileManager
+
+        cfg = ProfileManager().get("match-only")
+        assert cfg.profile == "match-only"
+        assert cfg.match.plugins == ["exact", "fuzzy", "passive", "fallback"]
+        assert cfg.beautify.plugins == []
+        assert cfg.output.reports == ["mapping"]
+        assert cfg.test.suites == []
+        pm = build_plugin_manager(cfg, engine=_engine())
+        assert pm.get_plugin("exact") is not None
+        assert pm.get_plugin("fallback") is not None
+
 
 # ─────────────────────────────────────────────────────────────────────────
 # 2. 配置生效（NFR5：权重/prefix/阈值全进 yaml）
