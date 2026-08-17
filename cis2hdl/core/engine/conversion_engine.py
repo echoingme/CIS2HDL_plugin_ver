@@ -2243,6 +2243,26 @@ class ConversionEngine:
         self._legacy_reports(design, match_results, output_dir, report, input_path)
         return list(report.output_files)
 
+    def apply_beautify_params(self, ctx: Any) -> None:
+        """S5 美化编排入口：把 pipeline ``beautify.params`` 应用到全局
+        ``config.routing``。
+
+        与 S1 CLI ``cfg_obj.routing = cfg.to_routing_config()`` 完全等价
+        （FR9）：CSAWriter 在 generate 阶段读取 ``config.routing``，其内置
+        美化逻辑（overlap_resolver / gnd_cluster_planner / wire_simplifier
+        / wire_layout / text_layout）按配置开关在正确阶段执行 —— 顺序语义
+        由 writer 内部保证，插件链顺序 = yaml 顺序（S2 逆序注册）。
+
+        默认 profile 时 ``beautify.params`` == RoutingConfig 默认 → 应用为
+        no-op，plugin 模式与 legacy 逐字节等价；max-beauty 等 profile 的
+        ``routing.mode=detour`` / ``wire_simplify.enabled`` / 
+        ``text_layout.enabled`` 等**非单插件 param_fields 覆盖字段**也全部
+        生效（完整 params 应用，而非仅插件声明字段）。
+        """
+        from ..config import config as _cfg
+
+        _cfg.routing = ctx.cfg.to_routing_config()
+
     def convert(
         self,
         input_path: Path,
@@ -2616,7 +2636,9 @@ class ConversionEngine:
             ),
         )
 
-        # ── S2 美化钩子（S5 迁入逻辑；S2 占位返回 False → no-op） ──
+        # ── S2 美化钩子（S5 真实现：插件应用 beautify.params 到全局
+        # config.routing，writer 在 generate 阶段按配置执行美化逻辑；空链/
+        # 全禁用 → no-op，全局 config 保持调用方预置/默认，FR9） ──
         self._host.call(ctx, "beautify", fallback=lambda: None)
 
         # v0.8.2: Recalculate real pages and aggregate errors before report

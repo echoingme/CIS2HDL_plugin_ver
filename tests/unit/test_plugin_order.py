@@ -42,12 +42,23 @@ class TestBeautifyOrder:
         pm = build_plugin_manager(cfg)
         assert_order(pm, "beautify", ["text_layout", "wire_simplify", "gnd_cluster"])
 
-    def test_hook_results_false_for_stubs(self):
-        """S2 占位：beautify 全部返回 False（逻辑仍在 writer，S5 迁入）。"""
-        pm = build_plugin_manager(PipelineConfig())
-        ctx = ConversionContext(cfg=PipelineConfig())
+    def test_hook_results_reflect_enabled(self):
+        """S5 真实现：beautify 返回按各自 enabled 门（默认链 overlap/parallel
+        启用 → True；gnd_cluster 默认 disabled → False）。"""
+        from cis2hdl.core.engine.conversion_engine import ConversionEngine
+
+        cfg = PipelineConfig()
+        engine = ConversionEngine()
+        engine.set_pipeline(cfg)  # engine 注入 → enabled 插件应用 params
+        pm = engine._pm
+        ctx = ConversionContext(cfg=cfg)
         results = pm.hook.beautify(ctx=ctx)
-        assert all(r is False for r in results)
+        # 顺序 = yaml 顺序：[overlap_resolve, gnd_cluster, parallel_short]
+        assert len(results) == 3
+        overlap_r, gnd_r, parallel_r = results
+        assert overlap_r is True      # overlap.resolve 默认 True
+        assert gnd_r is False         # gnd_distribution.enabled 默认 False
+        assert parallel_r is True     # gnd_distribution.parallel_short 默认 True
 
 
 class TestRegistrationOrder:
