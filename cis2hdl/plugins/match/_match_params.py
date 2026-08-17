@@ -3,11 +3,13 @@
 把 pipeline.yaml ``match`` 段的 ``weights`` / ``thresholds`` 应用到 matcher
 运行时配置（**只改配置、不改匹配逻辑**；应用前记录原值、``finally`` 恢复）：
 
-- **thresholds** → 全局 ``Config.routing.matching``（``ComponentMatchingConfig``
+- **thresholds** → 全局 ``Config.matching``（``ComponentMatchingConfig``
   四阈值 exact/fuzzy/feature/fallback；各 matcher 运行时读取
   ``config.matching.*_threshold``）。默认 yaml 值与 ``ComponentMatchingConfig``
   完全一致（S1 测试断言）→ 应用后行为不变（FR9）；显式修改 → 不同匹配结果
-  （FR2）。
+  （FR2）。注意：``Config.matching`` 是 ``ComponentMatchingConfig``，
+  ``Config.routing.matching`` 是 ``MatchingCfg``（hdl_lib_only/connector_pin_check），
+  二者不同——阈值只能写到前者。
 - **weights** → ``ActiveMatcher.WITHIN_TYPE_WEIGHTS`` 类属性临时覆盖
   （编排级配置注入，``try/finally`` 恢复；不修改 ``active_matcher.py`` 源码）。
   S4 已把 ``MatchSection.weights`` 默认值对齐 ``WITHIN_TYPE_WEIGHTS``
@@ -77,7 +79,7 @@ def apply_match_params(
 
     # ── thresholds → ComponentMatchingConfig（matchers 运行时读取） ──
     if thresholds:
-        matching = _global_config.routing.matching
+        matching = _global_config.matching
         for key, attr in THRESHOLD_ATTRS.items():
             if key in thresholds:
                 prev = getattr(matching, attr)
@@ -110,7 +112,7 @@ def apply_match_params(
 def restore_match_params(applied: AppliedMatchParams) -> None:
     """恢复应用前原值（编排 finally 调用；幂等）。"""
     if applied.prev_thresholds:
-        matching = _global_config.routing.matching
+        matching = _global_config.matching
         for attr, prev in applied.prev_thresholds.items():
             setattr(matching, attr, prev)
     if applied.prev_weights is not None:
