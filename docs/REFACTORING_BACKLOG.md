@@ -8,10 +8,10 @@
 
 | # | 文件:行 | 问题类型 | 处理方式 | 状态 |
 |---|--------|---------|---------|:---:|
-| 1 | cis2hdl/core/writer/sch_writer.py.bak | 备份冗余 | 删除（git 有历史） | 🟡 |
-| 2 | cis2hdl/core/config.py.bak | 备份冗余 | 删除（git 有历史） | 🟡 |
-| 3 | cis2hdl/core/matcher/pipeline.py.bak | 备份冗余 | 删除（git 有历史） | 🟡 |
-| 4 | cis2hdl/core/parser/dsn/structures.py.bak | 备份冗余 | 删除（git 有历史；S0 新增发现） | 🟡 |
+| 1 | cis2hdl/core/writer/sch_writer.py.bak | 备份冗余 | 删除（源仓库 cis2hdl/cis2hdl 有字节一致副本，可恢复） | 🟢 |
+| 2 | cis2hdl/core/config.py.bak | 备份冗余 | 删除（源仓库 cis2hdl/cis2hdl 有字节一致副本，可恢复） | 🟢 |
+| 3 | cis2hdl/core/matcher/pipeline.py.bak | 备份冗余 | 删除（源仓库 cis2hdl/cis2hdl 有字节一致副本，可恢复） | 🟢 |
+| 4 | cis2hdl/core/parser/dsn/structures.py.bak | 备份冗余 | 删除（源仓库 cis2hdl/cis2hdl 有字节一致副本，可恢复；S0 新增发现） | 🟢 |
 
 ## 高置信度死代码（vulture ≥90%，21 项）
 
