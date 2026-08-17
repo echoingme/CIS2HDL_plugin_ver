@@ -1481,6 +1481,13 @@ class ConversionEngine:
             hdl_db=self._hdl_db,
             hdl_lib_name=cfg.output.hdl_lib_dir or "hdl_lib",
         ).build()
+        # 事件流等价（FR9）：legacy generate() 在 P0 块输出同一条
+        # ConversionLogger 事件（错误日志 HTML 计数逐字节一致）。
+        ConversionLogger.log_info(
+            "GEN",
+            f"连通性模型: {conn.cell_count} cells, {conn.net_count} nets, "
+            f"{conn.instance_count} instances, {conn.pin_count} pins",
+        )
 
         # ── cell 支撑文件（.dcf / module_order / page.map / master.tag）──
         infra_paths: list[Path] = []
@@ -2879,6 +2886,12 @@ class ConversionEngine:
                 design, hdl_db, match_results, report, input_path,
             ),
         )
+
+        # ── S6：ctx.matches 与最终 match_results 同步 ──────────────
+        # match_components 未被插件接管（回退 _stage_match）或手动覆盖
+        # 替换列表时，ctx.matches 保持为空/旧引用；输出插件（mapping 报告
+        # 等）读取 ctx.matches —— 此处统一回写保证与 legacy 等价（FR9）。
+        ctx.matches = match_results
 
         # ── S2 美化钩子（S5 真实现：插件应用 beautify.params 到全局
         # config.routing，writer 在 generate 阶段按配置执行美化逻辑；空链/
