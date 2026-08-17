@@ -336,3 +336,15 @@ pytest tests/e2e/test_s4_match_equivalence.py -q
 pytest tests/unit/test_s5_beautify_plugins.py -q
 pytest tests/e2e/test_s5_beautify_equivalence.py -q
 ```
+
+## 10. 输出插件（S6）
+
+| 插件 | hook | 写入文件 | 控制 |
+|------|------|---------|------|
+| csa/con/xcon/csv/cpc/cpm/cds_lib | `write_output` | 对应格式文件 | `output.files` |
+| aesthetic/ioport/mapping/error | `write_report` | 对应报告文件 | `output.reports` |
+
+- 返回值：`list[Path]`（写出的文件路径）；False/None → 引擎回退 legacy。
+- 部分组合：禁用插件对应文件不写；`hdl_lib/` 库拷贝恒写（不受插件控制）。
+- 例：`output.files: [csa, con]` + `output.reports: [mapping]` → 只写
+  csa/con + mapping.csv/top3.txt + 共享 infra。
