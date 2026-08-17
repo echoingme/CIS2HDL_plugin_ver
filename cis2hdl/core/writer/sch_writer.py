@@ -680,7 +680,7 @@ class SCHWriterCSA(WriterBase):
             nl(f"DISPLAY INVISIBLE ({x + pno[0]} {y + pno[1]});")
 
             # ── JEDEC_TYPE (隐藏) ───────────────────────────────
-            jedec = self._resolve_property(inst, "JEDEC_TYPE")
+            jedec = self._resolve_prop(getattr(inst, "properties", {}), "JEDEC_TYPE")
             if jedec:
                 jto = prop_offsets.get("JEDEC_TYPE", (0, 0, 0, 1))
                 nl(f"FORCEPROP 1 LAST JEDEC_TYPE {jedec}")
@@ -690,7 +690,7 @@ class SCHWriterCSA(WriterBase):
                 nl(f"DISPLAY INVISIBLE ({x + jto[0]} {y + jto[1]});")
 
             # ── PACKAGE_TYPE (隐藏) ─────────────────────────────
-            pkg_type = self._resolve_property(inst, "PACKAGE_TYPE")
+            pkg_type = self._resolve_prop(getattr(inst, "properties", {}), "PACKAGE_TYPE")
             if pkg_type:
                 pko = prop_offsets.get("PACKAGE_TYPE", (0, -15, 0, 1))
                 nl(f"FORCEPROP 1 LAST PACKAGE_TYPE {pkg_type}")
@@ -700,7 +700,7 @@ class SCHWriterCSA(WriterBase):
                 nl(f"DISPLAY INVISIBLE ({x + pko[0]} {y + pko[1]});")
 
             # ── SN_NUM (隐藏) ───────────────────────────────────
-            sn_num = self._resolve_property(inst, "SN_NUM")
+            sn_num = self._resolve_prop(getattr(inst, "properties", {}), "SN_NUM")
             if sn_num:
                 sno = prop_offsets.get("SN_NUM", (0, 0, 0, 1))
                 nl(f"FORCEPROP 1 LAST SN_NUM {sn_num}")
@@ -710,7 +710,7 @@ class SCHWriterCSA(WriterBase):
                 nl(f"DISPLAY INVISIBLE ({x + sno[0]} {y + sno[1]});")
 
             # ── DESCRIPTION (隐藏) ──────────────────────────────
-            desc = self._resolve_property(inst, "DESCRIPTION")
+            desc = self._resolve_prop(getattr(inst, "properties", {}), "DESCRIPTION")
             if desc:
                 dso = prop_offsets.get("DESCRIPTION", (0, 0, 0, 1))
                 nl(f"FORCEPROP 1 LAST DESCRIPTION {desc}")
@@ -883,19 +883,9 @@ class SCHWriterCSA(WriterBase):
     #  器件信息解析
     # ------------------------------------------------------------------
 
-    def _resolve_body_name(self, inst) -> str:
-        """Resolve HDL body_name (component category directory name).
-
-        Delegates to ``WriterBase._resolve_body_name`` for the core
-        library_id / refdes-prefix resolution logic.
-
-        Args:
-            inst: ComponentInstanceIR or similar.
-
-        Returns:
-            body_name string, e.g. ``"capacitor"``, ``"resistor"``.
-        """
-        return WriterBase._resolve_body_name(inst)
+    # NOTE(S7): `_resolve_body_name` 不再在此重写 —— 直接复用基类
+    # `WriterBase._resolve_body_name`（纯透传旧实现，行为等价）。
+    # 见 BACKLOG #23。
 
     def _resolve_primitive(self, inst) -> str:
         """解析器件 primitive 名称（如 CAPACITOR_0201）。
@@ -936,25 +926,9 @@ class SCHWriterCSA(WriterBase):
         # Fallback: use library_id
         return getattr(inst, "library_id", "?")
 
-    def _resolve_property(self, inst, prop_name: str) -> str:
-        """从器件实例的属性字典中查找指定属性。
-
-        Args:
-            inst: ComponentInstanceIR 或类似对象。
-            prop_name: 属性名（如 "SN_NUM", "PACKAGE_TYPE"）。
-
-        Returns:
-            属性值，或空字符串。
-        """
-        props = getattr(inst, "properties", {})
-        # 大小写不敏感查找
-        if prop_name in props:
-            return props[prop_name]
-        prop_lower = prop_name.lower()
-        for key, val in props.items():
-            if key.lower() == prop_lower:
-                return val
-        return ""
+    # NOTE(S7): `_resolve_property` 已合并进基类 `WriterBase._resolve_prop`
+    # （统一命名，行为等价）。调用点改为直接使用 `_resolve_prop`。
+    # 见 BACKLOG #24。
 
     # ------------------------------------------------------------------
     #  配套文件生成

@@ -1,7 +1,7 @@
 # CIS2HDL 开发者指南
 
 > 面向 CIS2HDL 插件化改造（S0–S8）的开发者文档。
-> 本文件随阶段演进持续更新；当前覆盖 **S1 配置层**。
+> 本文件随阶段演进持续更新；当前覆盖 **S1–S7**。
 
 ---
 
@@ -512,3 +512,61 @@ S2/S3/S4 等价性 e2e 必须继续全绿。
 pytest tests/unit/test_s6_output_plugins.py -q            # 43
 pytest tests/e2e/test_s6_output_equivalence.py -q         # 3（默认+2 部分组合）
 ```
+
+# S7 清理落地（NFR6，2026-08-17）
+
+> 阶段目标：按 `docs/REFACTORING_BACKLOG.md` 的 24 项待办逐项清理——
+> 4 个 .bak 备份冗余 + 18 项高置信死代码 + 2 处重复实现合并；清理后
+> 全量回归 **1238 passed / 17 skipped / 0 failed**（FR9 不回归）。
+> 依据：`docs/refactoring-baseline.md`（vulture 2.16 扫描，高置信 21 条）。
+
+## 7.1 处理批次
+
+| 批次 | 内容 | 提交 |
+|------|------|------|
+| A | 删除 4 个 .bak（sch_writer.py.bak / config.py.bak / pipeline.py.bak / structures.py.bak） | `S7: 删除 4 个 .bak 文件…` |
+| B | 清理 18 项高置信死代码（BACKLOG #5-22） | `S7: 清理 18 项高置信死代码…` |
+| C | 合并 2 处重复实现（BACKLOG #23-24） | `S7: 合并重复实现…` |
+
+## 7.2 处理原则与记录
+
+- **每项改动前 grep 确认无引用**：删除的 import / 变量 / 参数均先全仓
+  grep（含 tests/）确认无动态引用或调用者。
+- **参数契约类"未使用变量"不直接删除参数，改为下划线前缀**（保持
+  API/框架契约、消除 vulture 告警）：
+  - `model_post_init(self, _context)` —— pydantic v2 要求接收 context 实参
+    （实测去掉参数抛 `TypeError: takes 1 positional argument but 2 were given`）；
+  - Qt 槽函数 `(self, current, _previous)` / lambda `_checked` —— Qt 信号
+    按签名传参，删参导致连接失败；
+  - `ChipConfigPanel.__init__(self, *args, **_kwargs)` —— 占位类构造签名
+    需与真实类兼容。
+- **`_resolve_body_name` 合并**（#23）：核心逻辑保留在 `WriterBase`
+  （base.py:38）；`SCHWriterCSA` 的纯透传重写**删除**（行为等价，走继承）；
+  `CSAWriter` 保留 match_map 优先 + 大写扩展（CSA 格式特有），fallback
+  改为 `super()._resolve_body_name(inst)` 复用基类。
+- **`_resolve_prop` 统一命名**（#24）：大小写不敏感属性查找合并为
+  `WriterBase._resolve_prop(props, key)`（base.py:77）；`CSAWriter` 删本地
+  静态定义（继承）；`SCHWriterCSA` 删 `_resolve_property`，4 处调用点改为
+  `self._resolve_prop(getattr(inst, "properties", {}), "X")`。
+- **.bak 删除可恢复性**：4 个 .bak 在 plugin_ver 仓库被 `.gitignore:*.bak`
+  忽略、从未入库；源仓库 `cis2hdl/cis2hdl/` 存在**字节一致副本**，删除安全。
+
+## 7.3 清理效果
+
+- vulture 高置信度（≥90%）条目：**21 → 0**（`python -m vulture cis2hdl/
+  --min-confidence 90` 无输出）。
+- 删除后源码仅剩 1 份 `_resolve_body_name` 核心实现（base.py）+ 1 份
+  CSA 专用扩展（csa_writer.py）；`_resolve_prop` 仅 base.py 1 份。
+
+## 7.4 验证
+
+```bash
+pytest tests/unit/test_sch_writer.py tests/unit/test_cpm_writer.py \
+  tests/unit/test_output_compatibility.py tests/unit/test_s6_output_plugins.py \
+  tests/unit/test_xcon_single_source.py -q   # 79（writer 定向，C 批后）
+pytest -q                                    # 1238 passed / 17 skipped / 0 failed
+```
+
+铁律（FR9）：默认 profile 行为不变——清理前后全量测试数一致
+（1238 passed / 17 skipped / 0 failed），重复实现合并经现有测试验证
+字节级等价。

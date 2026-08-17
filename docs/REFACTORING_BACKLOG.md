@@ -40,8 +40,8 @@
 
 | # | 文件:行 | 问题类型 | 处理方式 | 状态 |
 |---|--------|---------|---------|:---:|
-| 23 | cis2hdl/core/writer/base.py:38 / csa_writer.py:800 / sch_writer.py:886 | 重复实现 `_resolve_body_name`（3 份） | 合并到 base.py 单一实现，子类复用 | 🟡 |
-| 24 | cis2hdl/core/writer/csa_writer.py:1480 / sch_writer.py:939 | 重复实现 `_resolve_prop`/`_resolve_property`（同目的不同名） | 统一命名并合并 | 🟡 |
+| 23 | cis2hdl/core/writer/base.py:38 / csa_writer.py:800 / sch_writer.py:886 | 重复实现 `_resolve_body_name`（3 份） | 合并到 base.py 单一实现：sch_writer 纯透传重写删除（继承基类）；csa_writer 保留 match_map+大写扩展、fallback 改用 super() | 🟢 |
+| 24 | cis2hdl/core/writer/csa_writer.py:1480 / sch_writer.py:939 | 重复实现 `_resolve_prop`/`_resolve_property`（同目的不同名） | 统一命名 `_resolve_prop` 合并到 base.py；csa_writer 删除本地定义（继承）；sch_writer 删除 `_resolve_property` 并更新 4 处调用点 | 🟢 |
 
 ## 状态图例
 
