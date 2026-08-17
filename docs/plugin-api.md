@@ -1,7 +1,7 @@
 # CIS2HDL 插件接口文档（Plugin API）
 
-> 版本：S2（2026-08-17）｜依据：`docs/S2-plugin-base-design.md`｜框架：pluggy 1.6.0
-> 铁律：**默认 profile 行为与 legacy 完全等价**（FR9，字节级 diff 验证）
+> 版本：S3（2026-08-17）｜依据：`docs/S2-plugin-base-design.md` + S3 输入插件化｜框架：pluggy 1.6.0
+> 铁律：**默认 profile 行为与 legacy 完全等价**（FR9，字节级 diff 验证，含全数据源 HG5015）
 
 ---
 
@@ -62,35 +62,72 @@ class PipelineHooks:
 
 ## 4. 编写一个插件
 
-### 4.1 最小插件（输入阶段，占位回退）
+### 4.1 最小插件（输入阶段，S3 真实现示例）
+
+输入插件通过构造注入的 `engine` 编排调用引擎子步骤（薄包装，不重写解析
+逻辑）；写 `ctx.ir`（PluginSpec.writes_keys 须声明 `("ir",)`）；返回 True
+表示接管解析。S3 内置 5 个真实现：`edif`/`dsn`（解析编排器）、`cross_ref`/
+`pstxnet`/`pstchip`（增量）。
 
 ```python
 # cis2hdl/plugins/input/my_format.py
-from pluggy import HookimplMarker
-from ...hookspecs import ConversionContext
+from typing import Any
 
-hookimpl = HookimplMarker("cis2hdl")
+from cis2hdl.plugins.hookspecs import hookimpl
+from cis2hdl.plugins.context import ConversionContext
+from cis2hdl.plugins.spec import PluginSpec
 
 class MyFormatPlugin:
-    name = "my_format"
-    stage = "input"
-    description = "自定义格式解析（示例）"
+    """自定义格式解析（示例）：编排引擎子步骤，写 ctx.ir。"""
 
-    def __init__(self, enabled: bool = True, **params):
-        self.enabled = enabled
+    def __init__(self, engine: Any = None, **params):
+        # engine 由 PluginManager 构造注入（resolve_params 检测签名含 engine）
+        self.engine = engine
         self.params = params
 
     @hookimpl
     def load_input(self, ctx: ConversionContext) -> bool | None:
-        if not self.enabled:
+        if ctx is None or ctx.ir is not None:
+            return False              # 已被其他解析插件接管
+        if self.engine is None:
             return False              # 未处理 → legacy fallback
-        # ... 真正解析逻辑，写 ctx.ir / ctx.input_files ...
+        input_path = ctx.input_files[0] if ctx.input_files else None
+        if input_path is None:
+            return False
+        design = self.engine._stage_parse(input_path, ctx.report, None)
+        if design is None:
+            return False
+        ctx.ir = design               # 写 ctx.ir（writes_keys 声明）
+        self.engine._log_parse_statistics(design)
+        # 可选：cross_ref/pst 增量委托（见 edif 插件编排语义）
         return True                   # 已接管
 
     def cleanup(self) -> None:
         """可逆卸载（Cordis unload 理念）：清理副作用。"""
-        self.enabled = False
+        self.engine = None
+        self.params = {}
+
+
+PLUGIN = PluginSpec(
+    name="my_format",
+    stage="input",
+    description="自定义格式解析（示例）",
+    cls=MyFormatPlugin,
+    module=__name__,
+    writes_keys=("ir",),
+    builtin=True,
+)
 ```
+
+S3 编排语义（FR9 关键）：
+- **解析编排器**（`edif`/`dsn`）：P0-D2 EDIF 优先 + `_stage_parse` + 页统计；
+  对**未启用**的增量插件做内联补偿（`cross_ref` → `_load_cross_ref_csv`；
+  `pstxnet`/`pstchip` → `_load_pst_files(keys=..., log_summary=False)`）。
+- **增量插件**（`cross_ref`/`pstxnet`/`pstchip`）：在 `ctx.ir` 就绪后执行，
+  原地增强 `design.metadata`（component_catalog / pst_data）。
+- **引擎 post-chain**：插件链全部执行后 `_finalize_plugin_input` 统一做
+  PST 汇总 + catalog 重建 + `_last_*` 副作用——保证任意含 edif 的 profile
+  与 legacy 字节等价。
 
 ### 4.2 注册到插件目录
 
