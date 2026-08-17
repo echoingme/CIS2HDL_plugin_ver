@@ -32,6 +32,10 @@ from typing import Any, Callable, Optional
 from ..config import config as cfg
 from ..db.component_db import ComponentDB
 from ..writer.error_logger import ConversionLogger
+from ..pipeline_config import PipelineConfig
+from ...plugins.context import ConversionContext
+from ...plugins.manager import build_plugin_manager
+from .plugin_host import PluginHost
 from ..diagnostics import (
     DiagnosisError,
     DiagnosticPipeline,
@@ -301,7 +305,18 @@ class ConversionEngine:
         )
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        plugin_manager: Optional[Any] = None,
+        pipeline_cfg: Optional[PipelineConfig] = None,
+    ) -> None:
+        # ── S2 plugin 模式（None = legacy 模式，默认等价 FR9） ────
+        self._pm = plugin_manager
+        """PluginManager | None；None = legacy 模式（默认，929 等价）。"""
+        self._pipeline_cfg = pipeline_cfg
+        self._host = PluginHost(self)
+        """钩子调用器（plugin_host.py）。"""
+
         # ── Phase I registries (wrapped for count() support) ──────
         self.parser_registry = _Countable(ParserRegistry, "_parsers")
         self.writer_registry = _Countable(WriterRegistry, "_writers")
@@ -1532,75 +1547,16 @@ class ConversionEngine:
                 return candidate
         return None
 
-    def convert(
+    def _legacy_load_input(
         self,
         input_path: Path,
-        output_dir: Path,
-        hdl_lib_path: Optional[Path] = None,
-        progress_callback: Optional[ProgressCallback] = None,
-        config_file: Optional[Path] = None,
-        extra_lib_paths: Optional[list[Path]] = None,
-    ) -> ConversionReport:
-        """Run the complete six-stage conversion pipeline.
+        report: ConversionReport,
+        pc: Optional[ProgressCallback],
+    ) -> Optional[DesignIR]:
+        """S2 legacy fallback：原 convert() Stage 2 内联解析+增强块。
 
-        Pipeline stages:
-            1. Diagnose — validate input files
-            2. Parse    — parse .dsn/.edf → DesignIR
-            3. Scan     — scan HDL library → ComponentDB
-            4. Match    — match CIS components to HDL components
-            5. Validate — validate match results
-            6. Generate — write output files (.cpm, cds.lib, .sch)
-
-        Phase XIV D5: ``config_file`` 指定 routing.yaml（可选）；未指定则
-        使用全局 config.routing 默认值（全部新功能默认关）。D3/D4 匹配
-        增强在 Stage 4 之后注入（``_apply_phase14_matching``）。
-
-        Post-generation: quality estimation via ConversionQualityEstimator
-        and HTML report export.
-
-        Args:
-            input_path: Path to the input file (.dsn or .edf).
-            output_dir: Output directory for generated HDL files.
-            hdl_lib_path: Path to HDL component library root.
-            progress_callback: Optional callback(stage_name, progress_pct, msg).
-            config_file: Optional routing.yaml path (Phase XIV D5).
-            extra_lib_paths: Optional extra HDL library roots (D4 方案 B).
-
-        Returns:
-            ConversionReport with full diagnostics, match results,
-            validation errors, quality scores, and output file paths.
+        纯代码搬移（原 L1604-2043），不改逻辑。返回 DesignIR；失败 None。
         """
-        report = ConversionReport()
-        report.project_name = input_path.stem
-        pc = progress_callback
-
-        # ── Phase XIV D5: load routing.yaml（默认关，可回退） ─────
-        if config_file is not None:
-            try:
-                cfg.load_from_file(Path(config_file))
-            except Exception as exc:
-                logger.warning("routing config load failed: %s", exc)
-
-        # ── Initialize conversion logger ───────────────────────────
-        ConversionLogger.reset()
-        ConversionLogger.log_info("CONVERT", f"Starting conversion: {input_path}")
-
-        _bench = cfg.app.benchmark
-        _t0 = _time.perf_counter() if _bench else 0.0
-
-        # ── Stage 1: Diagnose ──────────────────────────────────────
-        _t1 = _time.perf_counter() if _bench else 0.0
-        try:
-            if not self._stage_diagnose(input_path, report, pc):
-                logger.warning("Stage 1 (Diagnose) returned False — continuing anyway")
-        except Exception as exc:
-            logger.warning("Stage 1 (Diagnose) failed: %s — continuing", exc)
-
-        # ── Stage 2: Parse ─────────────────────────────────────────
-        _t2 = _time.perf_counter() if _bench else 0.0
-        if _bench:
-            report.stage_timings["diagnose"] = _t2 - _t1
-
         # ── Phase XI P0-D2: prefer EDIF over DSN as component source ──
         # When the user input is a .dsn and a same-name .EDF/.edf sibling
         # exists AND DSN components are disabled (default), parse the EDIF:
@@ -1628,7 +1584,7 @@ class ConversionEngine:
 
         design = self._stage_parse(parse_path, report, pc)
         if design is None:
-            return report
+            return None
 
         # ── Page parse statistics ───────────────────────────────────
         for p in design.pages:
@@ -2041,6 +1997,232 @@ class ConversionEngine:
                     readiness.matchability_score,
                     readiness.symbol_score,
                 )
+        # S2：暴露 cross_ref_map/catalog 给 convert() 的 match 钩子/薄包装
+        # （原为 parse 块局部变量，提取后需经 self 传递）。
+        self._last_cross_ref_map = cross_ref_map
+        self._last_catalog = catalog
+        return design
+
+
+    def _legacy_reports(
+        self,
+        design: DesignIR,
+        match_results: list,
+        output_dir: Path,
+        report: ConversionReport,
+        input_path: Path,
+    ) -> None:
+        """S2 legacy fallback：原 convert() 报告块（mapping csv/top3/错误日志）。
+
+        纯代码搬移（原 L2330-2371），不改逻辑。
+        """
+        # ── Mapping CSV Report ─────────────────────────────────────
+        try:
+            from ..writer.mapping_csv_writer import MappingCSVWriter
+            mapping_csv_path = output_dir / f"{report.project_name}_mapping.csv"
+            MappingCSVWriter.write(
+                mapping_csv_path,
+                design,
+                match_results,
+                report,
+                output_dir,
+                input_path,
+            )
+            report.output_files.append(str(mapping_csv_path))
+            logger.info("Mapping CSV: %s", mapping_csv_path)
+        except Exception as exc:
+            logger.warning("Mapping CSV generation failed: %s", exc)
+
+        # ── v1.0: Top-3 Candidate Database ───────────────────────────
+        try:
+            from ..writer.mapping_csv_writer import write_top3_file
+            top3_path = output_dir / f"{report.project_name}_top3.txt"
+            # Use match_results which already carry top3_candidates
+            # in extra_data (populated by pipeline.run_batch).
+            write_top3_file(
+                top3_path,
+                [],  # sources not needed — data is in MatchResult.extra_data
+                match_results,
+            )
+            report.output_files.append(str(top3_path))
+            logger.info("Top-3 database: %s", top3_path)
+        except Exception as exc:
+            logger.warning("Top-3 database generation failed: %s", exc)
+
+        # ── Write error logs ────────────────────────────────────────
+        try:
+            log_paths = ConversionLogger.write(
+                output_dir,
+                report.project_name or input_path.stem,
+            )
+            report.output_files.append(str(log_paths[0]))  # HTML
+            report.output_files.append(str(log_paths[1]))  # TXT
+            logger.info("Error logs: %s, %s", *log_paths)
+        except Exception as exc:
+            logger.warning("Failed to write error logs: %s", exc)
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  S2 plugin 模式：set_pipeline / convert_with_cfg + 薄包装委托入口
+    # ═══════════════════════════════════════════════════════════════════
+
+    def set_pipeline(self, cfg: PipelineConfig) -> None:
+        """显式激活 plugin 模式：self._pm = build_plugin_manager(cfg)。"""
+        self._pipeline_cfg = cfg
+        self._pm = build_plugin_manager(cfg, engine=self)
+
+    def convert_with_cfg(
+        self,
+        cfg: PipelineConfig,
+        input_path: Path,
+        output_dir: Path,
+        **kw: Any,
+    ) -> ConversionReport:
+        """plugin 模式便捷入口（S3+ CLI 使用）。"""
+        self.set_pipeline(cfg)
+        return self.convert(input_path, output_dir, **kw)
+
+    def run_match_stage(
+        self,
+        design: "DesignIR",
+        hdl_db: ComponentDB,
+        report: ConversionReport,
+        cross_ref_map: Optional[dict] = None,
+        pc: Optional[ProgressCallback] = None,
+    ) -> list:
+        """薄包装插件委托入口：= _stage_match + _append_power_symbol_matches。
+
+        matcher_pipeline 插件调用（与 legacy convert() 行为逐字节等价）。
+        """
+        results = self._stage_match(design, hdl_db, report, pc, cross_ref_map)
+        self._append_power_symbol_matches(design, results)
+        return results
+
+    def run_generate_stage(
+        self,
+        design: "DesignIR",
+        matches: list[MatchResult],
+        output_dir: Path,
+        report: ConversionReport,
+        pc: Optional[ProgressCallback] = None,
+        hdl_lib_path: Optional[Path] = None,
+    ) -> ConversionReport:
+        """薄包装插件委托入口：= _stage_generate（写全部文件，report 累积）。"""
+        self._stage_generate(design, matches, output_dir, report, pc, hdl_lib_path)
+        return report
+
+    def run_manual_overrides(
+        self,
+        design: "DesignIR",
+        hdl_db: ComponentDB,
+        matches: list[MatchResult],
+        report: ConversionReport,
+        input_path: Path,
+    ) -> None:
+        """薄包装插件委托入口：= _apply_phase14_matching（手动匹配/电源 IC）。"""
+        self._apply_phase14_matching(design, hdl_db, matches, report, input_path)
+
+    def run_legacy_reports(
+        self,
+        design: "DesignIR",
+        match_results: list,
+        output_dir: Path,
+        report: ConversionReport,
+        input_path: Path,
+    ) -> list:
+        """薄包装插件委托入口：= _legacy_reports（mapping csv/top3/错误日志）。"""
+        self._legacy_reports(design, match_results, output_dir, report, input_path)
+        return list(report.output_files)
+
+    def convert(
+        self,
+        input_path: Path,
+        output_dir: Path,
+        hdl_lib_path: Optional[Path] = None,
+        progress_callback: Optional[ProgressCallback] = None,
+        config_file: Optional[Path] = None,
+        extra_lib_paths: Optional[list[Path]] = None,
+    ) -> ConversionReport:
+        """Run the complete six-stage conversion pipeline.
+
+        Pipeline stages:
+            1. Diagnose — validate input files
+            2. Parse    — parse .dsn/.edf → DesignIR
+            3. Scan     — scan HDL library → ComponentDB
+            4. Match    — match CIS components to HDL components
+            5. Validate — validate match results
+            6. Generate — write output files (.cpm, cds.lib, .sch)
+
+        Phase XIV D5: ``config_file`` 指定 routing.yaml（可选）；未指定则
+        使用全局 config.routing 默认值（全部新功能默认关）。D3/D4 匹配
+        增强在 Stage 4 之后注入（``_apply_phase14_matching``）。
+
+        Post-generation: quality estimation via ConversionQualityEstimator
+        and HTML report export.
+
+        Args:
+            input_path: Path to the input file (.dsn or .edf).
+            output_dir: Output directory for generated HDL files.
+            hdl_lib_path: Path to HDL component library root.
+            progress_callback: Optional callback(stage_name, progress_pct, msg).
+            config_file: Optional routing.yaml path (Phase XIV D5).
+            extra_lib_paths: Optional extra HDL library roots (D4 方案 B).
+
+        Returns:
+            ConversionReport with full diagnostics, match results,
+            validation errors, quality scores, and output file paths.
+        """
+        report = ConversionReport()
+        report.project_name = input_path.stem
+        pc = progress_callback
+
+        # ── Phase XIV D5: load routing.yaml（默认关，可回退） ─────
+        if config_file is not None:
+            try:
+                cfg.load_from_file(Path(config_file))
+            except Exception as exc:
+                logger.warning("routing config load failed: %s", exc)
+
+        # ── S2 plugin 模式上下文（legacy 模式 _pm=None 时仅兜底用） ──
+        ctx = ConversionContext(
+            cfg=self._pipeline_cfg or PipelineConfig(),
+            input_files=[input_path],
+            output_dir=output_dir,
+        )
+        ctx.report = report
+
+        # ── Initialize conversion logger ───────────────────────────
+        ConversionLogger.reset()
+        ConversionLogger.log_info("CONVERT", f"Starting conversion: {input_path}")
+
+        _bench = cfg.app.benchmark
+        _t0 = _time.perf_counter() if _bench else 0.0
+
+        # ── Stage 1: Diagnose ──────────────────────────────────────
+        _t1 = _time.perf_counter() if _bench else 0.0
+        try:
+            if not self._stage_diagnose(input_path, report, pc):
+                logger.warning("Stage 1 (Diagnose) returned False — continuing anyway")
+        except Exception as exc:
+            logger.warning("Stage 1 (Diagnose) failed: %s — continuing", exc)
+
+        # ── Stage 2: Parse ─────────────────────────────────────────
+        _t2 = _time.perf_counter() if _bench else 0.0
+        if _bench:
+            report.stage_timings["diagnose"] = _t2 - _t1
+
+        # ── Stage 2: Parse（S2 钩子：plugin 模式 load_input 可接管） ──
+        # legacy/未接管 → _legacy_load_input（原内联块，字节等价）
+        handled, _res = self._host.call(
+            ctx, "load_input",
+            fallback=lambda: self._legacy_load_input(input_path, report, pc),
+        )
+        if handled and ctx.ir is not None:
+            design = ctx.ir
+        else:
+            design = _res
+        if design is None:
+            return report
+
 
         # ── Stage 3: Scan ──────────────────────────────────────────
         _t3 = _time.perf_counter() if _bench else 0.0
@@ -2049,20 +2231,28 @@ class ConversionEngine:
         hdl_db = self._stage_scan(hdl_lib_path, report, pc,
                                   extra_lib_paths=extra_lib_paths)
 
-        # ── Stage 4: Match ─────────────────────────────────────────
+        # ── Stage 4: Match（S2 钩子：match_components 可接管） ────
         _t4 = _time.perf_counter() if _bench else 0.0
         if _bench:
             report.stage_timings["scan"] = _t4 - _t3
-        match_results = self._stage_match(design, hdl_db, report, pc,
-                                           cross_ref_map)
-        # ── Phase XII R2: power symbol MatchResults ───────────────
-        # EDIF power symbols (GND/DGND/VCC_CIRCLE/…) are preserved across
-        # the catalog rebuild but are NOT part of the ComponentCatalog, so
-        # the matching pipeline never processes them → they previously had
-        # no MatchResult (INFO_LOSS warnings + coverage drag).  Generate
-        # dedicated high-confidence results for every power library_id that
-        # actually appears in the design so they flow through reports/CSV.
-        self._append_power_symbol_matches(design, match_results)
+        handled, _res = self._host.call(
+            ctx, "match_components", fallback=lambda: None,
+        )
+        if handled and ctx.matches:
+            match_results = ctx.matches
+        else:
+            # ── Phase XII R2: power symbol MatchResults ─────────────
+            # EDIF power symbols (GND/DGND/VCC_CIRCLE/…) are preserved
+            # across the catalog rebuild but are NOT part of the
+            # ComponentCatalog, so the matching pipeline never processes
+            # them → they previously had no MatchResult (INFO_LOSS
+            # warnings + coverage drag).  Generate dedicated
+            # high-confidence results for every power library_id that
+            # actually appears in the design so they flow through
+            # reports/CSV.
+            match_results = self._stage_match(design, hdl_db, report, pc,
+                                              getattr(self, "_last_cross_ref_map", None))
+            self._append_power_symbol_matches(design, match_results)
 
         # ── Phase XIV D3/D4: manual matches + power IC auto-match ──
         # 注：真正调用在 Stage 5.5b（pstxnet pin 注入）之后 ——
@@ -2121,8 +2311,8 @@ class ConversionEngine:
                     src = getattr(mr, 'source_library_id', '?')
                     # v0.5.1: 包含 value 信息，方便诊断
                     value_info = ""
-                    if catalog is not None:
-                        cat_entry = catalog.get_by_refdes(src)
+                    if getattr(self, "_last_catalog", None) is not None:
+                        cat_entry = self._last_catalog.get_by_refdes(src)
                         if cat_entry and cat_entry.value:
                             value_info = f" | value={cat_entry.value}"
                     ConversionLogger.log_warning(
@@ -2298,9 +2488,16 @@ class ConversionEngine:
 
         # ── Phase XIV D3/D4: manual matches + power IC auto-match ──
         # pstxnet/pstchip 引脚注入完成后调用（实例 pin_connections 完整）。
-        self._apply_phase14_matching(
-            design, hdl_db, match_results, report, input_path,
+        # S2 钩子：apply_manual_overrides 可接管；未接管 → legacy 调用。
+        self._host.call(
+            ctx, "apply_manual_overrides",
+            fallback=lambda: self._apply_phase14_matching(
+                design, hdl_db, match_results, report, input_path,
+            ),
         )
+
+        # ── S2 美化钩子（S5 迁入逻辑；S2 占位返回 False → no-op） ──
+        self._host.call(ctx, "beautify", fallback=lambda: None)
 
         # v0.8.2: Recalculate real pages and aggregate errors before report
         # Phase XII R6: report.pages must reflect the TOTAL parsed page
@@ -2324,53 +2521,23 @@ class ConversionEngine:
             else (Path(cfg.hdl_lib.hdl_lib_path)
                   if cfg.hdl_lib.hdl_lib_path else None)
         )
-        self._stage_generate(design, match_results, output_dir,
-                             report, pc, effective_lib_path)
+        # ── Stage 6: Generate（S2 钩子：write_output 可接管） ──────
+        handled, _res = self._host.call(
+            ctx, "write_output",
+            fallback=lambda: self._stage_generate(
+                design, match_results, output_dir, report, pc,
+                effective_lib_path,
+            ),
+        )
 
-        # ── Mapping CSV Report ─────────────────────────────────────
-        try:
-            from ..writer.mapping_csv_writer import MappingCSVWriter
-            mapping_csv_path = output_dir / f"{report.project_name}_mapping.csv"
-            MappingCSVWriter.write(
-                mapping_csv_path,
-                design,
-                match_results,
-                report,
-                output_dir,
-                input_path,
-            )
-            report.output_files.append(str(mapping_csv_path))
-            logger.info("Mapping CSV: %s", mapping_csv_path)
-        except Exception as exc:
-            logger.warning("Mapping CSV generation failed: %s", exc)
+        # ── Mapping CSV / Top3 / 错误日志（S2 钩子：write_report 可接管） ──
+        self._host.call(
+            ctx, "write_report",
+            fallback=lambda: self._legacy_reports(
+                design, match_results, output_dir, report, input_path,
+            ),
+        )
 
-        # ── v1.0: Top-3 Candidate Database ───────────────────────────
-        try:
-            from ..writer.mapping_csv_writer import write_top3_file
-            top3_path = output_dir / f"{report.project_name}_top3.txt"
-            # Use match_results which already carry top3_candidates
-            # in extra_data (populated by pipeline.run_batch).
-            write_top3_file(
-                top3_path,
-                [],  # sources not needed — data is in MatchResult.extra_data
-                match_results,
-            )
-            report.output_files.append(str(top3_path))
-            logger.info("Top-3 database: %s", top3_path)
-        except Exception as exc:
-            logger.warning("Top-3 database generation failed: %s", exc)
-
-        # ── Write error logs ────────────────────────────────────────
-        try:
-            log_paths = ConversionLogger.write(
-                output_dir,
-                report.project_name or input_path.stem,
-            )
-            report.output_files.append(str(log_paths[0]))  # HTML
-            report.output_files.append(str(log_paths[1]))  # TXT
-            logger.info("Error logs: %s, %s", *log_paths)
-        except Exception as exc:
-            logger.warning("Failed to write error logs: %s", exc)
 
         # ── Final aggregation ──────────────────────────────────────
         report._aggregate_errors()
