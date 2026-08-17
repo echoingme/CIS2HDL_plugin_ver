@@ -252,7 +252,7 @@ class Sidebar(QWidget):
                 f"border-top: none; border-right: none; border-bottom: none; "
                 f"background: transparent;"
             )
-            btn.clicked.connect(lambda checked, idx=index: self._on_nav_click(idx))
+            btn.clicked.connect(lambda _checked, idx=index: self._on_nav_click(idx))
 
         return btn
 

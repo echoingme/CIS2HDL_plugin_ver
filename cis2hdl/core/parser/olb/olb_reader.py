@@ -23,7 +23,7 @@ from pathlib import Path
 
 from ..dsn.ole_reader import (
     OleReader, OlePathEntry, CFBError,
-    DIR_TYPE_STREAM, DIR_TYPE_STORAGE,
+    DIR_TYPE_STREAM,
     MINI_STREAM_SECTOR_SIZE,
 )
 

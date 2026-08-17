@@ -17,24 +17,24 @@
 
 | # | 文件:行 | 问题类型 | 处理方式 | 状态 |
 |---|--------|---------|---------|:---:|
-| 5 | cis2hdl/core/diagnostics/multi_source.py:24 | 未使用 import `_ET` | 删除 import（先确认无动态引用） | 🟡 |
-| 6 | cis2hdl/core/diagnostics/pipeline.py:203 | 未使用变量 `kwargs` | 删除变量 | 🟡 |
-| 7 | cis2hdl/core/ir/component.py:32 | 未使用变量 `__context` | 删除变量（复核 pydantic 语义） | 🟡 |
-| 8 | cis2hdl/core/ir/component.py:75 | 未使用变量 `__context` | 删除变量（复核 pydantic 语义） | 🟡 |
-| 9 | cis2hdl/core/matcher/pipeline.py:30 | 未使用 import `is_passive_prefix` | 删除 import | 🟡 |
-| 10 | cis2hdl/core/parser/component_catalog.py:102 | 未使用变量 `library_path` | 删除变量 | 🟡 |
-| 11 | cis2hdl/core/parser/dsn/binary_reader.py:14 | 未使用 import `overload` | 删除 import | 🟡 |
-| 12 | cis2hdl/core/parser/olb/olb_reader.py:24 | 未使用 import `DIR_TYPE_STORAGE` | 删除 import | 🟡 |
-| 13 | cis2hdl/gui/candidate_selector.py:21 | 未使用 import `os` | 删除 import | 🟡 |
-| 14 | cis2hdl/gui/dialogs/match_confirm.py:342 | 未使用变量 `previous` | 删除变量 | 🟡 |
-| 15 | cis2hdl/gui/dialogs/recovery_dialog.py:265 | 未使用变量 `previous` | 删除变量 | 🟡 |
-| 16 | cis2hdl/gui/panels/chip_config_panel.py:383 | 未使用变量 `kwargs` | 删除变量 | 🟡 |
-| 17 | cis2hdl/gui/panels/error_diagnostic_panel.py:242 | 未使用变量 `previous` | 删除变量 | 🟡 |
-| 18 | cis2hdl/gui/panels/log_panel.py:8 | 未使用 import `QEasingCurve`/`QPropertyAnimation` | 删除 import | 🟡 |
-| 19 | cis2hdl/gui/panels/log_panel.py:9 | 未使用 import `QTextCursor` | 删除 import | 🟡 |
-| 20 | cis2hdl/gui/panels/schematic_view.py:11 | 未使用 import `QTransform` | 删除 import | 🟡 |
-| 21 | cis2hdl/gui/panels/schematic_view.py:20 | 未使用 import `QGraphicsItem`/`QGraphicsRectItem`/`QGraphicsTextItem` | 删除 import | 🟡 |
-| 22 | cis2hdl/gui/panels/sidebar.py:255 | 未使用变量 `checked` | 删除变量 | 🟡 |
+| 5 | cis2hdl/core/diagnostics/multi_source.py:24 | 未使用 import `_ET` | 删除 import（已确认无动态引用） | 🟢 |
+| 6 | cis2hdl/core/diagnostics/pipeline.py:203 | 未使用变量 `kwargs` | 删除 **kwargs（已 grep 确认无 kwargs 调用者） | 🟢 |
+| 7 | cis2hdl/core/ir/component.py:32 | 未使用变量 `__context` | 重命名 `_context`（pydantic model_post_init 契约要求保留参数） | 🟢 |
+| 8 | cis2hdl/core/ir/component.py:75 | 未使用变量 `__context` | 重命名 `_context`（pydantic model_post_init 契约要求保留参数） | 🟢 |
+| 9 | cis2hdl/core/matcher/pipeline.py:30 | 未使用 import `is_passive_prefix` | 删除 import（保留 extract_prefix） | 🟢 |
+| 10 | cis2hdl/core/parser/component_catalog.py:102 | 未使用变量 `library_path` | 删除参数并更新 2 处调用点（原 docstring 标注"reserved for future"） | 🟢 |
+| 11 | cis2hdl/core/parser/dsn/binary_reader.py:14 | 未使用 import `overload` | 删除 import | 🟢 |
+| 12 | cis2hdl/core/parser/olb/olb_reader.py:24 | 未使用 import `DIR_TYPE_STORAGE` | 删除 import（保留 DIR_TYPE_STREAM） | 🟢 |
+| 13 | cis2hdl/gui/candidate_selector.py:21 | 未使用 import `os` | 删除 import | 🟢 |
+| 14 | cis2hdl/gui/dialogs/match_confirm.py:342 | 未使用变量 `previous` | 重命名 `_previous`（Qt currentItemChanged 槽契约要求保留参数） | 🟢 |
+| 15 | cis2hdl/gui/dialogs/recovery_dialog.py:265 | 未使用变量 `previous` | 重命名 `_previous`（Qt 槽契约要求保留参数） | 🟢 |
+| 16 | cis2hdl/gui/panels/chip_config_panel.py:383 | 未使用变量 `kwargs` | 重命名 `_kwargs`（占位类构造签名兼容性） | 🟢 |
+| 17 | cis2hdl/gui/panels/error_diagnostic_panel.py:242 | 未使用变量 `previous` | 重命名 `_previous`（Qt 槽契约要求保留参数） | 🟢 |
+| 18 | cis2hdl/gui/panels/log_panel.py:8 | 未使用 import `QEasingCurve`/`QPropertyAnimation` | 删除 import | 🟢 |
+| 19 | cis2hdl/gui/panels/log_panel.py:9 | 未使用 import `QTextCursor` | 删除 import（整行） | 🟢 |
+| 20 | cis2hdl/gui/panels/schematic_view.py:11 | 未使用 import `QTransform` | 删除 import | 🟢 |
+| 21 | cis2hdl/gui/panels/schematic_view.py:20 | 未使用 import `QGraphicsItem`/`QGraphicsRectItem`/`QGraphicsTextItem` | 删除 import | 🟢 |
+| 22 | cis2hdl/gui/panels/sidebar.py:255 | 未使用变量 `checked` | 重命名 `_checked`（Qt clicked 信号 lambda 契约要求保留参数） | 🟢 |
 
 ## 重复实现（2 项）
 

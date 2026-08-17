@@ -262,7 +262,7 @@ class RecoveryStrategyDialog(QDialog):
 
     # ── Slot Handlers ────────────────────────────────────────────────
 
-    def _on_path_selected(self, current: QListWidgetItem, previous: QListWidgetItem | None) -> None:
+    def _on_path_selected(self, current: QListWidgetItem, _previous: QListWidgetItem | None) -> None:
         """Update detail text when user selects a recovery path."""
         if current is None:
             self._detail_label.setText("Select a recovery path to see details")

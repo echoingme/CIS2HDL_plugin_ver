@@ -14,14 +14,10 @@ from PySide6.QtGui import (
     QFont,
     QPainter,
     QPen,
-    QTransform,
     QWheelEvent,
 )
 from PySide6.QtWidgets import (
-    QGraphicsItem,
-    QGraphicsRectItem,
     QGraphicsScene,
-    QGraphicsTextItem,
     QGraphicsView,
     QVBoxLayout,
     QWidget,

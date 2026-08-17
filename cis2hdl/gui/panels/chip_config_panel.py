@@ -380,5 +380,5 @@ else:  # pragma: no cover
     class ChipConfigPanel:  # type: ignore[no-redef]
         """无 PySide6 环境下的占位（CLI 转换不依赖 GUI）。"""
 
-        def __init__(self, *args, **kwargs) -> None:  # noqa: ANN002, ANN003
+        def __init__(self, *args, **_kwargs) -> None:  # noqa: ANN002, ANN003
             raise RuntimeError("PySide6 未安装，无法使用 GUI 面板")

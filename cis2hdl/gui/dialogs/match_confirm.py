@@ -339,7 +339,7 @@ class MatchConfirmDialog(QDialog):
 
     # ── Slot Handlers ────────────────────────────────────────────────
 
-    def _on_candidate_selected(self, current: QListWidgetItem, previous: QListWidgetItem | None) -> None:
+    def _on_candidate_selected(self, current: QListWidgetItem, _previous: QListWidgetItem | None) -> None:
         """Update detail label when a candidate is selected."""
         if current is None:
             return
