@@ -65,8 +65,14 @@ _ROUTING_YAML = _PROJECT_ROOT / "cis2hdl" / "config" / "routing.yaml"
 _INPUT = _PROJECT_ROOT / "tests" / "fixtures" / "RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.DSN"
 
 #: 报告内的转换时间戳（非确定性，等价比较时归一化）。
-#: 两种格式：``2026-08-14 17:11:10``（日志/CSV）与 ``17:11:36 ... August 14, 2026``（cpm 头）。
-_TS_RE = re.compile(rb"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|\d{2}:\d{2}:\d{2}")
+#: 三种格式：``2026-08-14 17:11:10``（日志/CSV）、``17:11:36 ... August 14, 2026``
+#: （cpm 头）与 ``2026-08-14 17:11``（HTML 报告分钟精度）——分钟级也必须
+#: 归一化，否则跨分钟运行会 flake。
+_TS_RE = re.compile(
+    rb"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
+    rb"|\d{4}-\d{2}-\d{2} \d{2}:\d{2}"
+    rb"|\d{2}:\d{2}:\d{2}"
+)
 
 
 def _require_input() -> None:

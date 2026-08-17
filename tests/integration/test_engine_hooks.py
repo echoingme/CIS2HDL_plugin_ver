@@ -128,9 +128,14 @@ class TestPluginModeHooks:
         assert received[0].input_files, "ctx.input_files 应为输入文件列表"
 
     def test_false_plugin_falls_back_to_legacy(self, tmp_path: Path) -> None:
-        """全部插件返回 False/None → fallback 执行（legacy 结果可用）。"""
+        """全部插件返回 False/None → fallback 执行（legacy 结果可用）。
+
+        S3 起默认 edif 为真实现（返回 True 接管），故先清空 input 插件
+        组合，仅保留探测插件返回 False，确保走到 legacy fallback 路径。
+        """
         _require_input()
         pc = _fresh_pipeline()
+        pc.input.plugins = []  # S3：清空 input 组合 → 无内置插件接管
 
         class FalsePlugin:
             @hookimpl
