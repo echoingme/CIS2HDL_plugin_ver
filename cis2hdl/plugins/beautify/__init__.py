@@ -1,6 +1,7 @@
 """beautify 阶段插件包（FR4）。
 
-S2：6 个顺序占位 stub（enabled 感知 + 顺序记录，返回 False）；S5 真实现。
+S5：6 个真实现插件（配置编排 —— 在 generate 前把 ``beautify.params``
+应用到全局 ``config.routing``，writer 内置美化逻辑在正确阶段执行），
 ``_SPECS`` 汇总（供 discover 读取）。
 """
 

@@ -73,8 +73,16 @@ class PipelineHooks:
         """美化钩子链：overlap_resolve/gnd_cluster/parallel_short/
         three_stage_stub/wire_simplify/text_layout，按 yaml 顺序执行。
 
-        S2 语义：占位插件仅记录顺序并检查 enabled（params 注入），
-        返回 False（现有美化逻辑仍在 writer 内部，S5 迁入）。
+        S5 语义（真实现，配置编排）：插件在 generate 之前把 yaml
+        ``beautify.params``（RoutingConfig，S1 K1 复用）应用到全局
+        ``config.routing``（``engine.apply_beautify_params``）—— writer
+        内置美化逻辑（overlap_resolver/gnd_cluster_planner/wire_simplifier/
+        wire_layout/text_layout）按配置开关在正确阶段执行，顺序由 writer
+        内部保证（overlap 在 pin 几何前、gnd/parallel 在布线前、
+        wire_simplify 布线后、text_layout 末尾）。每插件 enabled 门来自
+        自身 params（见 ``beautify/_base.py``）：enabled → 应用完整 params
+        + 写 ``ctx.routed_nets`` 摘要 + 返回 True；disabled → 返回 False。
+        空链/全禁用 → 无人处理 → no-op（全局 config 保持默认/预置，FR9）。
         """
 
     # ── FR5 输出 ──────────────────────────────────────────────────────
