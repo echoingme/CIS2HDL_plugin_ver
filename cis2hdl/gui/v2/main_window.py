@@ -10,14 +10,12 @@ ManualMatchPanel + SchematicPreview）。
 from __future__ import annotations
 
 import logging
-from pathlib import Path
 from typing import Any
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction, QFont
+from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QDockWidget,
-    QHBoxLayout,
     QLabel,
     QListWidget,
     QMainWindow,
@@ -38,7 +36,7 @@ from ...gui.yaml_bridge import (
     set_stage_plugins,
     yaml_text_to_cfg,
 )
-from ..colors import Colors, FontSize, Fonts, Layout, Spacing
+from ..colors import Colors, Fonts, FontSize, Layout, Spacing
 from .qss import STYLE_SIDEBAR, STYLE_V2
 from .report_view import ManualMatchPanel, ReportView, SchematicPreview
 from .runner import ConversionRunner

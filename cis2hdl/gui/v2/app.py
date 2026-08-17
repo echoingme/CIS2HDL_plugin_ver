@@ -11,9 +11,8 @@ import logging
 import sys
 
 try:
-    from PySide6.QtGui import QFont
-    from PySide6.QtWidgets import QApplication
-
+    from PySide6.QtGui import QFont  # noqa: F401 — 可用性探测（run_gui 内使用）
+    from PySide6.QtWidgets import QApplication  # noqa: F401 — 可用性探测
     HAS_PYSIDE6 = True
     _IMPORT_ERROR: str | None = None
 except ImportError as _exc:  # pragma: no cover — 无 PySide6 环境
@@ -22,7 +21,7 @@ except ImportError as _exc:  # pragma: no cover — 无 PySide6 环境
 
 from cis2hdl import __version__
 
-from ..colors import FontSize, Fonts
+from ..colors import Fonts, FontSize
 
 __all__ = ["run_gui", "HAS_PYSIDE6"]
 
@@ -42,6 +41,7 @@ def run_gui() -> int:
 
     # 延迟导入（main_window 依赖 PySide6；无 PySide6 时仅本模块可 import）
     from PySide6.QtWidgets import QApplication
+
     from .main_window import MainWindow
 
     app = QApplication(sys.argv)

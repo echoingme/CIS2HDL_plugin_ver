@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
@@ -23,11 +23,9 @@ from PySide6.QtWidgets import (
 
 from ...gui.yaml_bridge import (
     YamlValidationError,
-    cfg_to_yaml_text,
     yaml_text_to_cfg,
 )
 from ..colors import Colors, FontSize, Spacing
-from .qss import STYLE_YAML
 
 __all__ = ["YamlEditor"]
 
