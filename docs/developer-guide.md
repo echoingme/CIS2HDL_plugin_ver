@@ -224,6 +224,10 @@ diff = pm.diff(cfg_a, cfg_b)              # 首个差异阶段（组合 set 比�
 
 ### 5. CLI 用法（convert）
 
+> **S10 更新**：下文「旧 CLI 参数」段为 S1 历史记录——20 个行为参数已在
+> S10 移除（传入报错 + 迁移提示），仅 `--output/--hdl-lib/--extra-hdl-lib`
+> 路径类参数保留。最新 CLI 用法见 §10.3。
+
 ```bash
 python -m cis2hdl convert in.dsn                              # 读 ./pipeline.yaml
 python -m cis2hdl convert in.dsn --profile max-beauty         # 切 profile
@@ -231,7 +235,7 @@ python -m cis2hdl convert in.dsn --profile fast --output out  # profile + 旧参
 python -m cis2hdl convert in.dsn --pipeline my.yaml           # 显式配置文件
 ```
 
-**旧 CLI 参数**（23 个，S10 前保留）：`--output / --hdl-lib / --extra-hdl-lib /
+**旧 CLI 参数**（23 个，S10 前保留；S10 起已移除 20 个行为参数）：`--output / --hdl-lib / --extra-hdl-lib /
 --benchmark / --max-workers / --routing / --nonuniform-tracks / --net-order /
 --wire-simplify / --manual-matches / --chip-config / --export-unmatched /
 --text-layout / --power-ic / --aesthetic / --gnd-distribute / --rotate-passives /
@@ -830,3 +834,112 @@ pytest -q                                      # 全量回归（1264+ 不回归�
   的语义等价实现）。
 - ParamForm dict 参数用 QTreeWidget 折叠编辑（叶子值可编辑）。
 - SchematicPreview 为 S10 占位（现有 schematic_view 增强）。
+
+---
+
+# S10 交付收尾（NFR4 兼容窗口结束，2026-08-17）
+
+## 10.1 旧 CLI 参数移除（用户决策 3 落地）
+
+S1 起保留的 23 个旧 CLI 参数中，**20 个行为参数**的映射逻辑已在 S10 移除
+（兼容窗口结束）：
+
+```
+--benchmark --max-workers --routing --nonuniform-tracks --net-order
+--wire-simplify --manual-matches --chip-config --export-unmatched
+--text-layout --power-ic --aesthetic --gnd-distribute --rotate-passives
+--ioport-edge --ioport-audit --use-net-name --no-mirror-normalize
+--no-report --cross-page-opt
+```
+
+**移除后行为**：`cis2hdl convert` 收到任一旧参数 → argparse 报错（退出码 2），
+文案含该参数已移除 + pipeline.yaml 迁移字段 + 迁移对照表路径。例如：
+
+```
+$ python -m cis2hdl convert in.dsn --routing detour
+cis2hdl convert: error: --routing 已移除（S10 兼容窗口结束）：该功能已迁移至
+pipeline.yaml 的 beautify.params.routing.mode，请用 --profile 或修改
+pipeline.yaml 配置（迁移对照表见 docs/archive/temp files/phase24-cli-yaml-migration.md）
+```
+
+**保留参数**（路径类 + 选择类，无 deprecation）：
+- `--output DIR` → `engine.output_dir`
+- `--hdl-lib DIR` → `input.hdl_lib`
+- `--extra-hdl-lib DIR`（可多次）→ `input.extra_hdl_libs`
+- `--pipeline PATH` / `--profile NAME`（S1 起新增，保留）
+
+**代码落点**：
+- `cis2hdl/cli.py`：`_apply_legacy_args` / `_deprecation_warn` /
+  `_LEGACY_DEPRECATION_TARGETS` 删除；`_REMOVED_FLAGS_TARGETS`（20 个）
+  驱动报错文案；`_apply_path_args` 只处理保留路径参数。
+- `cis2hdl/config/routing.yaml`：保留文件（legacy 引擎仍读取），头部标注
+  "S10 起 legacy 兼容，仅内部使用"。
+
+## 10.2 迁移指引（旧参数 → pipeline.yaml）
+
+权威对照表归档于 `docs/archive/temp files/phase24-cli-yaml-migration.md`。
+典型迁移示例：
+
+| 旧 CLI（S10 前） | 新配置方式（S10） |
+|------------------|-------------------|
+| `--routing detour` | `pipeline.yaml: beautify.params.routing.mode: detour` 或 `--profile max-beauty` |
+| `--wire-simplify` | `pipeline.yaml: beautify.params.wire_simplify.enabled: true` |
+| `--gnd-distribute` | `beautify.params.gnd_distribution.enabled: true` + `.distribute_density: true` |
+| `--use-net-name` | `beautify.params.ioport.use_net_name: true` |
+| `--chip-config chip.yaml` | `match.manual_overrides.file: chip.yaml` |
+| `--aesthetic` | `--profile max-beauty`（8 字段复合展开的近似，见 S1 设计 §6.3） |
+| `--max-workers 8` | `engine.max_workers: 8` |
+| `--no-report` | `beautify.params.report.always_write: false` |
+
+## 10.3 最终 CLI 用法（S10 起）
+
+```bash
+# 转换：读 ./pipeline.yaml（路径类参数直接覆盖）
+python -m cis2hdl convert in.dsn
+python -m cis2hdl convert in.dsn --output out/ --hdl-lib tests/fixtures/hdl_lib
+python -m cis2hdl convert in.dsn --profile max-beauty
+python -m cis2hdl convert in.dsn --pipeline my.yaml
+
+# profile 管理
+python -m cis2hdl profile list
+python -m cis2hdl profile show default
+python -m cis2hdl profile create mine --from-file pipeline.yaml
+python -m cis2hdl profile export default -o backup.yaml
+python -m cis2hdl profile import backup.yaml
+
+# 验证套件（FR6）
+python -m cis2hdl verify
+python -m cis2hdl verify --suite e2e
+
+# GUI
+python -m cis2hdl gui          # 或直接 python -m cis2hdl
+```
+
+## 10.4 最终架构（S0-S10 汇总）
+
+- **引擎双模式**：`ConversionEngine.convert()`（legacy 默认，读
+  `cis2hdl/config/routing.yaml`）与 `convert_with_cfg()`（plugin 模式，
+  读 `PipelineConfig.to_routing_config()`）——FR9 字节级等价。
+- **配置权威链**：`pipeline.yaml` → `--profile` → 路径类 CLI 参数。
+- **31 插件**：input 5 / match 6 / beautify 6 / output 11 / test 3，
+  plugin 模式按 `PipelineConfig` 插件组合驱动（顺序 = 执行顺序）。
+- **GUI v2**：`cis2hdl gui` 工程工作台（PipelineController 12 接口 +
+  yaml 双通道 + 手动干预面板）；无 PySide6 优雅降级。
+
+## 10.5 最终验收（FR9）
+
+- 默认 profile 与 legacy 路径**字节级等价**：`tests/e2e/` 全绿
+  （test_default_profile_equivalence / test_plugin_mode_equivalence /
+  test_s3~s6_*_equivalence）。
+- 全量回归：1313 passed / 17 skipped / 0 failed（1330 collected）。
+- 对比包重建：`scripts/make_compare_s10.py`（pipeline.yaml 变体驱动 4
+  版本，旧脚本 make_compare_v9 因依赖已移除 CLI flags 归档不更新）。
+
+## 10.6 验证
+
+```bash
+pytest tests/unit/test_cli_legacy_mapping.py     # 66（旧参数报错语义）
+pytest tests/e2e/test_default_profile_equivalence.py  # 5（slow）
+pytest -q                                        # 全量回归（1330 collected）
+python scripts/make_compare_s10.py               # 重建对比包
+```
