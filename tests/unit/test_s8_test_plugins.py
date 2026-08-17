@@ -18,8 +18,6 @@
 
 from __future__ import annotations
 
-import copy
-import subprocess
 from pathlib import Path
 
 import pytest
@@ -29,7 +27,6 @@ from cis2hdl.core.pipeline_config import PipelineConfig
 from cis2hdl.plugins.context import ConversionContext
 from cis2hdl.plugins.manager import build_plugin_manager
 from cis2hdl.plugins.test._base import (
-    TestSuitePlugin,
     format_pytest_summary,
     parse_pytest_summary,
 )
