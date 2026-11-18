@@ -1,4 +1,4 @@
-"""CIS2HDL entry point — CLI or GUI（S9：gui 子命令启动工程工作台 v2）。"""
+"""CIS2HDL entry point — CLI or GUI."""
 
 import sys
 
@@ -15,5 +15,10 @@ def _dispatch(argv: list[str] | None = None) -> int:
     return main(args)
 
 
+def main() -> int:
+    """Console-script entry point (``cis2hdl``)。"""
+    return _dispatch()
+
+
 if __name__ == "__main__":
-    sys.exit(_dispatch())
+    sys.exit(main())

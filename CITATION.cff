@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use or reference this software, please cite it as below."
+type: software
+title: "CIS2HDL: OrCAD Capture CIS to Cadence Design Entry HDL Schematic Converter"
+abstract: >-
+  CIS2HDL converts OrCAD Capture CIS schematics and libraries into Cadence
+  Design Entry HDL (Concept HDL) project files. It parses binary DSN designs,
+  EDIF netlists, PST side files and OLB libraries; resolves components against
+  a target HDL symbol library with a two-stage matcher; lays out and wires the
+  schematic; and emits a complete Design Entry HDL project tree together with a
+  mapping table and diagnostics.
+authors:
+  - family-names: Rao
+    given-names: Zhichen
+    email: eerzcrzcrzc@mail.scut.edu.cn
+    affiliation: "South China University of Technology"
+version: 0.5.0
+date-released: 2026-08-17
+license: MIT
+repository-code: "https://github.com/echoingme/CIS2HDL_plugin_ver"
+keywords:
+  - electronic design automation
+  - EDA
+  - OrCAD Capture CIS
+  - Cadence Design Entry HDL
+  - Concept HDL
+  - schematic conversion
+  - PCB design
+  - pluggy

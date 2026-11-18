@@ -1,0 +1,40 @@
+# Line-ending policy for source and documentation only.
+# Cadence reference data must stay byte-exact, so it is explicitly excluded below.
+
+*.py    text eol=lf
+*.pyi   text eol=lf
+*.md    text eol=lf
+*.mermaid text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.toml  text eol=lf
+*.ini   text eol=lf
+*.cfg   text eol=lf
+*.cff   text eol=lf
+*.txt   text eol=lf
+*.sh    text eol=lf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Python diffs
+*.py diff=python
+*.pyi diff=python
+
+# Binary artefacts — never converted, never diffed
+*.DSN binary
+*.EDF binary
+*.OLB binary
+*.cpm binary
+*.csa binary
+*.ptf binary
+*.sym binary
+*.tag binary
+*.baselined binary
+*.zip binary
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary
+
+# Reference libraries and exported Cadence data: byte-exact, opaque to Git
+tests/fixtures/** -text -diff

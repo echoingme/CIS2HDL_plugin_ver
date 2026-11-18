@@ -4,20 +4,39 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cis2hdl"
-version = "0.3.5"
-description = "OrCAD Capture CIS to Design Entry HDL Schematic Converter"
+dynamic = ["version"]
+description = "OrCAD Capture CIS to Cadence Design Entry HDL Schematic Converter"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
-authors = [{name = "CIS2HDL Team"}]
-keywords = ["eda", "orcad", "capture-cis", "concept-hdl", "schematic-converter"]
+authors = [{name = "Zhichen Rao", email = "eerzcrzcrzc@mail.scut.edu.cn"}]
+keywords = [
+    "eda",
+    "orcad",
+    "capture-cis",
+    "concept-hdl",
+    "design-entry-hdl",
+    "edif",
+    "netlist",
+    "schematic-converter",
+]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
 ]
+
+[project.urls]
+Homepage = "https://github.com/echoingme/CIS2HDL_plugin_ver"
+Repository = "https://github.com/echoingme/CIS2HDL_plugin_ver"
+Documentation = "https://github.com/echoingme/CIS2HDL_plugin_ver/tree/main/docs"
+Changelog = "https://github.com/echoingme/CIS2HDL_plugin_ver/blob/main/CHANGELOG.md"
+Issues = "https://github.com/echoingme/CIS2HDL_plugin_ver/issues"
 
 dependencies = [
     "pydantic>=2.0",
@@ -40,8 +59,13 @@ dev = [
 [project.scripts]
 cis2hdl = "cis2hdl.__main__:main"
 
+[tool.setuptools.dynamic]
+version = {attr = "cis2hdl.__version__"}
+
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["cis2hdl*"]
+exclude = ["tests*", "docs*", "scripts*", "profiles*"]
 
 [tool.ruff]
 line-length = 100

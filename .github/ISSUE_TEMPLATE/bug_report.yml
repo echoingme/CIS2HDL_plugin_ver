@@ -1,0 +1,62 @@
+name: Bug report
+description: Something converted incorrectly, crashed, or produced an unusable project.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The fastest path to a fix is a minimal reproducing input, so
+        please fill in as much of the environment detail as you can.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The observed behaviour, and what you expected instead.
+      placeholder: |
+        Conversion finished with exit code 0, but page 3 of the output has no wires.
+        Expected: the same net connectivity as the source schematic.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: The exact command line or profile, and the smallest input that triggers the problem.
+      placeholder: |
+        cis2hdl convert board.DSN --profile max-beauty --output out/
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: CIS2HDL version
+      description: Output of `cis2hdl --version`, or the commit you are running.
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python and OS
+      placeholder: "3.12.7 on Windows 11 23H2"
+    validations:
+      required: true
+  - type: input
+    id: cadence
+    attributes:
+      label: Cadence / Capture versions
+      description: The Capture version that produced the input, and the SPB release used to open the output.
+      placeholder: "Capture CIS 17.4 → SPB 16.6"
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostic output
+      description: The console output, `mapping.csv` excerpt, or error log relevant to the failure.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues before opening this one.
+          required: true
+        - label: I can share a reduced input file or a description of its structure.

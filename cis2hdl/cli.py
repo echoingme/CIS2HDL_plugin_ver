@@ -58,7 +58,7 @@ __all__ = ["main", "gui_main", "convert_main", "profile_main", "verify_main"]
 # ─────────────────────────────────────────────────────────────────────────────
 
 #: {flag: yaml 字段提示}——旧参数报错文案用（S10 起仅报错，不再映射）。
-#: 权威对照表：docs/archive/temp files/phase24-cli-yaml-migration.md（归档参考）。
+#: 权威对照表：docs/cli-migration.md。
 _REMOVED_FLAGS_TARGETS: dict[str, str] = {
     "--benchmark": "engine.benchmark",
     "--max-workers": "engine.max_workers",
@@ -82,7 +82,7 @@ _REMOVED_FLAGS_TARGETS: dict[str, str] = {
     "--cross-page-opt": "beautify.params.routing.cross_page_opt",
 }
 
-_MIGRATION_REF = "docs/archive/temp files/phase24-cli-yaml-migration.md"
+_MIGRATION_REF = "docs/cli-migration.md"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

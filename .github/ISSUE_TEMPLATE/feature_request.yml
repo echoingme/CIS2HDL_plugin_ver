@@ -1,0 +1,45 @@
+name: Feature request
+description: Propose a parsing target, matching rule, layout capability, or workflow improvement.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you unable to do today? Describe the engineering situation, not just the missing API.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behaviour
+      description: What should happen instead? If it maps onto an existing stage or plugin, say which.
+      placeholder: |
+        A `beautify` plugin that keeps differential pairs on adjacent lanes.
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Affected stage
+      options:
+        - input (parsing)
+        - match (component matching)
+        - beautify (layout and wiring)
+        - output (file emission)
+        - configuration / profiles
+        - CLI
+        - GUI
+        - documentation
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing flags, profiles or manual steps that come close, and why they are not enough.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and the documentation before opening this one.
+          required: true

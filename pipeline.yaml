@@ -1,10 +1,9 @@
 # =============================================================================
 # pipeline.yaml — CIS2HDL 转换配置（权威）
-# 设计依据：docs/S1-config-design.md（§4）；上游 docs/archive/temp files/
-#           phase23-plugin-architecture.md §3.6/§3.7
-# 铁律：default profile 与当前基线（Phase XXIII, 929 passed）行为完全等价
+# 设计依据：docs/S1-config-design.md（§4）、docs/S2-plugin-base-design.md（§3.6/§3.7）
+# 约定：default profile 与已验证基线行为完全等价（见 README「Configuration」）
 # 加载顺序：pipeline.yaml（权威）→ --profile 覆盖 → 路径类 CLI 参数覆盖
-#           （--output/--hdl-lib/--extra-hdl-lib；S10 起旧行为参数已移除）
+#           （--output/--hdl-lib/--extra-hdl-lib；旧行为参数已移除，见 docs/cli-migration.md）
 # =============================================================================
 schema_version: 1          # 配置结构版本（导入校验用；低版本缺失字段用默认值）
 

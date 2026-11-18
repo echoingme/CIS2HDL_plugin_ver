@@ -17,6 +17,7 @@ sexpdata>=1.0
 PySide6>=6.5
 rapidfuzz>=3.0
 PyYAML>=6.0
+pluggy>=1.5
 
 # ---------- 开发/测试/工具依赖（dev）----------
 # 与 pyproject.toml [project.optional-dependencies].dev 对齐

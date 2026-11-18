@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage and configuration questions
+    url: https://github.com/echoingme/CIS2HDL_plugin_ver/blob/main/README.md
+    about: Installation, profiles, pipeline.yaml fields and the CLI are documented in the README.
+  - name: Verification guidance
+    url: https://github.com/echoingme/CIS2HDL_plugin_ver/blob/main/docs/VERIFICATION_GUIDE.md
+    about: How to compare a converted project against a reference design.
