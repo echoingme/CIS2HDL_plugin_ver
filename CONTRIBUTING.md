@@ -21,12 +21,14 @@ or testing — the converters and writers are exercised against file fixtures.
 ## Before opening a pull request
 
 ```bash
-ruff check .                     # lint
-mypy cis2hdl                     # strict typing on the package
 pytest -q                        # unit + integration + e2e
+ruff check cis2hdl               # lint
+mypy cis2hdl                     # strict typing on the package
 ```
 
-All three must be clean. If your change touches emitted file formats, also run:
+The test suite must pass. Lint and typing are enforced on code you touch: the older modules
+still carry findings, so `ruff check cis2hdl` is not yet clean repository-wide, but new code
+and modified files should introduce none. If your change touches emitted file formats, also run:
 
 ```bash
 cis2hdl verify --suite e2e --suite qa_package

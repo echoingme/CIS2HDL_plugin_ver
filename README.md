@@ -110,7 +110,7 @@ codes: file integrity → dependency resolution → readiness → matching → v
   (`default`, `fast`, `max-beauty`, `match-only`) and user profiles that can be created,
   exported and imported.
 - 1,261 automated tests (unit + integration) plus an end-to-end layer that converts
-  full reference designs, with lint enforced in CI.
+  full reference designs, with the unit layer verified in CI.
 - PySide6 GUI (its own entry point) over the same conversion engine as the CLI.
 
 ## Architecture
@@ -282,9 +282,13 @@ cis2hdl/
 ```bash
 pytest                        # full suite
 pytest tests/unit -q          # unit only
-ruff check .                  # lint (E,F,W,I,N,UP,B,C4,SIM; line length 100)
+ruff check cis2hdl            # lint (E,F,W,I,N,UP,B,C4,SIM; line length 100)
 mypy cis2hdl                  # strict type checking
 ```
+
+Lint and strict typing are configured but not yet enforced repository-wide: the tree is being
+migrated rule by rule, so new and modified code is expected to be clean while older modules
+may still report findings.
 
 The suite is organised in four layers: `tests/unit` (module-level behaviour),
 `tests/integration` (cross-module pipelines), `tests/e2e` (real designs and byte-level
@@ -292,8 +296,8 @@ comparison against reference output) and the `qa_package` suite (structural chec
 produced delivery directory). Golden fixtures include a real EDIF/DSN design pair and a
 reference HDL library, so the suite is reproducible from a fresh clone.
 
-CI runs lint, the configuration check and the unit layer on every push
-([workflow](.github/workflows/ci.yml)); the end-to-end layer works on complete reference
+CI runs the unit layer and a configuration check on every push — Linux, Python 3.12
+([workflow](.github/workflows/ci.yml)). The end-to-end layer works on complete reference
 designs and is run locally:
 
 ```bash
