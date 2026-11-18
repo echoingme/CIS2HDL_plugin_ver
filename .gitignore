@@ -12,7 +12,10 @@ htmlcov/
 HG5015_tests/output_*/
 HG5015_tests/_phaseXXVI_pipelines/
 HG5015_tests/temp/
-output/
+# Anchored: only the conversion output directory at the repository root.
+# An unanchored "output/" also matched cis2hdl/plugins/output/, which silently
+# kept the output-stage plugin package out of version control.
+/output/
 # 注：仅忽略仓库根目录 temp/（转换输出）；tests/fixtures/hdl_lib/temp/ 是 Cadence
 # 库数据，必须保留（S0 修正：源 .gitignore 的未锚定 temp/ 会误伤它）。
 /temp/
