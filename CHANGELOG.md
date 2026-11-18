@@ -43,6 +43,9 @@ parameters and output set are described by configuration rather than by command-
 ### Fixed
 
 - `requirements.txt` now includes `pluggy`, which the plugin manager imports at runtime.
+- `.gitignore` no longer excludes `cis2hdl/plugins/output/`: the unanchored `output/` rule
+  was matching the output-stage plugin package, so it never entered version control and the
+  44 tests covering that stage failed.
 - `pipeline.yaml` no longer points at documents that are not part of the repository.
 
 ## [0.3.5] — 2026-08-03
