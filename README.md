@@ -5,7 +5,7 @@
 [![CI](https://github.com/echoingme/CIS2HDL_plugin_ver/actions/workflows/ci.yml/badge.svg)](https://github.com/echoingme/CIS2HDL_plugin_ver/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-1261%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-1128%20passing-brightgreen.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-v0.5.0%20%C2%B7%20plugin%20architecture-orange.svg)](CHANGELOG.md)
 
 CIS2HDL reads an OrCAD Capture CIS design, resolves every component against a Cadence
@@ -109,8 +109,9 @@ codes: file integrity → dependency resolution → readiness → matching → v
 - Declarative `pipeline.yaml` as the single source of configuration, with switchable profiles
   (`default`, `fast`, `max-beauty`, `match-only`) and user profiles that can be created,
   exported and imported.
-- 1,261 automated tests (unit + integration) plus an end-to-end layer that converts
-  full reference designs, with the unit layer verified in CI.
+- 1,128 automated tests run and pass in a clean checkout (136 more exercise a Cadence
+  reference library that is not redistributed), plus an end-to-end layer that converts full
+  reference designs.
 - PySide6 GUI (its own entry point) over the same conversion engine as the CLI.
 
 ## Architecture
@@ -280,7 +281,7 @@ cis2hdl/
 ## Testing and verification
 
 ```bash
-pytest                        # full suite
+pytest                        # 1,128 pass, 136 skip in a clean checkout
 pytest tests/unit -q          # unit only
 ruff check cis2hdl            # lint (E,F,W,I,N,UP,B,C4,SIM; line length 100)
 mypy cis2hdl                  # strict type checking
@@ -293,8 +294,10 @@ may still report findings.
 The suite is organised in four layers: `tests/unit` (module-level behaviour),
 `tests/integration` (cross-module pipelines), `tests/e2e` (real designs and byte-level
 comparison against reference output) and the `qa_package` suite (structural checks on a
-produced delivery directory). Golden fixtures include a real EDIF/DSN design pair and a
-reference HDL library, so the suite is reproducible from a fresh clone.
+produced delivery directory). Fixtures include a real EDIF/DSN design pair, so the parser and
+writer layers are reproducible from a fresh clone. The Cadence reference HDL library
+(`tests/fixtures/hdl_lib/`, ~10,000 files) is **not** distributed: tests that need it skip,
+and the directory is listed in `.gitignore` so it cannot be committed by accident.
 
 CI runs the unit layer and a configuration check on every push — Linux, Python 3.12
 ([workflow](.github/workflows/ci.yml)). The end-to-end layer works on complete reference

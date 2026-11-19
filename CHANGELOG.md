@@ -40,6 +40,16 @@ parameters and output set are described by configuration rather than by command-
 - Removed the legacy behavioural CLI flags. Passing one now fails with a message pointing to
   the equivalent `pipeline.yaml` field — see [docs/cli-migration.md](docs/cli-migration.md).
 
+### Removed
+
+- The Cadence reference HDL library (`tests/fixtures/hdl_lib/`, ~10,000 files, 86 MB) is no
+  longer distributed. Tests that depend on it skip when the directory is absent, and
+  `.gitignore` now lists it so it cannot be committed again.
+- Stale test data that no test referenced: a duplicate fixture set under
+  `tests/fixtures/files for previous tests/` (15 MB), plus OrCAD lock files (`.DSNlck`,
+  `.OLBlck`), database backups (`_0.DBK`), an exported BOM, and two OrCAD log files
+  (`error.txt`, `pxlBA.txt`) that had been carried into `tests/fixtures/HG5015test/`.
+
 ### Fixed
 
 - `requirements.txt` now includes `pluggy`, which the plugin manager imports at runtime.

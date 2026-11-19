@@ -5,6 +5,8 @@ Provides:
     - Minimal DesignIR, PageIR, ComponentDB, MatchResult builders
       for unit tests (function-scoped).
     - ``temp_output_dir`` alias for ``tmp_path``.
+    - Automatic skipping of tests that need the reference HDL library, which is
+      not redistributed with this repository.
 """
 
 from __future__ import annotations
@@ -22,6 +24,36 @@ from cis2hdl.core.db.component_db import ComponentDB
 
 if TYPE_CHECKING:
     from collections.abc import Generator
+
+
+#: Reference HDL library shipped by Cadence, not redistributed here.
+HDL_LIB_DIR = Path(__file__).parent / "fixtures" / "hdl_lib"
+
+
+def _needs_hdl_lib(module: object) -> bool:
+    """True when a test module points one of its module-level Paths at ``hdl_lib``.
+
+    Modules declare the library they need as a constant (``_HDL``, ``HDL_LIB``,
+    ``FIXTURES_LIB``, …); matching on the trailing path segment catches all of
+    them without parsing source text.
+    """
+    for value in vars(module).values():
+        if isinstance(value, Path) and value.name == "hdl_lib":
+            return True
+    return False
+
+
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    """Skip tests whose reference HDL library is not present."""
+    if HDL_LIB_DIR.is_dir():
+        return
+    reason = "reference HDL library not available (tests/fixtures/hdl_lib)"
+    for item in items:
+        module = getattr(item, "module", None)
+        if module is None:
+            continue
+        if "hdl_lib_dir" in getattr(item, "fixturenames", ()) or _needs_hdl_lib(module):
+            item.add_marker(pytest.mark.skip(reason))
 
 
 # ═══════════════════════════════════════════════════════════════════════════
