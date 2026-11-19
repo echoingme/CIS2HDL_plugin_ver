@@ -5,7 +5,7 @@
 [![CI](https://github.com/echoingme/CIS2HDL_plugin_ver/actions/workflows/ci.yml/badge.svg)](https://github.com/echoingme/CIS2HDL_plugin_ver/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-1128%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-1042%20passing-brightgreen.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-v0.5.0%20%C2%B7%20plugin%20architecture-orange.svg)](CHANGELOG.md)
 
 CIS2HDL reads an OrCAD Capture CIS design, resolves every component against a Cadence
@@ -109,9 +109,8 @@ codes: file integrity → dependency resolution → readiness → matching → v
 - Declarative `pipeline.yaml` as the single source of configuration, with switchable profiles
   (`default`, `fast`, `max-beauty`, `match-only`) and user profiles that can be created,
   exported and imported.
-- 1,128 automated tests run and pass in a clean checkout (136 more exercise a Cadence
-  reference library that is not redistributed), plus an end-to-end layer that converts full
-  reference designs.
+- 1,042 automated tests run and pass in a clean checkout (222 more exercise third-party
+  design data that is not redistributed, and skip without it).
 - PySide6 GUI (its own entry point) over the same conversion engine as the CLI.
 
 ## Architecture
@@ -163,7 +162,7 @@ Minimal runtime dependencies: `pydantic`, `sexpdata`, `pyyaml`, `rapidfuzz`, `pl
 Convert an EDIF netlist with the default profile:
 
 ```bash
-cis2hdl convert tests/fixtures/RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.EDF --output out/
+cis2hdl convert board.EDF --output out/ --hdl-lib /path/to/hdl_library
 ```
 
 Convert a binary DSN design with the aggressive beautification profile:
@@ -272,7 +271,7 @@ cis2hdl/
 │   ├── plugins/            # input · match · beautify · output · test plugin implementations
 │   └── gui/                # PySide6 application
 ├── profiles/               # built-in read-only profiles
-├── tests/                  # unit · integration · e2e · fixtures · archived legacy tests
+├── tests/                  # unit · integration · e2e · archived legacy tests
 ├── scripts/                # benchmark, packaging and verification helpers
 ├── docs/                   # architecture, matching, plugin API, developer and GUI guides
 └── pipeline.yaml           # authoritative configuration
@@ -281,7 +280,7 @@ cis2hdl/
 ## Testing and verification
 
 ```bash
-pytest                        # 1,128 pass, 136 skip in a clean checkout
+pytest                        # 1,042 pass, 222 skip in a clean checkout
 pytest tests/unit -q          # unit only
 ruff check cis2hdl            # lint (E,F,W,I,N,UP,B,C4,SIM; line length 100)
 mypy cis2hdl                  # strict type checking
@@ -294,10 +293,11 @@ may still report findings.
 The suite is organised in four layers: `tests/unit` (module-level behaviour),
 `tests/integration` (cross-module pipelines), `tests/e2e` (real designs and byte-level
 comparison against reference output) and the `qa_package` suite (structural checks on a
-produced delivery directory). Fixtures include a real EDIF/DSN design pair, so the parser and
-writer layers are reproducible from a fresh clone. The Cadence reference HDL library
-(`tests/fixtures/hdl_lib/`, ~10,000 files) is **not** distributed: tests that need it skip,
-and the directory is listed in `.gitignore` so it cannot be committed by accident.
+produced delivery directory). **No design data is redistributed.** The projects, netlists and symbol libraries used for
+development belong to third parties, so `tests/fixtures/` is empty in a clean clone: tests
+that measure real conversions skip, and the parser, matcher, writer and plugin layers are
+exercised against synthetic frames and programmatic models instead. `tests/fixtures/` is
+git-ignored, so a local copy cannot be committed by accident.
 
 CI runs the unit layer and a configuration check on every push — Linux, Python 3.12
 ([workflow](.github/workflows/ci.yml)). The end-to-end layer works on complete reference

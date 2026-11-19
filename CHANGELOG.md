@@ -42,13 +42,14 @@ parameters and output set are described by configuration rather than by command-
 
 ### Removed
 
-- The Cadence reference HDL library (`tests/fixtures/hdl_lib/`, ~10,000 files, 86 MB) is no
-  longer distributed. Tests that depend on it skip when the directory is absent, and
-  `.gitignore` now lists it so it cannot be committed again.
-- Stale test data that no test referenced: a duplicate fixture set under
-  `tests/fixtures/files for previous tests/` (15 MB), plus OrCAD lock files (`.DSNlck`,
-  `.OLBlck`), database backups (`_0.DBK`), an exported BOM, and two OrCAD log files
-  (`error.txt`, `pxlBA.txt`) that had been carried into `tests/fixtures/HG5015test/`.
+- **All design data left the repository.** `tests/fixtures/` is now empty and git-ignored:
+  the Cadence reference HDL library (~10,000 files, 86 MB), the reference board project
+  (`HG5015test/`: DSN, EDF, BOM, PST netlists, library, OrCAD project), the demo netlists
+  (`RTL8367RB-*.DSN/.EDF`) and the OLB library were all third-party board data. Tests that
+  measure real conversions skip when the directory is absent.
+- A duplicate fixture set that no test referenced (`tests/fixtures/files for previous
+  tests/`, 15 MB) and OrCAD working files (`.DSNlck`, `.OLBlck`, `.DBK` backups, `error.txt`,
+  `pxlBA.txt`, `test.BOM`).
 
 ### Fixed
 

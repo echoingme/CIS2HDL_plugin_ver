@@ -5,8 +5,8 @@ Provides:
     - Minimal DesignIR, PageIR, ComponentDB, MatchResult builders
       for unit tests (function-scoped).
     - ``temp_output_dir`` alias for ``tmp_path``.
-    - Automatic skipping of tests that need the reference HDL library, which is
-      not redistributed with this repository.
+    - Automatic skipping of tests that need design data or a reference HDL
+      library that is not distributed with this repository.
 """
 
 from __future__ import annotations
@@ -26,34 +26,43 @@ if TYPE_CHECKING:
     from collections.abc import Generator
 
 
-#: Reference HDL library shipped by Cadence, not redistributed here.
-HDL_LIB_DIR = Path(__file__).parent / "fixtures" / "hdl_lib"
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+#: Design files (DSN/EDF/OLB) and the Cadence reference library are third-party
+#: data and are not redistributed. Tests that point at them skip when absent.
+UNAVAILABLE_REASON = "design fixtures not distributed (tests/fixtures is empty in a clean clone)"
 
 
-def _needs_hdl_lib(module: object) -> bool:
-    """True when a test module points one of its module-level Paths at ``hdl_lib``.
+def _missing_fixture_path(module: object) -> Path | None:
+    """Return the first module-level Path under ``tests/fixtures`` that is absent.
 
-    Modules declare the library they need as a constant (``_HDL``, ``HDL_LIB``,
-    ``FIXTURES_LIB``, …); matching on the trailing path segment catches all of
-    them without parsing source text.
+    Test modules declare the files they need as constants (``_HG_DSN``,
+    ``HDL_LIB``, ``FIXTURES_LIB``, …), so checking module-level Path values
+    covers them without parsing source text.
     """
     for value in vars(module).values():
-        if isinstance(value, Path) and value.name == "hdl_lib":
-            return True
-    return False
+        if not isinstance(value, Path):
+            continue
+        if FIXTURES_DIR in value.parents and not value.exists():
+            return value
+    return None
 
 
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
-    """Skip tests whose reference HDL library is not present."""
-    if HDL_LIB_DIR.is_dir():
-        return
-    reason = "reference HDL library not available (tests/fixtures/hdl_lib)"
+    """Skip tests whose design fixtures are not present."""
     for item in items:
         module = getattr(item, "module", None)
         if module is None:
             continue
-        if "hdl_lib_dir" in getattr(item, "fixturenames", ()) or _needs_hdl_lib(module):
-            item.add_marker(pytest.mark.skip(reason))
+        if "hdl_lib_dir" in getattr(item, "fixturenames", ()) or _missing_fixture_path(module):
+            item.add_marker(pytest.mark.skip(UNAVAILABLE_REASON))
+
+
+def _require(path: Path) -> Path:
+    """Return ``path``, skipping the calling test when the fixture is absent."""
+    if not path.exists():
+        pytest.skip(f"{UNAVAILABLE_REASON}: {path.name}")
+    return path
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -70,43 +79,43 @@ def fixtures_dir() -> Path:
 @pytest.fixture(scope="session")
 def simple_dsn_path(fixtures_dir: Path) -> Path:
     """Path to a minimal DSN fixture (dff_sync_sr.dsn) — 1 page, ~2 instances."""
-    return fixtures_dir / "dff_sync_sr.dsn"
+    return _require(fixtures_dir / "dff_sync_sr.dsn")
 
 
 @pytest.fixture(scope="session")
 def real_dsn_path(fixtures_dir: Path) -> Path:
-    """Path to a real-world RTL8367RB DSN fixture (6 pages, ~12+ instances)."""
-    return fixtures_dir / "RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.DSN"
+    """Path to a real-world DSN fixture (6 pages, ~12+ instances)."""
+    return _require(fixtures_dir / "RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.DSN")
 
 
 @pytest.fixture(scope="session")
 def real_edf_path(fixtures_dir: Path) -> Path:
-    """Path to the EDIF export of the RTL8367RB project."""
-    return fixtures_dir / "RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.EDF"
+    """Path to the EDIF export of the same project."""
+    return _require(fixtures_dir / "RTL8367RB-VC-DEMO-LQFP128EP-P4L-V1_0.EDF")
 
 
 @pytest.fixture(scope="session")
 def real_olb_path(fixtures_dir: Path) -> Path:
     """Path to the OLB component library fixture."""
-    return fixtures_dir / "LIBRARY2CLEAN.OLB"
+    return _require(fixtures_dir / "LIBRARY2CLEAN.OLB")
 
 
 @pytest.fixture(scope="session")
 def hdl_lib_dir(fixtures_dir: Path) -> Path:
     """Path to the HDL component library directory used for matching."""
-    return fixtures_dir / "hdl_lib"
+    return _require(fixtures_dir / "hdl_lib")
 
 
 @pytest.fixture(scope="session")
 def corrupted_dsn_truncated(fixtures_dir: Path) -> Path:
     """Path to a DSN file truncated mid-stream (corruption test fixture)."""
-    return fixtures_dir / "RTL8367RB-CORRUPTED-TRUNCATED.DSN"
+    return _require(fixtures_dir / "RTL8367RB-CORRUPTED-TRUNCATED.DSN")
 
 
 @pytest.fixture(scope="session")
 def corrupted_dsn_sector(fixtures_dir: Path) -> Path:
     """Path to a DSN file with a corrupted sector (corruption test fixture)."""
-    return fixtures_dir / "RTL8367RB-CORRUPTED-SECTOR.DSN"
+    return _require(fixtures_dir / "RTL8367RB-CORRUPTED-SECTOR.DSN")
 
 
 # ═══════════════════════════════════════════════════════════════════════════
